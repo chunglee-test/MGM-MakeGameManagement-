@@ -8,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<title>title</title>
+		<title>Map Editor</title>
 		
 		<!-- Bootstrap -->
 		<link href="<c:url value='/resources/bootstrap/css/bootstrap.css'/>" rel="stylesheet">
@@ -19,10 +19,17 @@
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		
+		<script type="module" src="<c:url value='/resources/js/main.js'/>">
+		
+		</script>
 	</head>
 	<body>
 		
-		맵 에디터 메인 페이지입니다
+		<!-- 맵 에디터 메인 페이지입니다
+		 -->
+		<canvas id="tileset" width="600" height="600" style="background-color: red"></canvas>
+		<canvas id="screen" width="640" height="640" style="background-color: black"></canvas>
 		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
