@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.test.ajax.service.customerMapper">
+  	<insert id="insertCustomer" parameterType="c">
+  		INSERT INTO CHcustomer(cunum, id, pw, name, address, phone)
+  		VALUES(CHcustomer_seq.nextval, #{id}, #{pw}, #{name}, #{address}, #{phone})
+  	</insert>
+	
+	<select id="selectCustomer" parameterType="string" resultType="c">
+		select * FROM CHcustomer where id = #{id}
+	</select>
+  
+  	<update id="updateCustomer" parameterType="c">
+  		UPDATE CHcustomer
+  		SET 
+  		pw = #{pw}
+  		, name = #{name}
+  		, address = #{address}
+  		, phone = #{phone}
+  		WHERE
+  			id = #{id}
+  	</update>
+  
+  	<delete id="deleteCustomer" parameterType="c">
+  		DELETE FROM CHcustomer
+  		WHERE id = #{id}
+  	</delete>
+  
+  </mapper>
