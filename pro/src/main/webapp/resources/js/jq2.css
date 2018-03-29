@@ -1,0 +1,11 @@
+@charset "UTF-8";
+.style1 {
+	color: blue;
+	border: 3px solid black;
+	background: lightgray;
+}
+.style2 {
+	color: purple;
+	background: beige;
+	border: 3px solid red;
+}

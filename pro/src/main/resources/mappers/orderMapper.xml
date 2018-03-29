@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.test.ajax.service.OrderMapper">
+  <insert id="insertOrder" parameterType="order">
+	INSERT INTO CHorder(
+		orderNum
+		, ordertype
+		, odId )  
+  	values (
+  		CHorder_seq.nextval
+  		, #{ordertype}
+  		, #{odId})
+  </insert>
+  
+  <select id="getOrder" parameterType="int" resultType="order">
+  	SELECT * FROM CHorder where orderNum = #{orderNum}
+  </select>
+ 
+  <select id="orderlist" resultType="order">
+  	select * from CHorder order by orderNum desc
+  </select>
+ 
+  <!-- 전체 게시글 수 -->
+  <select id="getOrderCount" resultType="int">
+  	SELECT COUNT(*)
+  	FROM CHorder
+  </select>
+  </mapper>

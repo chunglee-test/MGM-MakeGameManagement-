@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <!-- root-context에서 접속 설정 해놓아서 맵퍼(root-context에 쓰면됨)나 별칭주는것만 쓰면 됨 -->
+  
+  <configuration>
+
+   <typeAliases>
+  <typeAlias type="org.test.ajax.vo.CHcustomer" alias="c"/>
+  <typeAlias type="org.test.ajax.vo.CHboard" alias="board"/>
+  <typeAlias type="org.test.ajax.vo.CHcuisine" alias="cuisine"/>
+  <typeAlias type="org.test.ajax.vo.CHorder" alias="order"/>
+  <typeAlias type="org.test.ajax.vo.CHreply" alias="reply"/>
+  </typeAliases>
+  
+  <mappers>
+  	<mapper resource="mappers/customerMapper.xml"/>
+  	<mapper resource="mappers/boardMapper.xml"/>
+  	<mapper resource="mappers/cuisineMapper.xml"/>
+  	<mapper resource="mappers/orderMapper.xml"/>
+  </mappers>
+  
+  </configuration>
+  

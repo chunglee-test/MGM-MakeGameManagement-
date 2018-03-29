@@ -1,0 +1,296 @@
+
+
+//������
+CREATE TABLE CHcustomer(
+cunum number primary key,
+id varchar2(20) not null,
+pw varchar2(30) not null,
+name varchar2(20) not null,
+cucode number not null,
+address varchar2(1000),
+phone varchar2(1000)
+);
+
+CREATE sequence CHcustomer_seq start with 1 increment by 1;
+
+//������ ���
+INSERT INTO CHcustomer(
+cunum, id, pw, name, cucode)
+VALUES
+(1, 'admin', 'admin', 'admin', 1);
+
+select * from CHcustomer;
+
+drop table CHcustomer;
+
+//�丮 ����
+CREATE TABLE CHcuisine(
+cscode number primary key,
+csName varchar2(100),
+receipe varchar2(2000),
+theme varchar2(100),
+ingredient varchar2(2000)
+);
+
+drop table CHcuisine;
+select * from CHcuisine;
+
+CREATE sequence CHcuisine_seq start with 1 increment by 1;
+
+//�Խ���
+CREATE TABLE CHboard(
+boardnum number primary key,
+title varchar2(100) not null,
+content varchar2(1000) not null,
+csCode number not null,
+hits number default 0,
+originalfile varchar2(1000),
+savedfile varchar2(1000),
+indate date default sysdate,
+constraint CHboard_fk foreign key(csCode) 
+references CHcuisine(csCode) on delete cascade
+);
+
+drop table CHboard;
+commit;
+CREATE sequence CHboard_seq start with 1 increment by 1;
+
+//�Խ���
+create table CHboard (
+	boardnum		number	primary key,		
+	id				varchar2(20) not null,		
+	title			varchar2(100) not null,		
+	content			varchar2(2000) not null,
+	inputdate		date	default sysdate,
+	hits			number 	default 0,
+	originalfile	varchar2(200),
+	savedfile		varchar2(100)
+);
+
+select * from CHboard;
+
+//�ֹ�
+CREATE TABLE CHorder(
+orderNum number primary key,
+ordertype number not null,
+odId varchar2(20) not null,
+indate date default sysdate,
+deliveredDate date default sysdate+4
+);
+
+CREATE sequence CHcuisine_seq start with 1 increment by 1;
+drop sequence CHorder_seq;
+CREATE sequence CHorder_seq start with 1 increment by 1;
+
+
+//�丮 �����ͺ��̽�
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(1, 'BeefTacoSalad','In a large skillet, cook beef over medium heat 6-8 minutes or until no longer pink, breaking into crumbles; drain. Stir in taco seasoning and water; bring to a boil. Reduce heat; simmer, uncovered, 4-6 minutes or until thickened, stirring occasionally. Cool slightly.
+In a large bowl, toss lettuce with cheese. Top with beef mixture and chips; drizzle with dressing and toss to combine. Serve immediately.', 'Mexico', '1 pound ground beef, 1 envelope reduced-sodium taco seasoning
+, 3/4 cup water
+, 1 medium head iceberg lettuce, torn (about 8 cups)
+, 2 cups shredded cheddar cheese
+, 2 cups lightly crushed nacho-flavored tortilla chips
+, 1/4 cup Catalina salad dressing');
+
+select * from CHcuisine;
+
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(2, 'bibimbap',
+'Stir cucumber pieces with 1/4 cup gochujang paste in a bowl; set aside.
+Bring about 2 cups of water to a boil in a large nonstick skillet and stir in spinach; cook until spinach is bright green and wilted, 2 to 3 minutes. Drain spinach and squeeze out as much moisture as possible; set spinach aside in a bowl and stir soy sauce into spinach.
+Heat 1 teaspoon olive oil in large nonstick skillet and cook and stir carrots until softened, about 3 minutes; stir in garlic and cook just until fragrant, about 1 more minute. Stir in cucumber pieces with gochujang paste; sprinkle with red pepper flakes, and set the mixture aside in a bowl.
+Brown beef in a clean nonstick skillet over medium heat, about 5 minutes per side, and set aside. In a separate nonstick skillet, heat 1 more teaspoon olive oil over medium-low heat and fry the eggs just on one side until yolks are runny but whites are firm, 2 to 4 minutes each.
+To assemble the dish, divide cooked rice into 4 large serving bowls; top with spinach mixture, a few pieces of beef, and cucumber mixture. Place 1 egg atop each serving. Drizzle each bowl with 1 teaspoon of sesame oil, a sprinkle of sesame seeds, and a small amount of gochujang paste if desired.'
+, 'korean', '3 small eye of round steaks minced (or 1lb ground beef), 2 Carrots cut into matchsticks
+, 2 zucchini cut into matchsticks
+, Shittake and/or oyster mushrooms
+, 1 cup bean sprouts
+, 1 cup kimchi optional
+, 2 cups fresh baby spinach
+, 4 eggs
+, 2 cups white or brown rice
+, 2 tbsp sesame seeds divided
+, 2-3 tbsp sesame oil divided
+, 1/4 cup soy sauce
+, 2  tbsp Chili garlic sauce or sriracha');
+commit;
+
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(3, 'curry udon','To make your Curry Udon, start by cutting the onion, potato and carrot into small chunks before adding them to a pan filled with 120ml water per curry roux block.
+Bring the water to the boil and then simmer for 20 minutes or until the vegetables soften.
+Add 2-3 blocks of curry roux (depending on quantity of water) to the pot and allow to simmer for 10 minutes. Keep stirring until the curry sauce is thick and smooth.
+Add 4 tablespoons of tsuyu soup stock to 400ml water and boil in a separate pan to make the noodle soup.
+Boil the udon noodles in hot water for a few minutes before draining well in a colander.
+Place your cooked udon noodles in a bowl, add the noodle soup and then your curry sauce on top. Finally, garnish with sliced spring onions and serve immediately.'
+, 'Japanese'
+, '2-3 blocks japanese curry roux
+1/2 onion
+1/2 potato
+1/2 carrot
+2 packs pre-cooked udon noodles
+4 tbsp tsuyu soup stock
+640-760ml water
+1 spring onion
+shichimi togarashi (optional)');
+commit;
+
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(4, 'greek-chicken souvlaki kebabs','In a glass dish, mix the olive oil, garlic, rosemary, thyme, oregano, and lemon juice. Place the chicken pieces in the mixture, cover, and marinate in the refrigerator 8 hours or overnight.
+Preheat grill for high heat.
+Lightly oil the grill grate. Place chicken on the grill, and discard the marinade. Cook chicken pieces up to 15 minutes per side, until juices run clear. Smaller pieces will not take as long.'
+, 'greek'
+, '1/2 cup olive oil 3 cloves garlic, chopped 1 tablespoon chopped fresh rosemary 1 tablespoon chopped fresh thyme 
+1 tablespoon chopped fresh oregano 2 lemons, juiced 1 (4 pound) chicken, cut into pieces');
+commit;
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(5, 'lasagna','Cook noodles according to package directions; drain. Meanwhile, in a Dutch oven, cook sausage, beef and onion over medium heat 8-10 minutes or until meat is no longer pink, breaking up meat into crumbles. Add garlic; cook 1 minute. Drain.
+Stir in tomatoes, tomato paste, water, sugar, 3 tablespoons parsley, basil, fennel, 1/2 teaspoon salt and pepper; bring to a boil. Reduce heat; simmer, uncovered, 30 minutes, stirring occasionally.
+In a small bowl, mix egg, ricotta cheese, and remaining parsley and salt.
+Preheat oven to 375��. Spread 2 cups meat sauce into an ungreased 13x9-in. baking dish. Layer with three noodles and a third of the ricotta mixture. Sprinkle with 1 cup mozzarella cheese and 2 tablespoons Parmesan cheese. Repeat layers twice. Top with remaining meat sauce and cheeses (dish will be full).
+Bake, covered, 25 minutes. Bake, uncovered, 25 minutes longer or until bubbly. Let stand 15 minutes before serving.'
+, 'Italy'
+, '9 lasagna noodles
+1-1/4 pounds bulk Italian sausage
+3/4 pound ground beef
+1 medium onion, diced
+3 garlic cloves, minced
+2 cans (one 28 ounces, one 15 ounces) crushed tomatoes
+2 cans (6 ounces each) tomato paste
+2/3 cup water
+2 to 3 tablespoons sugar
+3 tablespoons plus 1/4 cup minced fresh parsley, divided
+2 teaspoons dried basil
+3/4 teaspoon fennel seed
+3/4 teaspoon salt, divided
+1/4 teaspoon coarsely ground pepper
+1 large egg, lightly beaten
+1 carton (15 ounces) ricotta cheese
+4 cups shredded part-skim mozzarella cheese');
+
+commit;
+
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(6, 'meatball pasta', 'In a large bowl, combine ground beef, bread crumbs, parsley, Parmesan, 1/4 teaspoon black pepper, garlic powder and beaten egg. Mix well and form into 12 balls. Store, covered, in refrigerator until needed.
+In a large saucepan over medium heat, saute onion and garlic in olive oil until onion is translucent. Stir in tomatoes, salt, sugar and bay leaf. Cover, reduce heat to low, and simmer 90 minutes. Stir in tomato paste, basil, 1/2 teaspoon pepper and meatballs and simmer 30 minutes more. Serve.'
+, 'Italy'
+, '1/2 pound ground veal
+1/2 pound ground pork
+1 pound ground beef
+1 cup fresh white bread crumbs (4 slices, crusts removed)
+1/4 cup seasoned dry bread crumbs
+2 tablespoons chopped fresh flat-leaf parsley
+1/2 cup freshly grated Parmesan cheese
+2 teaspoons kosher salt
+1/2 teaspoon freshly ground black pepper
+1/4 teaspoon ground nutmeg
+1 extra-large egg, beaten
+Vegetable oil
+Olive oil');
+commit;
+
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(7, 'paella', 'Preheat the oven to 190��C/375��F/gas 5.
+Quarter each piece of chicken, then season with sea salt and black pepper and dust with flour.
+Heat a splash of oil in a large, deep pan on a medium heat and fry the chicken until golden brown all over, then transfer to a baking tray and place in the oven for 20 minutes, or until cooked through.
+Meanwhile, slice the chorizo, peel and finely chop the onion and garlic, and pick and finely chop the parsley leaves, finely chopping the stalks.
+Put the pan back on the heat, add the sliced chorizo and pancetta or bacon and fry until browned and crispy. Add the onion, garlic and parsley stalks, then cook until soft.
+Meanwhile, gently heat the chicken stock and infuse half with the saffron.
+Add the smoked paprika, the rice and infused stock to the pan and leave to cook on a medium heat for around 20 minutes, stirring occasionally.
+Meanwhile, halve the squid and lightly score all over with a regular eating knife
+When the time is up, add the remaining stock, peas, prawns, and the mussels and squid (if using). Place a lid on the pan and cook for 10 further minutes.
+Finally, add the cooked chicken, sprinkle over the chopped parsley and serve with wedges of lemon for squeezing over.'
+, 'spain'
+, '1/2 pound ground veal
+1/2 pound ground pork
+1 pound ground beef
+1 cup fresh white bread crumbs (4 slices, crusts removed)
+1/4 cup seasoned dry bread crumbs
+2 tablespoons chopped fresh flat-leaf parsley
+1/2 cup freshly grated Parmesan cheese
+2 teaspoons kosher salt
+1/2 teaspoon freshly ground black pepper
+1/4 teaspoon ground nutmeg
+1 extra-large egg, beaten
+Vegetable oil
+Olive oil');
+commit;
+
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(8, 'pineapple fried rice', 'Heat a large wok, cast iron skillet or non-stick frying pan over medium-high heat and place an empty serving bowl nearby. Once the pan is hot enough that a drop of water sizzles on contact, add 1 teaspoon oil. Pour in the eggs and cook, stirring frequently, until the eggs are scrambled and lightly set, about 30 seconds to 1 minute. Transfer the eggs to the empty bowl. Wipe out the pan if necessary with a paper towel (be careful, it��s hot!).
+Add 1 tablespoon oil to the pan and add the pineapple and red pepper. Cook, stirring constantly, until the liquid has evaporated and the pineapple is caramelized on the edges, about 3 to 5 minutes. Then add the green onion and garlic. Cook until fragrant while stirring constantly, about 30 seconds. Transfer the contents of the pan to your bowl of eggs.
+Reduce the heat to medium and add the remaining 2 teaspoons oil to the pan. Pour in the cashews and cook until fragrant, stirring constantly, about 30 seconds. Add the rice to the pan and stir to combine. Cook until the rice is hot, stirring occasionally, about 3 minutes.
+Pour the contents of the bowl back into the pan and stir to combine, breaking up the scrambled eggs with your spoon. Cook until the contents are warmed through, then remove the pan from heat. Add the tamari and chili garlic sauce, to taste. Squeeze the juice of �� lime over the dish and stir to combine. Season to taste with salt and set aside.
+Slice the remaining �� lime into 4 wedges. Transfer the stir-fry to individual serving bowls and garnish each bowl with a lime wedge and a light sprinkle of cilantro. Serve with bottles of tamari and chili garlic sauce or sriracha on the side, for those who might want to add more to their bowls.'
+, 'Thai'
+, '2 tablespoons coconut oil or quality vegetable oil, divided
+2 eggs, beaten with a dash of salt
+1 �� cups chopped fresh pineapple
+1 large red bell pepper, diced
+�� cup chopped green onions (about �� bunch)
+2 cloves garlic, pressed or minced
+�� cup chopped raw, unsalted cashews
+2 cups cooked and chilled brown rice*, preferably long-grain brown jasmine rice
+1 tablespoon reduced-sodium tamari or soy sauce
+1 to 2 teaspoons chili garlic sauce or sriracha
+1 small lime, halved
+Salt, to taste
+Handful of fresh cilantro leaves, torn into little pieces, for garnishing');
+commit;
+INSERT INTO CHcuisine(
+cscode, csName, receipe, theme, ingredient)
+VALUES
+(9, 'salmon steak', 'Place salmon in a lightly greased 8-in. square baking dish. Top with butter and lemon juice. Combine onion, parsley, garlic salt and lemon pepper; sprinkle over salmon. Bake, uncovered, at 400�� for 15-20 minutes or until fish flakes easily with a fork.'
+, 'fusion'
+, '2 salmon or halibut steaks (8 ounces each)
+2 tablespoons butter or margarine, melted
+2 tablespoons lemon juice
+1 green onion, sliced
+1 tablespoon minced fresh parsley
+1/4 teaspoon garlic salt
+1/8 teaspoon lemon-pepper seasoning');
+commit;
+
+
+create table CHreply (
+	replynum		number	primary key,
+	boardnum		number not null,
+	id				varchar2(20) not null,
+	text			varchar2(200) not null,	
+	inputdate		date 	default sysdate,
+	constraint CHreply foreign key(boardnum) 
+		references CHboard(boardnum) on delete cascade
+);
+select * from CHreply;
+drop table CHreply;
+create sequence CHreply_seq start with 1 increment by 1;
+
+commit;
+
+
+
+
+
+
+
+
+
+
+
+
