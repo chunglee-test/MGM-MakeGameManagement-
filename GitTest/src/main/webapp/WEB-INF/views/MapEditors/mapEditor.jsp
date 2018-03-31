@@ -11,7 +11,7 @@
 		<title>Map Editor</title>
 		
 		<!-- Bootstrap -->
-		<link href="<c:url value='/resources/bootstrap/css/bootstrap.css'/>" rel="stylesheet">
+		<%-- <link href="<c:url value='/resources/bootstrap/css/bootstrap.css'/>" rel="stylesheet"> --%>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,13 +28,13 @@
 		
 		<!-- 맵 에디터 메인 페이지입니다
 		 -->
-		<canvas id="tileset" width="600" height="600" style="background-color: red"></canvas>
-		<canvas id="screen" width="640" height="640" style="background-color: black"></canvas>
+		<canvas id="tileset" width="512" height="320" style="background-color: gray"></canvas>
+		<canvas id="screen" width="320" height="320" style="background-color: black"></canvas>
 		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js'/>"></script>
+		<%-- <script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js'/>"></script> --%>
 		
 	</body>
 </html>
