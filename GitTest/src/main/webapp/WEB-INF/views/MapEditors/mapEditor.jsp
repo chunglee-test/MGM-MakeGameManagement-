@@ -25,16 +25,19 @@
 		</script>
 	</head>
 	<body>
-		
-		<!-- 맵 에디터 메인 페이지입니다
-		 -->
-		<canvas id="tileset" width="600" height="600" style="background-color: red"></canvas>
-		<canvas id="screen" width="640" height="640" style="background-color: black"></canvas>
-		
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js'/>"></script>
-		
+		<div>
+			<div style="float: left; width: 30%; height: 60%">
+				<img src="../resources/img/shop-1.png">
+			</div>
+			<div style="float: left;">
+				<!-- 맵 에디터 메인 페이지입니다-->
+				<canvas id="screen" width="640" height="640" style="background-color: black"></canvas>
+				
+				<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+				<!-- Include all compiled plugins (below), or include individual files as needed -->
+				<script src="<c:url value='/resources/bootstrap/js/bootstrap.min.js'/>"></script>
+			</div>
+		</div>
 	</body>
 </html>

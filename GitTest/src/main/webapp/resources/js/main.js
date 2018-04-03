@@ -26,11 +26,20 @@ function drawBackground(background, context, sprites) {
     });
 }
 
+function drawCharacter(Character, context, sprites) {
+   Character.ranges.forEach(([x1, x2, y1, y2]) => {
+        for(let x = x1; x < x2; ++x) {
+            for(let y = y1; y < y2; ++Y) {
+                sprites.drawCharacter(Character.image, context, x, y);
+            }
+        }
+   }); 
+    
+}
 
 //loadImage(getContextPath() + '/resources/img/Mario.png')
 loadImage(getContextPath() + '/resources/img/VX Scenery Tileset.png')
 .then(image => {
-	
 	// 타일셋 하나마다 분할된 타일을 가지고 있는 sprite를 생성해야 한다 
     const sprites = new SpriteSheet(image);
     sprites.define('ground', 0, 0);
@@ -39,12 +48,19 @@ loadImage(getContextPath() + '/resources/img/VX Scenery Tileset.png')
     //loadLevel('1-1')
     loadLevel(getContextPath() + '/resources/levels/1-1.json')
     .then(level => {
-    	console.log(level);
     	
         level.backgrounds.forEach(bg => {
             drawBackground(bg, context, sprites);
         });
     });
+});
+
+// Character.json
+loadCharacter(getContextPath() + '/resources/img/Character.png')
+.then(image => {
+    const sprites = new SpriteSheet(image, 16, 16);
+    sprites.define('Character', 3, 3);
+    
 });
 
 

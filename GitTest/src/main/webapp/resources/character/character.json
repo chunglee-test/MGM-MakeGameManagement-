@@ -1,0 +1,13 @@
+{
+    "Character": [
+        {
+            "tile": "Character",
+            "ranges": [
+                [
+                    0, 5,
+                    0, 5
+                ]
+            ]
+        }
+    ]
+}
