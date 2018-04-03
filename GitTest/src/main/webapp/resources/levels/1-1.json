@@ -1,7 +1,7 @@
 {
     "backgrounds": [
         {
-            "tile": "sky",
+            "tile": "box",
             "ranges": [
                 [
                     0, 5,
@@ -10,7 +10,7 @@
             ]
         },
         {
-            "tile": "ground",
+            "tile": "rice",
             "ranges": [
                 [
                     0, 5,

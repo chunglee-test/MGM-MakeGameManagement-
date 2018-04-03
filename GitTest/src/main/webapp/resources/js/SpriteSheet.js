@@ -40,9 +40,4 @@
     drawTile(name, context, x, y) {
         this.draw(name, context, x * this.width, y * this.height);
     }
-
-    // 특정 위치에 케릭터를 그리는 메소드
-    drawCharacter(name, context, x, y) {
-        this.draw(name, context, x * this.width, y * this.height);
-    }
 }
