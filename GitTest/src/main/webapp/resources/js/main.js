@@ -5,6 +5,8 @@ const cvsMap = document.getElementById('screen');
 const ctxMap = cvsMap.getContext('2d');
 const cvsTileset = document.getElementById('tileset');
 const ctxTileset = cvsTileset.getContext('2d');
+const cvschaset = document.getElementById('charactertest');
+const ctxchaset = cvschaset.getContext('2d'); 
 
 const TILE_SIZE = 32;
 
@@ -40,7 +42,7 @@ function drawBackground(background, context, sprites) {
  */
 function loadMap() {
     // TODO: after image loaded, draw the image into the canvas
-    return loadImage(getContextPath() + '/resources/img/Basic Map Modified.png')
+    return loadImage(getContextPath() + '/resources/img/Building Interiors BCDE.png')
     .then(image => {
         //resolve(image);
         return image;
@@ -52,7 +54,7 @@ function loadMap() {
  * @return {image} [description]
  */
 function loadTilesetMap() {
-    return loadImage(getContextPath() + '/resources/img/Tileset Test.png')
+    return loadImage(getContextPath() + '/resources/img/shop-1.png')
     .then(image => {
         // TODO: draw tileset image on the canvas
         ctxTileset.drawImage(image, 0, 0);
@@ -72,16 +74,26 @@ function loadTilesetMap() {
     });
 }
 
-
+function loadCharacter() {
+    return loadImage(getContextPath() + '/resources/img/Character.png')
+    .then(image => {
+        const sprites = new SpriteSheet(image, 32, 32)
+        sprites.define('idle',0, 0);
+        var idle = sprites.tiles.get('idle');
+        return idle;
+    })
+}
 
 // Promise가 다 끝나면 그 결과를 받아 함수를 실행한다
 // 다수의 Promise를 병렬적으로 실행시키는 함수이다
 Promise.all([
     loadMap(),
-    loadTilesetMap()
+    loadTilesetMap(),
+    loadCharacter()
 ])
-.then(([map, tileset]) => {
+.then(([map, tileset, Character]) => {
     ctxMap .drawImage(map, 0, 0);
+    ctxchaset.drawImage(Character, 0, 0);
     addEventListeners();
 });
 

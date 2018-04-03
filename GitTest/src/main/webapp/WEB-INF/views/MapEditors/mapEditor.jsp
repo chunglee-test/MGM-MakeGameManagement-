@@ -28,6 +28,7 @@
 		<!-- 맵 에디터 메인 페이지입니다
 		 -->
 		<canvas id="tileset" width="512" height="320" style="background-color: gray"></canvas>
+		<canvas id="charactertest" width="300" height="300" style="background-color: white"></canvas>
 		<canvas id="screen" width="320" height="320" style="background-color: black"></canvas>
 		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
