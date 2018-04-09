@@ -36,4 +36,8 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping (value = "/mapEdit", method = RequestMethod.GET)
+	public String mapEditPage() {
+		return "mapEdit/mapEditor";
+	}
 }
