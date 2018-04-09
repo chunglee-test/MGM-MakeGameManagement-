@@ -10,16 +10,13 @@
 			</li>
 			<li class="menu-head">
 				<c:choose>
-					<c:when test="${userid == null }">
-						<c:set var="profile" value="not_profile.jpg" />
-						
-
-						<button onclick="document.getElementById('login-container').style.display='block'"
-							style="width: auto;">Login</button>
+					<c:when test="${userid == null }">		
+						<button onclick="loginPage();" class="btn btn-primary" style="width:100%">Login</button>
 						<%@ include file="loginPage.jsp" %>
 					</c:when>
-					<c:when test="${userid != null}">
-						<c:set var="profile" value="not_profile.jpg" />						
+					<c:when test="${userid != null}">			
+						<img src="resources/img/guest.jpg" style="width:100%">
+						<%@ include file="userPage.jsp" %>
 					</c:when>
 				</c:choose>
 				
@@ -30,25 +27,25 @@
 			<div class="menu">
 				<li>
 					<a href="#">
-						Dashboard 
+						SideMenu1
 						<span class="glyphicon glyphicon-dashboard pull-right"></span>
 					</a>
 				</li>
 				<li>
 					<a href="#" class="active">
-						Love snippet
+						SideMenu2
 						<span class="glyphicon glyphicon-heart pull-right"></span>
 					</a>
 				</li>
 				<li>
 					<a href="#">
-						Like it? 
+						SideMenu3
 						<span class="glyphicon glyphicon-star pull-right"></span>
 					</a>
 				</li>
 				<li>
 					<a href="#">
-						Settings 
+						SideMenu4 
 						<span class="glyphicon glyphicon-cog pull-right"></span>
 					</a>
 				</li>
