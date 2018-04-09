@@ -53,5 +53,6 @@
             </div>	
 	</article>
 	<a href="mapEdit"> Go to Map Editor Page </a>
+	<a href="playGame"> Go to Game Play Page </a>
 </body>
 </html>

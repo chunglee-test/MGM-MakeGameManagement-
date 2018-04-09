@@ -1,4 +1,7 @@
-import {exportJSON} from './jsontest.js';
+import {exportJSON} from './exportToJSON.js';
+import {getContextPath} from './util.js';
+
+alert(getContextPath());
 
 /* 타일셋 부분 */
 const arrGID = [1, 105, 297, 489, 649];
@@ -18,7 +21,7 @@ Promise.all([
 });
 
 function loadTilesets(numTileset) {
-    return loadImage('/tilemaps/tiles/' + arrTilesetName[numTileset] + '.png')
+    return loadImage(getContextPath() + '/resources/tilemaps/tiles/' + arrTilesetName[numTileset] + '.png')
     .then(image => {
         tilesetImg = image;
         cvsTileset.width = image.width;
@@ -53,7 +56,6 @@ function addEventListeners() {
     });
 
     document.getElementById('btn_tileset').addEventListener("click", function (e) {
-        //loadTilesetMap2();
         if (currTileset < arrTilesetName.length - 1) {
             currTileset++;
         } else {
@@ -91,11 +93,11 @@ var cursors;
 var layer1Key, layer2Key, showLayersKey;
 
 function preload() {
-    game.load.image('Ground', 'tilemaps/tiles/Ground.png');
-    game.load.image('Ground2', 'tilemaps/tiles/Ground2.png');
-    game.load.image('Ground3', 'tilemaps/tiles/Ground3.png');
-    game.load.image('Tileset1', 'tilemaps/tiles/Tileset1.png');
-    game.load.image('Forest', 'tilemaps/tiles/Forest.png');
+    game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
+    game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
+    game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');
+    game.load.image('Tileset1', getContextPath() + '/resources/tilemaps/tiles/Tileset1.png');
+    game.load.image('Forest', getContextPath() + '/resources/tilemaps/tiles/Forest.png');
 }
 
 function create() {

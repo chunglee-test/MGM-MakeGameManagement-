@@ -33,4 +33,9 @@ public class HomeController {
 	public String mapEditPage() {
 		return "mapEdit/mapEditor";
 	}
+	
+	@RequestMapping (value = "/playGame", method = RequestMethod.GET)
+	public String playGamePage() {
+		return "play/playGame";
+	}
 }

@@ -1,22 +1,24 @@
+import {getContextPath} from './util.js';
+
 var game = new Phaser.Game(
 		800, 600, Phaser.CANVAS, 'phaser-example', 
 		{ preload: preload, create: create, update: update, render: render });
 
 function preload() {
-    game.load.tilemap('map', 'tilemaps/maps/autoTilemapJSON.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('map', getContextPath() + '/resources/tilemaps/maps/autoTilemapJSON.json', null, Phaser.Tilemap.TILED_JSON);
     
-    game.load.image('Ground', 'tilemaps/tiles/Ground.png');
-    game.load.image('Ground2', 'tilemaps/tiles/Ground2.png');
-    game.load.image('Ground3', 'tilemaps/tiles/Ground3.png');
-    game.load.image('Tileset1', 'tilemaps/tiles/Tileset1.png');
-    game.load.image('Forest', 'tilemaps/tiles/Forest.png');
+    game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
+    game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
+    game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');
+    game.load.image('Tileset1', getContextPath() + '/resources/tilemaps/tiles/Tileset1.png');
+    game.load.image('Forest', getContextPath() + '/resources/tilemaps/tiles/Forest.png');
 
     // 캐릭터 스프라이트시트 불러오기
     // game.load.spritesheet(유니크한 이름, 경로, 타일 한 개당 너비, 타일 한 개당 높이)
-    game.load.spritesheet('dude', 'sprites/dude.png', 32, 48);
+    game.load.spritesheet('dude', getContextPath() + '/resources/sprites/Characterset2.png', 63, 64);
     
     // 이미지 불러오기
-    //game.load.image('phaser', 'sprites/mushroom2.png');
+    //game.load.image('phaser', getContextPath() + '/resources/sprites/mushroom2.png');
 }
 
 var cursors, spacebar;
@@ -56,9 +58,10 @@ function create() {
 
     // 캐릭터 움직임 선언
     // sprite.animations.add(유니크한 애니메이션 이름, 반복할 타일 번호, 프레임수, true)
-    sprite.animations.add('left', [0, 1, 2, 3], 10, true);
-    sprite.animations.add('turn', [4], 20, true);
-    sprite.animations.add('right', [5, 6, 7, 8], 10, true);
+    sprite.animations.add('up', [0, 1, 2, 3, 4, 5, 6, 7, 8], 60, false);
+    sprite.animations.add('left', [9, 10, 11, 12, 13, 14, 15, 16, 17], 60, false);
+    sprite.animations.add('down', [18, 19, 20, 21, 22, 23, 24, 25, 26], 60, false);
+    sprite.animations.add('right', [27, 28, 29, 30, 31, 32, 33, 34, 35], 60, false);
 
     // 캐릭터의 충돌 사이즈 조절
     sprite.body.setSize(32, 32, 0, 0);
@@ -87,23 +90,18 @@ function update() {
     if (cursors.left.isDown) {
     	sprite.body.velocity.x = -300;
     	sprite.animations.play('left');
-
     } else if (cursors.right.isDown) {
     	sprite.body.velocity.x = 300;
     	sprite.animations.play('right');
-
-    } else {
-    	sprite.animations.play('turn');
-    }
-
-    if (cursors.up.isDown) {
+    } else if (cursors.up.isDown) {
     	sprite.body.velocity.y = -300;
-    	
+        sprite.animations.play('up');        
     } else if (cursors.down.isDown) {
     	sprite.body.velocity.y = 300;
+        sprite.animations.play('down');
     }
 
-    if (sprite.x === 100 && (290 <= sprite.y && sprite.y <= 290)) {
+    if (sprite.x === 100 && (280 <= sprite.y && sprite.y <= 290)) {
         if (spacebar.justPressed()) {
             console.log("말을 걸었다");
         }

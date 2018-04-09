@@ -7,7 +7,7 @@
 		<title>MGM - Map Editor Page</title>
 		
 		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-		<script src="/resources/js/phaser-2-10-3.js"></script>
+		<script src="resources/js/phaser-2-10-3.js"></script>
 	</head>
 	<body>
 		<canvas id="tileset" style="background-color: gray"></canvas>
@@ -18,6 +18,6 @@
 
 		<button id="btn_tile_1x1">1x1타일</button>
 		<button id="btn_tile_4x4">4x4타일</button>
-		<!-- <script type="module" src="/resources/js/mapEditByPhaser.js"></script> -->
+		<script type="module" src="resources/js/mapEdit.js"></script>
 	</body>
 </html>
