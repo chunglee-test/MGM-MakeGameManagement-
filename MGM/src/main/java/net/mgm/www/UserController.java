@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.mgm.www.mapper.UserDAO;
 import net.mgm.www.vo.User;
@@ -14,29 +15,27 @@ import net.mgm.www.vo.User;
 public class UserController {
 	@Inject
 	private UserDAO udao;
-	 
-	@RequestMapping(value="/loginPage")
-	public String loginPage() {
-		return "main/loginPage";
-	}
 	
-	@RequestMapping(value="/login")
+	@ResponseBody
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(User loginUser, HttpSession session) {
 		User loginResult = udao.loginUser(loginUser);
 		
 		if(loginResult.getUserid() == null) {
-			return "";
+			return "false";
 		}
 		else {
 			session.setAttribute("userid", loginResult.getUserid());
 			session.setAttribute("nick", loginResult.getNick());
 			
-			return "home";
+			return "true";
 		}
 	}
 	
 	@RequestMapping(value="/logout")
-	public String logout() {
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
 		return "home";
 	}
 }
