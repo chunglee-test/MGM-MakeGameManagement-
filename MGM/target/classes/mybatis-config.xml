@@ -4,6 +4,6 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="check.www.test.vo.User" alias="user"/>
+		<typeAlias type="net.mgm.www.vo.User" alias="user"/>
 	</typeAliases>
 </configuration>

@@ -1,0 +1,56 @@
+ 
+ 
+CREATE TABLE users(
+    userid VARCHAR2(20) PRIMARY KEY, 
+    userpw VARCHAR2(20) NOT NULL,
+    nick VARCHAR2(20) NOT NULL,
+    email VARCHAR2(50) NOT NULL,
+    signup DATE DEFAULT SYSDATE NOT NULL
+);
+
+
+CREATE TABLE games(
+    gameid NUMBER PRIMARY KEY,
+    userid VARCHAR2(20) , 
+    gamename VARCHAR2(50) NOT NULL,
+    gamecontent VARCHAR2(2000) NOT NULL,
+    isopen CHAR(1) DEFAULT 'N',
+    opendate DATE,
+    CONSTRAINT fk_game_userid FOREIGN KEY(userid) REFERENCES users(userid),
+    CONSTRAINT game_isopen_boolean CHECK(isopen = 'Y' OR isopen = 'N')
+);
+CREATE SEQUENCE seq_gameid;
+
+
+CREATE TABLE game_node(
+    gameid NUMBER NOT NULL,
+    nodeid NUMBER PRIMARY KEY,
+    parentid NUMBER,
+    nodename VARCHAR2(20) NOT NULL,
+    nodecontent CLOB NOT NULL,
+    CONSTRAINT fk_game_node_gameid FOREIGN KEY(gameid) REFERENCES games(gameid) ON DELETE CASCADE,
+    CONSTRAINT fk_game_node_nodeid FOREIGN KEY(parentid) REFERENCES game_node(nodeid) ON DELETE CASCADE
+);
+CREATE SEQUENCE seq_nodeid;
+
+
+CREATE TABLE game_comment(
+    gameid NUMBER NOT NULL,
+    userid VARCHAR2(20) NOT NULL,
+    gcomment VARCHAR2(1000) NOT NULL,
+    point NUMBER NOT NULL,
+    writedate DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT fk_game_comment_gameid FOREIGN KEY(gameid) REFERENCES games(gameid) ON DELETE CASCADE,
+    CONSTRAINT fk_game_comment_userid FOREIGN KEY(userid) REFERENCES users(userid) ON DELETE CASCADE
+);
+
+
+CREATE TABLE user_gameplay(
+    userid VARCHAR2(20) NOT NULL,
+    gameid NUMBER NOT NULL,
+    lastdate VARCHAR2(20) NOT NULL,
+    gamenodeid NUMBER,
+    CONSTRAINT fk_user_gameplay_userid FOREIGN KEY(userid) REFERENCES users(userid) ON DELETE CASCADE,
+    CONSTRAINT fk_user_gameplay_gameid FOREIGN KEY(gameid) REFERENCES games(gameid) ON DELETE CASCADE,
+    CONSTRAINT fk_user_gameplay_gamenodeid FOREIGN KEY(gamenodeid) REFERENCES game_node(nodeid) ON DELETE CASCADE
+);
