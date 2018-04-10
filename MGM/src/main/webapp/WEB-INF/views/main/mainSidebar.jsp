@@ -27,26 +27,26 @@
 			<div class="menu">
 				<li>
 					<a href="#">
-						SideMenu1
+						My Game
+						<span class="glyphicon glyphicon-cog pull-right"></span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						All
 						<span class="glyphicon glyphicon-dashboard pull-right"></span>
 					</a>
 				</li>
 				<li>
 					<a href="#" class="active">
-						SideMenu2
+						Recent
 						<span class="glyphicon glyphicon-heart pull-right"></span>
 					</a>
 				</li>
 				<li>
 					<a href="#">
-						SideMenu3
+						Many Play
 						<span class="glyphicon glyphicon-star pull-right"></span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						SideMenu4 
-						<span class="glyphicon glyphicon-cog pull-right"></span>
 					</a>
 				</li>
 			</div>                    
