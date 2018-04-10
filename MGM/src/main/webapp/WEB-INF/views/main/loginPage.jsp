@@ -29,7 +29,6 @@
 	}
 	
 	function loginChk(){
-		var form = $("#loginForm");
 		var userid = $("#userid").val();
 		var userpw = $("#userpw").val();
 		
@@ -53,6 +52,6 @@
 			error:function(){
 				alert('Server Error');	
 			}
-		});	
+		});
 	}
 </script>
