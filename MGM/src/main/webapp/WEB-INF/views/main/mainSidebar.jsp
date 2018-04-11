@@ -26,7 +26,7 @@
 			</li>
 			<div class="menu">
 				<li>
-					<a href="#">
+					<a href="gameList?search='test'">
 						My Game
 						<span class="glyphicon glyphicon-cog pull-right"></span>
 					</a>

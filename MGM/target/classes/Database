@@ -5,6 +5,7 @@ CREATE TABLE users(
     userpw VARCHAR2(20) NOT NULL,
     nick VARCHAR2(20) NOT NULL,
     email VARCHAR2(50) NOT NULL,
+    userprofile VARCHAR2(200),
     signup DATE DEFAULT SYSDATE NOT NULL
 );
 
@@ -14,6 +15,7 @@ CREATE TABLE games(
     userid VARCHAR2(20) , 
     gamename VARCHAR2(50) NOT NULL,
     gamecontent VARCHAR2(2000) NOT NULL,
+    gameprofile VARCHAR2(200),
     isopen CHAR(1) DEFAULT 'N',
     opendate DATE,
     CONSTRAINT fk_game_userid FOREIGN KEY(userid) REFERENCES users(userid),
@@ -54,3 +56,12 @@ CREATE TABLE user_gameplay(
     CONSTRAINT fk_user_gameplay_gameid FOREIGN KEY(gameid) REFERENCES games(gameid) ON DELETE CASCADE,
     CONSTRAINT fk_user_gameplay_gamenodeid FOREIGN KEY(gamenodeid) REFERENCES game_node(nodeid) ON DELETE CASCADE
 );
+
+
+
+
+
+INSERT INTO games
+(gameid, userid, gamename, gamecontent, gameprofile, isopen)
+VALUES
+(seq_gameid.nextval, 'test', 'gName', 'gContent', 'TestGameImg.png', 'N');

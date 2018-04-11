@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.mgm.www.mapper.GameListMapper">
+	<select id="getGamelist" parameterType="string" resultType="game">
+		SELECT 
+			* 
+		FROM 
+			games
+		<if test="search != null">
+			
+		</if>
+		ORDER BY
+			gameid DESC; 
+	</select>
+	<select id="gameSelect" parameterType="int" resultType="game">
+		SELECT
+			u.nick, g.gamename, g.gamecontent, g.gameprofile
+		FROM
+			games g
+		LEFT JOIN
+			users u
+		ON
+			g.userid = u.userid
+		WHERE
+			g.gameid = #{gameid}
+	</select>
+</mapper>

@@ -2,19 +2,22 @@ package net.mgm.www.vo;
 
 public class Game {
 	private int gameid;
-	private String userid;
+	private String username;
 	private String gamename;
 	private String gamecontent;
+	private String gameprofile;
 	private String isopen;
 	private String opendate;
-	
-	public Game() {}
-	public Game(int gameid, String userid, String gamename, String gamecontent, 
-			String isopen, String opendate) {
+
+	public Game() {};
+	public Game(int gameid, String username, String gamename, String gamecontent, String gameprofile, String isopen,
+			String opendate) {
+		super();
 		this.gameid = gameid;
-		this.userid = userid;
+		this.username = username;
 		this.gamename = gamename;
-		this.gamecontent = gamecontent;		
+		this.gamecontent = gamecontent;
+		this.gameprofile = gameprofile;
 		this.isopen = isopen;
 		this.opendate = opendate;
 	}
@@ -25,11 +28,11 @@ public class Game {
 	public void setGameid(int gameid) {
 		this.gameid = gameid;
 	}
-	public String getUserid() {
-		return userid;
+	public String getUsername() {
+		return username;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getGamename() {
 		return gamename;
@@ -43,7 +46,13 @@ public class Game {
 	public void setGamecontent(String gamecontent) {
 		this.gamecontent = gamecontent;
 	}
-	public String isIsopen() {
+	public String getGameprofile() {
+		return gameprofile;
+	}
+	public void setGameprofile(String gameprofile) {
+		this.gameprofile = gameprofile;
+	}
+	public String getIsopen() {
 		return isopen;
 	}
 	public void setIsopen(String isopen) {
@@ -58,7 +67,7 @@ public class Game {
 	
 	@Override
 	public String toString() {
-		return "Game [gameid=" + gameid + ", userid=" + userid + ", gamename=" + gamename + ", gamecontent="
-				+ gamecontent + ", isopen=" + isopen + ", opendate=" + opendate + "]";
+		return "Game [gameid=" + gameid + ", username=" + username + ", gamename=" + gamename + ", gamecontent="
+				+ gamecontent + ", gameprofile=" + gameprofile + ", isopen=" + isopen + ", opendate=" + opendate + "]";
 	}	
 }
