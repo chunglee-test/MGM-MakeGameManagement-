@@ -38,4 +38,8 @@ public class HomeController {
 	public String playGamePage() {
 		return "play/playGame";
 	}
+	@RequestMapping (value = "/practice", method = RequestMethod.GET)
+	public String practice() {
+		return "mapEdit/practice";
+	}
 }
