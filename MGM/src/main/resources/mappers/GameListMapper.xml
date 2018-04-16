@@ -4,15 +4,16 @@
 
 <mapper namespace="net.mgm.www.mapper.GameListMapper">
 	<select id="getGamelist" parameterType="string" resultType="game">
-		SELECT 
-			* 
-		FROM 
-			games
-		<if test="search != null">
-			
-		</if>
+		SELECT
+			g.gameid, u.nick, g.gamename, g.gameprofile
+		FROM
+			games g
+		LEFT JOIN
+			users u
+		ON
+			g.userid = u.userid
 		ORDER BY
-			gameid DESC; 
+			g.gameid DESC
 	</select>
 	<select id="gameSelect" parameterType="int" resultType="game">
 		SELECT
@@ -25,5 +26,19 @@
 			g.userid = u.userid
 		WHERE
 			g.gameid = #{gameid}
+	</select>
+	<select id="gameComment" parameterType="int" resultType="gcomment">
+		SELECT
+			u.nick, c.gcomment, c.point, TO_CHAR(c.writedate, 'YYYY.MM.DD') AS writedate
+		FROM
+			game_comment c
+		LEFT JOIN
+			users u
+		ON
+			c.userid = u.userid
+		WHERE
+			c.gameid = #{gameid}
+		ORDER BY 
+			writedate
 	</select>
 </mapper>

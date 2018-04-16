@@ -2,16 +2,15 @@ package net.mgm.www.vo;
 
 public class GameComment {
 	private int gameid;
-	private String userid;
+	private String nick;
 	private String gcomment;
 	private int point;
 	private String writedate;
 	
 	public GameComment() {};
-	public GameComment(int gameid, String userid, String gcomment, int point, String writedate) {
-		super();
+	public GameComment(int gameid, String nick, String gcomment, int point, String writedate) {
 		this.gameid = gameid;
-		this.userid = userid;
+		this.nick = nick;
 		this.gcomment = gcomment;
 		this.point = point;
 		this.writedate = writedate;
@@ -23,11 +22,11 @@ public class GameComment {
 	public void setGameid(int gameid) {
 		this.gameid = gameid;
 	}
-	public String getUserid() {
-		return userid;
+	public String getNick() {
+		return nick;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	public String getGcomment() {
 		return gcomment;
@@ -50,7 +49,7 @@ public class GameComment {
 	
 	@Override
 	public String toString() {
-		return "GameComment [gameid=" + gameid + ", userid=" + userid + ", gcomment=" + gcomment + ", point=" + point
+		return "GameComment [gameid=" + gameid + ", nick=" + nick + ", gcomment=" + gcomment + ", point=" + point
 				+ ", writedate=" + writedate + "]";
 	}	
 }

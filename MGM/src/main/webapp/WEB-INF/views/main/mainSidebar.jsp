@@ -14,8 +14,7 @@
 						<button onclick="loginPage();" class="btn btn-primary" style="width:100%">Login</button>
 						<%@ include file="loginPage.jsp" %>
 					</c:when>
-					<c:when test="${userid != null}">			
-						<img src="resources/img/guest.jpg" style="width:100%">
+					<c:when test="${userid != null}">		
 						<%@ include file="userPage.jsp" %>
 					</c:when>
 				</c:choose>
@@ -26,7 +25,7 @@
 			</li>
 			<div class="menu">
 				<li>
-					<a href="gameList?search='test'">
+					<a href="javascript:gotoPage('gameList?search=test')">
 						My Game
 						<span class="glyphicon glyphicon-cog pull-right"></span>
 					</a>

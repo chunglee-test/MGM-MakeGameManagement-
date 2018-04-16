@@ -2,7 +2,7 @@ package net.mgm.www.vo;
 
 public class Game {
 	private int gameid;
-	private String username;
+	private String nick;
 	private String gamename;
 	private String gamecontent;
 	private String gameprofile;
@@ -10,11 +10,11 @@ public class Game {
 	private String opendate;
 
 	public Game() {};
-	public Game(int gameid, String username, String gamename, String gamecontent, String gameprofile, String isopen,
+	public Game(int gameid, String nick, String gamename, String gamecontent, String gameprofile, String isopen,
 			String opendate) {
 		super();
 		this.gameid = gameid;
-		this.username = username;
+		this.nick = nick;
 		this.gamename = gamename;
 		this.gamecontent = gamecontent;
 		this.gameprofile = gameprofile;
@@ -28,11 +28,11 @@ public class Game {
 	public void setGameid(int gameid) {
 		this.gameid = gameid;
 	}
-	public String getUsername() {
-		return username;
+	public String getNick() {
+		return nick;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	public String getGamename() {
 		return gamename;
@@ -67,7 +67,7 @@ public class Game {
 	
 	@Override
 	public String toString() {
-		return "Game [gameid=" + gameid + ", username=" + username + ", gamename=" + gamename + ", gamecontent="
+		return "Game [gameid=" + gameid + ", nick=" + nick + ", gamename=" + gamename + ", gamecontent="
 				+ gamecontent + ", gameprofile=" + gameprofile + ", isopen=" + isopen + ", opendate=" + opendate + "]";
 	}	
 }

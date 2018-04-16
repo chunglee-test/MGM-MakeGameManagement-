@@ -28,14 +28,14 @@
 <body>
 <!-- https://getbootstrap.com/docs/4.1/components/card/ -->
 	<c:forEach items="${gList}" var="gList">
-		<div class="col-md-3 col-sm-4 col-xs-6">
+		<div class="col-md-3 col-sm-4 col-xs-6" onclick="location.href='gameBoard?gameid=${gList.gameid}'">
 			<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
 				<div class="card-header">${gList.gamename}</div>
 				<div class="card-body">
 					<p class="card-text">
 						<img class="card-img img-thumbnail" src="./resources/img/game/${gList.gameprofile }">
 					</p>
-					<h5 class="card-title maker-name">gList.</h5>
+					<h5 class="card-title maker-name">${gList.nick}</h5>
 				</div>
 			</div>
 		</div>

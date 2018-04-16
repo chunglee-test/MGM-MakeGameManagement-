@@ -65,3 +65,8 @@ INSERT INTO games
 (gameid, userid, gamename, gamecontent, gameprofile, isopen)
 VALUES
 (seq_gameid.nextval, 'test', 'gName', 'gContent', 'TestGameImg.png', 'N');
+
+INSERT INTO game_comment
+(gameid, userid, gcomment, point)
+VALUES
+(2, 'test', 'comment¿‘¥œ¥Ÿ', 1);
