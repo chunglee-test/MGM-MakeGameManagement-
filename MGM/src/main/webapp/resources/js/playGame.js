@@ -6,6 +6,7 @@ var game = new Phaser.Game(
 
 function preload() {
     game.load.tilemap('map', getContextPath() + '/resources/tilemaps/maps/autoTilemapJSON.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('map2', getContextPath() + '/resources/tilemaps/maps/autoTilemapJSON2.json', null, Phaser.Tilemap.TILED_JSON);
     
     game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
     game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
@@ -108,17 +109,35 @@ function update() {
 
     // 맵 이동시 주소줄 바꾸지 않고 맵 이동하기
     if (sprite.x === 100 && (280 <= sprite.y && sprite.y <= 290)) {
-        if (spacebar.justDown) {
+        if (spacebar.justPressed()) {
+        	console.log('space bar inputed');
         	//startTalk();
-        	preload();
-        	create();
         	
-        	/*game = new Phaser.Game(
-        			800, 600, Phaser.CANVAS, 'phaser-example', 
-        			{ preload: preload, create: create, update: update, render: render });*/
-
+        	changeMap();
         }
     }
+}
+
+function changeMap() {
+	layer.destroy();
+	layer2.destroy();
+	map.destroy();
+	
+	map = game.add.tilemap('map2');
+	
+	map.addTilesetImage('Ground', 'Ground', 32, 32, 0, 0, 1);
+    map.addTilesetImage('Ground2', 'Ground2', 32, 32, 0, 0, 105);
+    map.addTilesetImage('Ground3', 'Ground3', 32, 32, 0, 0, 297);
+    map.addTilesetImage('Tileset1', 'Tileset1', 32, 32, 0, 0, 489);
+    map.addTilesetImage('Forest', 'Forest', 32, 32, 0, 0, 649);
+    
+	layer = map.createLayer('Tile Layer 1');
+    layer.resizeWorld();
+
+    layer2 = map.createLayer('Tile Layer 2');
+    layer2.resizeWorld();
+    
+    sprite.bringToTop();
 }
 
 var talkNum = 0;
