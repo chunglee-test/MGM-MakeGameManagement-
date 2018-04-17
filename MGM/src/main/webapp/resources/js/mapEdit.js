@@ -1,7 +1,7 @@
 import {exportJSON} from './exportToJSON.js';
 import {getContextPath} from './util.js';
 
-alert(getContextPath());
+//alert(getContextPath());
 
 /* 타일셋 부분 */
 const arrGID = [1, 105, 297, 489, 649];
@@ -92,6 +92,9 @@ var currentLayer;
 var cursors;
 var layer1Key, layer2Key, showLayersKey;
 
+// 맵 수정 태그에서 마우스 오른쪽 버튼 기본 창 띄우기 방지
+$('body').on('contextmenu', 'canvas', function(e){ return false; });
+
 function preload() {
     game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
     game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
@@ -131,7 +134,7 @@ function create() {
     marker = game.add.graphics();
 
     game.input.addMoveCallback(updateMarker, this);
-
+    
     cursors = game.input.keyboard.createCursorKeys();
 
     showLayersKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -177,8 +180,9 @@ function updateMarker() {
         marker.lineStyle(2, 0xFFFFFF, 1);
         marker.drawRect(0, 0, 4 * 32, 4 * 32);
     }
-
-    if (game.input.mousePointer.isDown) {
+    
+    
+    if (game.input.mousePointer.leftButton.isDown) {
         let x = game.math.snapToFloor(game.input.mousePointer.worldX, 32) / 32;
         let y = game.math.snapToFloor(game.input.mousePointer.worldY, 32) / 32;
 
@@ -197,6 +201,9 @@ function updateMarker() {
                 }
             }
         }
+    } else if (game.input.mousePointer.rightButton.justPressed(1)) {
+    	window.open('eventEdit', '팝업창 이름','width=700, height=700');
+    	console.log('clicked right button');
     }
 }
 

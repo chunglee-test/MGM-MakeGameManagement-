@@ -34,6 +34,16 @@ public class HomeController {
 		return "mapEdit/mapEditor";
 	}
 	
+	@RequestMapping (value = "/eventEdit", method = RequestMethod.GET)
+	public String mapEditEventPage() {
+		return "mapEdit/eventEditor";
+	}
+	
+	@RequestMapping (value = "/scriptEdit", method = RequestMethod.GET)
+	public String mapEditScriptPage() {
+		return "mapEdit/scriptEditor";
+	}
+	
 	@RequestMapping (value = "/playGame", method = RequestMethod.GET)
 	public String playGamePage() {
 		return "play/playGame";

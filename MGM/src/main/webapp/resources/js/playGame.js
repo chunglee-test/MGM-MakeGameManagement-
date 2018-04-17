@@ -28,6 +28,8 @@ var coins;
 var layer, layer2;
 var sprite;
 
+var text, style;
+
 function create() {
     map = game.add.tilemap('map');
 
@@ -76,6 +78,9 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+    style = { font: "bold 32px Arial", fill: "#fff", 
+    		boundsAlignH: "center", boundsAlignV: "middle" };
+    
 }
 
 function update() {
@@ -101,11 +106,38 @@ function update() {
         sprite.animations.play('down');
     }
 
+    // 맵 이동시 주소줄 바꾸지 않고 맵 이동하기
     if (sprite.x === 100 && (280 <= sprite.y && sprite.y <= 290)) {
-        if (spacebar.justPressed()) {
-            console.log("말을 걸었다");
+        if (spacebar.justDown) {
+        	//startTalk();
+        	preload();
+        	create();
+        	
+        	/*game = new Phaser.Game(
+        			800, 600, Phaser.CANVAS, 'phaser-example', 
+        			{ preload: preload, create: create, update: update, render: render });*/
+
         }
     }
+}
+
+var talkNum = 0;
+var talkEnd = false;
+function startTalk() {
+	console.log("말을 걸었다");
+	text = game.add.text(200, 500, "phaser 2.4 text bounds", { font: "32px Arial", fill: "#ffffff", align: "center" });
+    text.fixedToCamera = true;
+    text.cameraOffset.setTo(200, 200);
+    talkNum++;
+    
+    console.log("talkNum = " + talkNum);
+    
+    /*while(!talkEnd) {
+    	if (spacebar.justDown) {
+        	console.log('다시 누름');
+        	talkEnd = true;
+        }
+    }*/
 }
 
 function collectCoin(player, coin) {
