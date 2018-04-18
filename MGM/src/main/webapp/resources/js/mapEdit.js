@@ -65,7 +65,7 @@ function addEventListeners() {
     });
 
     document.getElementById('btn_save').addEventListener("click", function (e) {
-        exportJSON(layersData);
+        exportJSON(layersData, eventsList);
     });
 
     document.getElementById('btn_tile_1x1').addEventListener("click", function (e) {
@@ -84,7 +84,7 @@ var game = new Phaser.Game(
 
 var tileNumWidth = 40, tileNumHeight = 30;
 var map, layer1, layer2;
-var layersData;
+var layersData, eventsData;
 
 var marker;
 var currentLayer;
@@ -145,6 +145,7 @@ function create() {
     layer1Key.onDown.add(changeLayer, this);
     layer2Key.onDown.add(changeLayer, this);
 
+    // 맵 타일 정보 저장하기 위한 배열
     layersData = new Array();
 
     for (let i = 0; i < 2; i++) {
@@ -164,6 +165,10 @@ function create() {
             }
         }
     }
+    
+    // 이벤트 정보를 저장하기 위한 배열
+    eventsData = new Array();
+    
 }
 
 // 맵을 찍으면 타일을 놓는 메소드
@@ -201,11 +206,27 @@ function updateMarker() {
                 }
             }
         }
-    } else if (game.input.mousePointer.rightButton.justPressed(1)) {
-    	window.open('eventEdit', '팝업창 이름','width=700, height=700');
+    } else if (game.input.mousePointer.rightButton.justPressed()) {
+    	let x = game.math.snapToFloor(game.input.mousePointer.worldX, 32) / 32;
+        let y = game.math.snapToFloor(game.input.mousePointer.worldY, 32) / 32;
+        
+        openNewWindow(x, y);
+
     	console.log('clicked right button');
+    	console.log(eventsList);
     }
 }
+
+function openNewWindow(x, y) {
+  var name = '이벤트 선택 창';
+  var specs = 'width=700, height=400, menubar=no, status=no, toolbar=no';
+  var newWindow = window.open('eventEdit', name, specs);
+  newWindow.x = x;
+  newWindow.y = y;
+  newWindow.focus();
+}
+
+
 
 function changeLayer(key) {
     switch (key.keyCode) {

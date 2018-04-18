@@ -1,6 +1,6 @@
-export function exportJSON (layersData) {
-	console.log(layersData);
-
+export function exportJSON (layersData, eventsData) {
+	//console.log(layersData);
+	console.log(eventsData);
 	var mapData = new Object();
 
 	/*
@@ -63,6 +63,17 @@ export function exportJSON (layersData) {
 		layerData.y = 0;
 
 		mapData.layers.push(layerData);
+	}
+	
+	mapData.events = new Array();
+	for (let eventNum = 0; eventNum < eventsData.length; eventNum++) {
+		var eventData = new Object();
+		
+		eventData.type = eventsData[eventNum].type;
+		eventData.x = eventsData[eventNum].x;
+		eventData.y = eventsData[eventNum].y;
+		
+		mapData.events.push(eventData);
 	}
 
 	mapData.nextobjectid = 1;

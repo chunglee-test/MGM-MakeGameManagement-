@@ -7,29 +7,14 @@
 		<title>MGM - Event Editor</title>
 		
 		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		
 	</head>
 	<body>
-		<div id="selection">
-			이벤트 타입 선택
-			<a href="scriptEdit">대사 추가</a>
-			<button onClick="">대사 추가</button>
-		</div>
 		
-		<div id="script">
-			<table>
-				<tr>
-					<td>
-						대화 1
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						대화 2
-					</td>
-				</tr>
-			</table>		
-		</div>
+		<button id="set_char">캐릭터 초기위치</button>
+		<button id="change_map">맵 이동</button>
+		<button id="add_script">대화 추가</button>
+		<button id="returnButton">창 닫기</button>
 		
 		<script type="module" src="resources/js/eventEdit.js"></script>
 	</body>

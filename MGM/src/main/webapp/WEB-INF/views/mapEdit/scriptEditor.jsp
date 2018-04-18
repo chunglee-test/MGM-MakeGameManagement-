@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>MGM - Script Add</title>
 		
-		<link rel="stylesheet" href="resources/css/srciptEditor.css">
+		<link rel="stylesheet" href="resources/css/scriptEditor.css">
 	</head>
 	<body>
 		이벤트 추가~
@@ -18,6 +18,6 @@
 			</div>
 		</div>
 		
-		<script type="module" src="resources/js/mapEdit.js"></script>
+		<script type="module" src="resources/js/scriptEdit.js"></script>
 	</body>
 </html>
