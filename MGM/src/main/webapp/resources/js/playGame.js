@@ -7,12 +7,11 @@ var game = new Phaser.Game(
 var eventsData;
 
 function preload() {
-	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithPos.json', 
+	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONcomplete1.json', 
 		function(jsonData) {
 			eventsData = jsonData.events;
 			game.load.tilemap('eventMap', null, jsonData, Phaser.Tilemap.TILED_JSON);
 	});
-    //game.load.tilemap('map', getContextPath() + '/resources/tilemaps/maps/autoTilemapJSON.json', null, Phaser.Tilemap.TILED_JSON);
     
     game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
     game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
@@ -35,7 +34,7 @@ var map;
 var coins;
 
 var layer, layer2;
-var sprite;
+var sprite, spritePosX = 0, spritePosY = 0;
 
 var text, style;
 
@@ -59,13 +58,16 @@ function create() {
     
     // 통행 불가 타일들 지정하기
     // map.setCollisionBetween(9, 9, true, layer2);
-    map.setCollisionBetween(8, 8);
-
+    map.setCollisionBetween(601, 601);
+    map.setCollisionBetween(161, 161);
+    
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    // 맵 이벤트 발생하는 타일 지정
+    setEventTile();
+    
     // 캐릭터 맵에 추가
     // game.add.sprite(posX, posY, key, frame#)
-    setCharacterPos();
     sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 48);
     game.physics.arcade.enable(sprite);
 
@@ -92,13 +94,8 @@ function create() {
     style = { font: "bold 32px Arial", fill: "#fff", 
     		boundsAlignH: "center", boundsAlignV: "middle" };
     
-    
     // tile에 충돌효과 주기
     //map.getTile(eventsData[0].x, eventsData[0].y).setCollision(true,true,true,true);
-    
-    // 맵 이동 이벤트 발생하는 타일 지정
-    setMapChangeTile();
-    
 }
 
 function update() {
@@ -124,23 +121,17 @@ function update() {
     }
 }
 
-var spritePosX = 0, spritePosY = 0;
-
-function setCharacterPos() {
+function setEventTile() {
+	//setTileLocationCallback(x, y, width, height, callback, callbackContext [, layer])
 	for (let i = 0; i < eventsData.length; i++) {
 		if (eventsData[i].type === 'posCharacter') {
 			spritePosX = eventsData[i].x * 32;
 			spritePosY = eventsData[i].y * 32;
-			break;
-		}
-	}
-}
-
-function setMapChangeTile() {
-	//setTileLocationCallback(x, y, width, height, callback, callbackContext [, layer])
-	for (let i = 0; i < eventsData.length; i++) {
-		if (eventsData[i].type === 'changeMap') {
+		} else if (eventsData[i].type === 'changeMap') {
 			map.setTileLocationCallback(eventsData[i].x, eventsData[i].y, 1, 1, changeMap, this);
+		} else if (eventsData[i].type === 'playScript') {
+			map.setTileLocationCallback(eventsData[i].x, eventsData[i].y, 1, 1, playScript, this);
+			//map.getTile(eventsData[i].x, eventsData[i].y).setCollision(true,true,true,true);
 		}
 	}
 }
@@ -171,13 +162,18 @@ function changeMap() {
 		    layer2 = map.createLayer('Tile Layer 2');
 		    layer2.resizeWorld();
 		    
-		    setCharacterPos();
+		    setEventTile();
+		    
 		    sprite.bringToTop();
 		    sprite.x = spritePosX;
 		    sprite.y = spritePosY;
-		    
-		    setMapChangeTile();
 	});
+}
+
+function playScript() {
+	if (spacebar.justPressed()) {
+		console.log("script start!!!");
+	}
 }
 
 var talkNum = 0;

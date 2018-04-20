@@ -12,7 +12,8 @@
 		<script type="text/javascript">
 			var eventsList = new Array();
 			function getReturnValue(returnValue) {
-				alert(returnValue);
+				console.log("total events ");
+				console.log(returnValue);
 				eventsList.push(returnValue);
 			}
 		</script>

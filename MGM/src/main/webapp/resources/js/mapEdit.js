@@ -213,7 +213,7 @@ function updateMarker() {
         openNewWindow(x, y);
 
     	console.log('clicked right button');
-    	console.log(eventsList);
+    	//console.log(eventsList);
     }
 }
 
@@ -221,8 +221,8 @@ function openNewWindow(x, y) {
   var name = '이벤트 선택 창';
   var specs = 'width=700, height=400, menubar=no, status=no, toolbar=no';
   var newWindow = window.open('eventEdit', name, specs);
-  newWindow.x = x;
-  newWindow.y = y;
+  newWindow.eventX = x;
+  newWindow.eventY = y;
   newWindow.focus();
 }
 
