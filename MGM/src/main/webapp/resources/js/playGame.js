@@ -18,7 +18,8 @@ function preload() {
     game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');
     game.load.image('Tileset1', getContextPath() + '/resources/tilemaps/tiles/Tileset1.png');
     game.load.image('Forest', getContextPath() + '/resources/tilemaps/tiles/Forest.png');
-
+    game.load.image('script', getContextPath() + '/resources/tilemaps/tiles/script.png');
+    
     // 캐릭터 스프라이트시트 불러오기
     // game.load.spritesheet(유니크한 이름, 경로, 타일 한 개당 너비, 타일 한 개당 높이)
     game.load.spritesheet('dude', getContextPath() + '/resources/sprites/CharacterTileset.png', 32, 32);
@@ -190,6 +191,8 @@ function changeMap() {
 
 var talkNum = 0;
 var talkEnd = false;
+var script;
+
 function startTalk() {
 	console.log("말을 걸었다");
 	text = game.add.text(200, 500, "phaser 2.4 text bounds", { font: "32px Arial", fill: "#ffffff", align: "center" });
@@ -205,6 +208,25 @@ function startTalk() {
         	talkEnd = true;
         }
     }*/
+    
+    script = game.add.sprite(200, 500, 'script');
+    script.inputEnable = true;
+    script.events.onInputDown.add(listener, this);
+    
+}
+
+var i = 0;
+function listener() {
+	//for문으로 배열 돌리기
+	if (eventsData[i].type === 'playScript') {
+		text.text = eventsData[i];
+		if (i > eventsData.length) {
+			text.text='';
+			//img파일 삭제 부분
+			script.destory();
+		}
+		i++;
+	}
 }
 
 function collectCoin(player, coin) {
