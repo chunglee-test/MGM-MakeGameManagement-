@@ -61,5 +61,7 @@
 			<button id="btn_add">완료</button>
 		</div>
 		
+		<div id="div_map_change">
+		</div>
 	</body>
 </html>

@@ -1,6 +1,8 @@
+import {getContextPath} from './util.js';
+
 $(function(){
 	$('#div_event_ctx').hide();
-	
+	$('#div_map_change').hide();
 	console.log(eventX + ", " + eventY);
 	
 	/* 캐릭터 초기 위치 추가 */
@@ -23,11 +25,21 @@ $(function(){
     		y : eventY
     	};
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
-    	var maplist = new array() ; 
+    	var maplist = new Array() ; 
+    	maplist.push(getContextpath() + "resources/tilemaps/autoTilemapJSON.json");
     	maplist.push(getContextpath() + "resources/tilemaps/autoTilemapJSON2.json");
-    	console.log(maplist);
+    	maplist.push(getContextpath() + "resources/tilemaps/cave.json");
+    	maplist.push(getContextpath() + "resources/tilemaps/desert.json");
+    	var test;
+    	var i;
+    	for(i = 0; i < maplist.length; i++) {
+    		test += maplist;
+    	};
+    	
+    	$('#div_map_change').innerHTML += test;
+    
     	opener.getReturnValue(event);
-//    	window.close();
+    	//  window.close();
     });
     
     /* 대화 추가 이벤트 추가 */
