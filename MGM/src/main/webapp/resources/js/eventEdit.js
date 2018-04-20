@@ -1,5 +1,8 @@
+import {getContextPath} from './util.js';
+
 $(function(){
 	$('#div_event_ctx').hide();
+	$('#div_ch_map').hide();
 	
 	console.log(eventX + ", " + eventY);
 	
@@ -23,9 +26,12 @@ $(function(){
     		y : eventY
     	};
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
-    	var maplist = new array() ; 
-    	maplist.push(getContextpath() + "resources/tilemaps/autoTilemapJSON2.json");
-    	console.log(maplist);
+    	var maplist = new Array(); 
+    	maplist.push(getContextPath() + "resources/tilemaps/autoTilemapJSON2.json");
+    	maplist.push(getContextPath() + "resources/tilemaps/autoTilemapJSON.json");
+    	maplist.push(getContextPath() + "resources/tilemaps/cave.json");
+    	$("#div_ch_map").show();
+    	
     	opener.getReturnValue(event);
 //    	window.close();
     });

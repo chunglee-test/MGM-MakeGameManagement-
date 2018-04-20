@@ -60,6 +60,11 @@
 			
 			<button id="btn_add">완료</button>
 		</div>
-		
+		<div id="div_ch_map">
+			<span>멥 이동</span>
+			<select id="selec_map">
+				
+			</select>
+		</div>
 	</body>
 </html>
