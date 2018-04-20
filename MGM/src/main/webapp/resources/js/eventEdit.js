@@ -16,8 +16,12 @@ $(function(){
     		x : x,
     		y : y
     	};
+    	// 멥 리스트를 보여주기 위한 배열을 생성함.
+    	var maplist = new array() ; 
+    	maplist.push(getContextpath() + "resources/tilemaps/autoTilemapJSON2.json");
+    	console.log(maplist);
     	opener.getReturnValue(event);
-    	window.close();
+//    	window.close();
     });
     
     $("#add_script").click(function(){
