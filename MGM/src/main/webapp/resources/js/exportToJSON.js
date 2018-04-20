@@ -73,6 +73,36 @@ export function exportJSON (layersData, eventsData) {
 		eventData.x = eventsData[eventNum].x;
 		eventData.y = eventsData[eventNum].y;
 		
+		// type에 따른 이벤트 구조가 다르다
+		if (eventData.type === 'posCharacter') {
+			
+		} else if (eventData.type === 'changeMap') {
+			
+		} else if (eventData.type === 'playScript') {
+			eventData.scripttype = eventsData[eventNum].scripttype;
+			
+			// script의 type에 따른 이벤트 구조가 또 다르다
+			if (eventData.scripttype === 'explanation') {
+				eventData.script = new Object();
+				eventData.script.text = eventsData[eventNum].script.text;
+				
+			} else if (eventData.scripttype === 'talk') {
+				eventData.script = new Array();
+				
+				for (let scriptNum = 0; scriptNum < eventsData[eventNum].script.length; scriptNum++) {
+					let script = new Object();
+					script.charname = eventsData[eventNum].script[scriptNum].charname;
+					script.text = eventsData[eventNum].script[scriptNum].text;
+					
+					eventData.script.push(script);
+				}
+				
+			} else if (eventData.scripttype === 'if') {
+				
+			}
+			
+		}
+		
 		mapData.events.push(eventData);
 	}
 

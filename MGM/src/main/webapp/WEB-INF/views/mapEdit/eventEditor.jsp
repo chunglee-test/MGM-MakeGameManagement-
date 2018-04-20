@@ -7,15 +7,59 @@
 		<title>MGM - Event Editor</title>
 		
 		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-		
+		<script type="module" src="resources/js/eventEdit.js"></script>
 	</head>
 	<body>
 		
-		<button id="set_char">캐릭터 초기위치</button>
-		<button id="change_map">맵 이동</button>
-		<button id="add_script">대화 추가</button>
-		<button id="returnButton">창 닫기</button>
+		<div id="div_btns">
+			<button id="btn_set_char">캐릭터 초기위치</button>
+			<button id="btn_change_map">맵 이동</button>
+			<button id="btn_add_script">대화 추가</button>
+			<button id="btn_return">돌아가기</button>
+		</div>
 		
-		<script type="module" src="resources/js/eventEdit.js"></script>
+		<div id="div_event_ctx">
+			<div id="div_selection">
+				<h3>대화 타입 선택</h3>
+				<select id="select_script">
+					<option>설명</option>
+					<option>대화</option>
+					<option>분기점</option>
+				</select>
+			</div>
+			
+			<div id="div_script_input">
+				<h3>대화 입력</h3>
+				<div id="div_explanation">
+					<textarea id="txt_explanation" rows="5" cols="70"></textarea>
+				</div>
+				
+				<div id="div_talk">
+					<span>캐릭터 선택</span>
+					<select id="select_talker">
+						<option>NPC1</option>
+						<option>NPC2</option>
+						<option>NPC3</option>
+					</select>
+					<textarea id="txt_talk" rows="5" cols="70"></textarea>
+					<button id="btn_talk_continue">대화 추가</button>
+				</div>
+				
+				<div id="div_if">
+					<span>선택지 추가</span>
+					
+				</div>
+			</div>
+			
+			<div id="div_script">
+				<h3>입력한 대본</h3>
+				<table id="table_scripts">
+					
+				</table>
+			</div>
+			
+			<button id="btn_add">완료</button>
+		</div>
+		
 	</body>
 </html>
