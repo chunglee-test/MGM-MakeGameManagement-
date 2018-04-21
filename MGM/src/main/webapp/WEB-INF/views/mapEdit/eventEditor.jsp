@@ -46,8 +46,24 @@
 				</div>
 				
 				<div id="div_if">
-					<span>선택지 추가</span>
+					<h3>선택지 추가</h3>
+					<span>선택지1: </span>
+					<input id="txt_if1" type="text"/>
+					<select id="nextScene1">
+						<option>11</option>
+						<option>22</option>
+					</select>
 					
+					<br>
+					
+					<span>선택지2: </span>
+					<input id="txt_if2" type="text"/>
+					<select id="nextScene2">
+						<option>99</option>
+						<option>88</option>
+					</select>
+					
+					<button id="btn_add_if">선택지 추가 완료</button>
 				</div>
 			</div>
 			

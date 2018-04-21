@@ -7,7 +7,7 @@ var game = new Phaser.Game(
 var eventsData;
 
 function preload() {
-	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONcomplete1.json', 
+	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithSelection.json', 
 		function(jsonData) {
 			eventsData = jsonData.events;
 			game.load.tilemap('eventMap', null, jsonData, Phaser.Tilemap.TILED_JSON);
