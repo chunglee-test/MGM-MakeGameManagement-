@@ -1,6 +1,8 @@
 import {getContextPath} from './util.js';
 
-$(function(){
+
+$(document).ready(function(){
+	
 	let eventX = opener.eventPosX;
 	let eventY = opener.eventPosY;	
 	$('#div_event_ctx').hide();
@@ -88,9 +90,15 @@ $(function(){
     	} else if (selected === '대화') {
     		$('#div_explanation, #div_if').hide();
     		$('#div_talk, #div_script').show();
+    		$('#btn_if_continue').remove();
     	} else if (selected === '분기점') {
-    		$('#div_explanation, #div_talk').hide();
-    		$('#div_if, #div_script').show();
+    		$('#div_explanation').hide();
+    		$('#div_talk, #div_script').show();
+    		$('#div_talk').append('<button id="btn_if_continue">선택지 추가</button>');
+    		
+    		$('#btn_if_continue').on('click', function() {
+    			$('#div_if').show();
+    		});
     	}
     });
     
@@ -123,7 +131,14 @@ $(function(){
 	    	};
     		
     	} else if (selected === '분기점') {
-    		
+    		/* 대화 입력 완료 */
+    		event = {
+	    		type: 'playScript',
+	    		x : eventX,
+	    		y : eventY,
+	    		scripttype: 'if',
+	    		script : scripts
+	    	};
     	}
     	
     	opener.getReturnValue(event);
@@ -148,6 +163,28 @@ $(function(){
     	let row = "<tr>";
     	row += "<th>" + charName + "</th>";
     	row += "<td>" + text + "</td>";
+    	row += "<tr>";
+    	$('#table_scripts').append(row);
+    });
+    
+    /* 선택지 추가하기 */
+    $('#btn_add_if').on('click', function() {
+    	let selection1 = {
+    			text : $('#txt_if1').val(),
+    			nextScene : $('#nextScene1').val()
+    	};
+    	
+    	let selection2 = {
+    			text : $('#txt_if2').val(),
+    			nextScene : $('#nextScene2').val()
+    	};
+    	
+    	scripts.push(selection1);
+    	scripts.push(selection2);
+    	
+    	let row = "<tr>";
+    	row += "<td>" + "\t1. " + selection1.text;
+    	row += "/ 2. "+ selection2.text + "</td>";
     	row += "<tr>";
     	$('#table_scripts').append(row);
     });

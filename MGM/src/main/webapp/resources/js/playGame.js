@@ -7,7 +7,7 @@ var game = new Phaser.Game(
 var eventsData;
 
 function preload() {
-	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONcomplete1.json', 
+	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithSelection.json', 
 		function(jsonData) {
 			eventsData = jsonData.events;
 			game.load.tilemap('eventMap', null, jsonData, Phaser.Tilemap.TILED_JSON);
@@ -38,6 +38,8 @@ var layer, layer2;
 var sprite, spritePosX = 0, spritePosY = 0;
 
 var text, style;
+
+var script;
 
 function create() {
 	
@@ -97,6 +99,10 @@ function create() {
     
     // tile에 충돌효과 주기
     //map.getTile(eventsData[0].x, eventsData[0].y).setCollision(true,true,true,true);
+    
+    /*script = game.add.sprite(32, 500, 'script');
+	script.inputEnable = true;
+	script.input.enableDrag();*/
 }
 
 function update() {
@@ -138,21 +144,81 @@ function setEventTile() {
 	}
 }
 
+var i = 1;
+var textT, textIf;
+var scriptListInEvent;
+var style1;
+var onScript = false;
 function playScript(event) {
 	return function() {
-		if (spacebar.justPressed()) {
+		if (spacebar.justPressed() && !onScript) {
 			if (event.scripttype === 'explanation') {
-				console.log(event.script.text);
-			} else if (event.scripttype === 'talk') {
-				for (let i = 0; i < event.script.length; i++) {
-					console.log(event.script[i].charname + ": " + event.script[i].text);
-				}
-			} else if (event.scripttype === 'if') {
+				//console.log(event.script.text);
+				var textEx = event.script.text;
+				textEx = game.add.text(event.x * 28, event.y * 28, event.script.text, {font: "10px Arial", fill: "#ffffff"} );
 				
+				onScript = true;
+			} else if (event.scripttype === 'talk') {
+				script = game.add.sprite(32, 500, 'script');
+				script.inputEnabled = true;
+				script.events.onInputDown.add(scriptHandler, this);
+				
+				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
+				textT = game.add.text(35, 500, event.script[0].text, style1);
+				
+				scriptListInEvent = event.script;
+				onScript = true;
+			} else if (event.scripttype === 'if') {
+				script = game.addsprite(32, 500, 'script');
+				script.inputEnabled = true;
+				script.events.onInputDown.add(Handler, this);
+				
+				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
+				textIf = game.add.text(35, 500, event.script[0].text, style1);
 			}
 			
 		}
 	};
+}
+
+function scriptHandler() {
+	if (i < scriptListInEvent.length) {
+		textT.text = scriptListInEvent[i].text;
+		i++;
+	} else {
+		// TODO: destroy script
+		i = 1;
+		script.destroy();
+		textT.destroy();
+		onScript = false;
+	}
+}
+
+function Handler() {
+	if (i < scriptListInEvent.length -2) {
+		textIf.text = scriptListInEvent[i].text;
+		i++;
+	} else if(i === scriptListInEvent.length-1) {
+		var sss = scriptListInEvent[i].text;
+		var sss1 = scriptListInEvent[i+1].text;
+		textIf.text = sss+sss1;
+		sss.events.onInputDown.add(click, this);
+		sss1.events.onInputDown.add(click1, this);
+		
+	} else {
+		i = 1;
+		script.destory();
+		textIf.destory();
+		onScript = false;
+	}
+}
+
+function click() {
+	
+}
+
+function click1() {
+	
 }
 
 function changeMap() {
@@ -191,7 +257,6 @@ function changeMap() {
 
 var talkNum = 0;
 var talkEnd = false;
-var script;
 
 function startTalk() {
 	console.log("말을 걸었다");
@@ -208,26 +273,9 @@ function startTalk() {
         	talkEnd = true;
         }
     }*/
-    
-    script = game.add.sprite(200, 500, 'script');
-    script.inputEnable = true;
-    script.events.onInputDown.add(listener, this);
-    
+
 }
 
-var i = 0;
-function listener() {
-	//for문으로 배열 돌리기
-	if (eventsData[i].type === 'playScript') {
-		text.text = eventsData[i];
-		if (i > eventsData.length) {
-			text.text='';
-			//img파일 삭제 부분
-			script.destory();
-		}
-		i++;
-	}
-}
 
 function collectCoin(player, coin) {
     coin.kill();

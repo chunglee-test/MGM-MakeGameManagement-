@@ -98,7 +98,28 @@ export function exportJSON (layersData, eventsData) {
 				}
 				
 			} else if (eventData.scripttype === 'if') {
+				eventData.script = new Array();
+				let scriptNum = 0;
+				for (; scriptNum < eventsData[eventNum].script.length - 2; scriptNum++) {
+					let script = new Object();
+					script.charname = eventsData[eventNum].script[scriptNum].charname;
+					script.text = eventsData[eventNum].script[scriptNum].text;
+					
+					eventData.script.push(script);
+				}
 				
+				let selection1 = {
+		    			text : eventsData[eventNum].script[scriptNum].text,
+		    			nextScene : eventsData[eventNum].script[scriptNum].nextScene
+		    	};
+		    	
+		    	let selection2 = {
+		    			text : eventsData[eventNum].script[scriptNum+1].text,
+		    			nextScene : eventsData[eventNum].script[scriptNum+1].nextScene
+		    	};
+		    	
+		    	eventData.script.push(selection1);
+		    	eventData.script.push(selection2);
 			}
 			
 		}

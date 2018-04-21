@@ -211,9 +211,6 @@ function updateMarker() {
     	eventPosY = game.math.snapToFloor(game.input.mousePointer.worldY, 32) / 32;
         
         openNewWindow();
-
-    	console.log('clicked right button');
-    	//console.log(eventsList);
     }
 }
 
@@ -224,8 +221,6 @@ function openNewWindow(x, y) {
   
   newWindow.focus();
 }
-
-
 
 function changeLayer(key) {
     switch (key.keyCode) {
