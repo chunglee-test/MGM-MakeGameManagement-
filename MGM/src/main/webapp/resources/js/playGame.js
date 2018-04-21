@@ -148,15 +148,16 @@ var i = 1;
 var textT, textIf;
 var scriptListInEvent;
 var style1;
-
+var onScript = false;
 function playScript(event) {
 	return function() {
-		if (spacebar.justPressed()) {
+		if (spacebar.justPressed() && !onScript) {
 			if (event.scripttype === 'explanation') {
 				//console.log(event.script.text);
 				var textEx = event.script.text;
 				textEx = game.add.text(event.x * 28, event.y * 28, event.script.text, {font: "10px Arial", fill: "#ffffff"} );
 				
+				onScript = true;
 			} else if (event.scripttype === 'talk') {
 				script = game.add.sprite(32, 500, 'script');
 				script.inputEnabled = true;
@@ -166,7 +167,7 @@ function playScript(event) {
 				textT = game.add.text(35, 500, event.script[0].text, style1);
 				
 				scriptListInEvent = event.script;
-				
+				onScript = true;
 			} else if (event.scripttype === 'if') {
 				script = game.addsprite(32, 500, 'script');
 				script.inputEnabled = true;
@@ -184,20 +185,41 @@ function scriptHandler() {
 	if (i < scriptListInEvent.length) {
 		textT.text = scriptListInEvent[i].text;
 		i++;
-		
 	} else {
 		// TODO: destroy script
 		i = 1;
 		script.destroy();
 		textT.destroy();
+		onScript = false;
 	}
-	
 }
 
 function Handler() {
+	if (i < scriptListInEvent.length -2) {
+		textIf.text = scriptListInEvent[i].text;
+		i++;
+	} else if(i === scriptListInEvent.length-1) {
+		var sss = scriptListInEvent[i].text;
+		var sss1 = scriptListInEvent[i+1].text;
+		textIf.text = sss+sss1;
+		sss.events.onInputDown.add(click, this);
+		sss1.events.onInputDown.add(click1, this);
+		
+	} else {
+		i = 1;
+		script.destory();
+		textIf.destory();
+		onScript = false;
+	}
+}
+
+function click() {
 	
 }
 
+function click1() {
+	
+}
 
 function changeMap() {
 	console.log('changed map');
