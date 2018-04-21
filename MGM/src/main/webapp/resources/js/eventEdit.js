@@ -1,14 +1,8 @@
 import {getContextPath} from './util.js';
 
 $(function(){
-<<<<<<< HEAD
-	$('#div_event_ctx').hide();
-	$('#div_ch_map').hide();
-=======
 	let eventX = opener.eventPosX;
-	let eventY = opener.eventPosY;
->>>>>>> 4e998c921c2cb966bab4282eb293467e54c9284c
-	
+	let eventY = opener.eventPosY;	
 	$('#div_event_ctx').hide();
 	$('#div_map_change').hide();
 	
@@ -33,15 +27,45 @@ $(function(){
     	};
     	
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
+    	$("#div_map_change").show();
+    	
     	var maplist = new Array(); 
-    	maplist.push(getContextPath() + "resources/tilemaps/autoTilemapJSON2.json");
-    	maplist.push(getContextPath() + "resources/tilemaps/autoTilemapJSON.json");
-    	maplist.push(getContextPath() + "resources/tilemaps/cave.json");
-    	$("#div_ch_map").show();
+    	//maplist.push("resources/tilemaps/autoTilemapJSON2.json");
+    	$.ajax({
+    		url: "getMap",
+    		type: "GET",
+    	 success : function(data) {
+
+             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+
+             // TODO
+
+       },
+
+       complete : function(data) {
+
+             // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+             // TODO
+
+       },
+
+       error : function(xhr, status, error) {
+
+             alert("에러발생");
+
+       }
+
+
+    	});
     	var mapoptions, i;
     	for(i=0; i<maplist.length;i++) {
-    		mapoptions += maplist[i];
+    		mapoptions += "<option>" + maplist[i] + "</option>";
     	};
+    	$('#ch_map').html(mapoptions);
+    	$('#btn_map_select').on('click', function(){
+    		console.log($('#ch_map').val());
+    	});
     	opener.getReturnValue(event);
     	//  window.close();
     });
