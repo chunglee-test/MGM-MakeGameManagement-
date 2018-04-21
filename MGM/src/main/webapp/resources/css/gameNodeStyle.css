@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+
+.nodeViewDiv ul {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+.nodeViewDiv li {
+	position: relative;
+	display: inline-block;
+	list-style-type: none;
+	width: 100px;
+	height: 100%;
+	padding: 5px 0px 5px 10px;
+}
+
+.nodeViewDiv ul li:first-child{
+	display:block;
+	vertical-align:middle;
+}
+
+.nodeDiv{
+	width:100%;
+	border:1px black solid;
+}

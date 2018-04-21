@@ -7,5 +7,6 @@
 		<typeAlias type="net.mgm.www.vo.User" alias="user"/>
 		<typeAlias type="net.mgm.www.vo.Game" alias="game"/>
 		<typeAlias type="net.mgm.www.vo.GameComment" alias="gcomment"/>
+		<typeAlias type="net.mgm.www.vo.GameNode" alias="gnode"/>
 	</typeAliases>
 </configuration>

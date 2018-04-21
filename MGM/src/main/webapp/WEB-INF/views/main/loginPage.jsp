@@ -28,8 +28,10 @@
 			<h1>회원가입</h1>
 			<label>계정명</label>
 			<input type="text" placeholder="Enter ID" name="signup-id" id="signup-id" required>
+			<label class="requireId">중복된 ID입니다</label>
+			<input type="hidden" id="signup-idchk" value="N">
 			<label>비밀번호</label>
-			<input type="text" placeholder="Enter PW" name="signup-pw" id="signup-pw" required>
+			<input type="password" placeholder="Enter PW" name="signup-pw" id="signup-pw" required>
 			<label>닉네임</label>
 			<input type="text" placeholder="Enter NickName" name="signup-nick" id="signup-nick" required>
 			<label>이메일</label>
@@ -53,6 +55,22 @@
 	    	closeSignup();
 	    }
 	}
+	
+	$("#signup-id").blur(function(){
+		$.ajax({
+			url:'idChk',
+			type:'post',
+			data:$("#signup-id"),
+			success:function(result){
+				if(result != "true"){
+					
+				}
+			},
+			error:function(){
+				alert('Server Error')
+			}
+		});
+	});
 	
 	function loginChk(){
 		var userid = $("#userid").val();
@@ -84,17 +102,22 @@
 	
 	
 	function signUp(){
+		var userid = $('#signup-id');
+		var userpw = $('#signup-pw');
+		var nick = $('#signup-nick');
+		var email = $('#signup-email');
 		$.ajax({
-			url:'signUp',
+			url:'signup',
 			type:'post',
 			data:{
-				userid:$('#signup-id'),
-				userpw:$('#signup-pw'),
-				nick:$('#signup-nick'),
-				email:$('#signup-email')
+				userid:userid,
+				userpw:userpw,
+				nick:nick,
+				email:email
 			},
 			success:function(){
 				if($('#signup-profile' != '')){
+					alert("here1");
 					signUp_profile();
 				}
 				else{
@@ -107,7 +130,7 @@
 	
 	function signUp_profile(){
 		$.ajax({
-			url: 'signUpProfile',
+			url: 'signupProfile',
 		    data: $('#signup-profile').attr('files'),
 		    cache: false,
 		    contentType: 'multipart/form-data',

@@ -70,3 +70,8 @@ INSERT INTO game_comment
 (gameid, userid, gcomment, point)
 VALUES
 (2, 'test', 'comment¿‘¥œ¥Ÿ', 1);
+
+INSERT INTO game_node
+(gameid, nodeid, parentid, nodename)
+VALUES 
+(1, seq_nodeid.nextval, 6, 'testnode10');

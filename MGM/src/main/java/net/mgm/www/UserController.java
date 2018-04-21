@@ -42,7 +42,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value="/signup")
 	public String signup(User signupUser) {
-		
+		System.out.println(signupUser);
 		
 		return "true";
 	}
