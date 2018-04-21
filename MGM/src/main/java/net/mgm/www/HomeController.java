@@ -24,8 +24,6 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Site Connect", locale);
-		
 		return "home";
 	}
 	
@@ -47,5 +45,10 @@ public class HomeController {
 	@RequestMapping (value = "/playGame", method = RequestMethod.GET)
 	public String playGamePage() {
 		return "play/playGame";
+	}
+	
+	@RequestMapping(value="/main")
+	public String main() {
+		return "main/main";
 	}
 }

@@ -73,11 +73,15 @@
 					
 				</table>
 			</div>
-			
 			<button id="btn_add">완료</button>
-		</div>
+		</div>	
 		
 		<div id="div_map_change">
+			<span>맵 선택</span>
+			<select id="ch_map">
+				
+			</select>
+			<button id="btn_map_select">선택</button>
 		</div>
 	</body>
 </html>
