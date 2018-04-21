@@ -1,10 +1,16 @@
 import {getContextPath} from './util.js';
 
 $(function(){
+<<<<<<< HEAD
 	$('#div_event_ctx').hide();
 	$('#div_ch_map').hide();
+=======
+	let eventX = opener.eventPosX;
+	let eventY = opener.eventPosY;
+>>>>>>> 4e998c921c2cb966bab4282eb293467e54c9284c
 	
-	console.log(eventX + ", " + eventY);
+	$('#div_event_ctx').hide();
+	$('#div_map_change').hide();
 	
 	/* 캐릭터 초기 위치 추가 */
     $('#btn_set_char').on('click', function(){
@@ -25,6 +31,7 @@ $(function(){
     		x : eventX,
     		y : eventY
     	};
+    	
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
     	var maplist = new Array(); 
     	maplist.push(getContextPath() + "resources/tilemaps/autoTilemapJSON2.json");
@@ -36,7 +43,7 @@ $(function(){
     		mapoptions += maplist[i];
     	};
     	opener.getReturnValue(event);
-//    	window.close();
+    	//  window.close();
     });
     
     /* 대화 추가 이벤트 추가 */

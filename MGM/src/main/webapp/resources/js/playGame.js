@@ -63,7 +63,7 @@ function create() {
     map.setCollisionBetween(161, 161);
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
+    
     // 맵 이벤트 발생하는 타일 지정
     setEventTile();
     
@@ -87,11 +87,11 @@ function create() {
 
     // 카메라 캐릭터 이동에 고정
     game.camera.follow(sprite);
-
+    
     // 키보드 입력 처리하기
     cursors = game.input.keyboard.createCursorKeys();
     spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
+    
     style = { font: "bold 32px Arial", fill: "#fff", 
     		boundsAlignH: "center", boundsAlignV: "middle" };
     
@@ -125,16 +125,34 @@ function update() {
 function setEventTile() {
 	//setTileLocationCallback(x, y, width, height, callback, callbackContext [, layer])
 	for (let i = 0; i < eventsData.length; i++) {
-		if (eventsData[i].type === 'posCharacter') {
-			spritePosX = eventsData[i].x * 32;
-			spritePosY = eventsData[i].y * 32;
-		} else if (eventsData[i].type === 'changeMap') {
-			map.setTileLocationCallback(eventsData[i].x, eventsData[i].y, 1, 1, changeMap, this);
+		let event = eventsData[i];
+		
+		if (event.type === 'posCharacter') {
+			spritePosX = event.x * 32;
+			spritePosY = event.y * 32;
+		} else if (event.type === 'changeMap') {
+			map.setTileLocationCallback(event.x, event.y, 1, 1, changeMap, this);
 		} else if (eventsData[i].type === 'playScript') {
-			map.setTileLocationCallback(eventsData[i].x, eventsData[i].y, 1, 1, playScript, this);
-			//map.getTile(eventsData[i].x, eventsData[i].y).setCollision(true,true,true,true);
+			map.setTileLocationCallback(event.x, event.y, 1, 1, playScript(event), this);
 		}
 	}
+}
+
+function playScript(event) {
+	return function() {
+		if (spacebar.justPressed()) {
+			if (event.scripttype === 'explanation') {
+				console.log(event.script.text);
+			} else if (event.scripttype === 'talk') {
+				for (let i = 0; i < event.script.length; i++) {
+					console.log(event.script[i].charname + ": " + event.script[i].text);
+				}
+			} else if (event.scripttype === 'if') {
+				
+			}
+			
+		}
+	};
 }
 
 function changeMap() {
@@ -169,12 +187,6 @@ function changeMap() {
 		    sprite.x = spritePosX;
 		    sprite.y = spritePosY;
 	});
-}
-
-function playScript() {
-	if (spacebar.justPressed()) {
-		console.log("script start!!!");
-	}
 }
 
 var talkNum = 0;
