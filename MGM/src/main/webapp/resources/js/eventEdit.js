@@ -31,7 +31,10 @@ $(function(){
     	maplist.push(getContextPath() + "resources/tilemaps/autoTilemapJSON.json");
     	maplist.push(getContextPath() + "resources/tilemaps/cave.json");
     	$("#div_ch_map").show();
-    	
+    	var mapoptions, i;
+    	for(i=0; i<maplist.length;i++) {
+    		mapoptions += maplist[i];
+    	};
     	opener.getReturnValue(event);
 //    	window.close();
     });
