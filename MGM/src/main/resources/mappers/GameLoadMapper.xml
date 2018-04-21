@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.mgm.www.mapper.GameLoadMapper">
+	<select id="selectGameNode" parameterType="int" resultMap="selectNodeResult">
+		SELECT
+			nodeid, 
+			parentid, 
+			nodename, 
+			nodecontent
+		FROM
+			game_node
+		WHERE
+			gameid = #{gameid}
+		ORDER BY
+			parentid NULLS FIRST, nodeid
+	</select>
+	<insert id="insertGameNode" parameterType="gnode">
+		INSERT INTO 
+			game_node(
+				gameid, 
+				nodeid, 
+				parentid, 
+				nodename, 
+				nodecontent
+			)
+		VALUES(
+			#{gameid}, 
+			seq_nodeid.nextval, 
+			#{parentid}, 
+			#{nodename}, 
+			#{nodecontent}
+		);
+	</insert>
+	
+	<update id="updateNodeContent" parameterType="gnode">
+		UPDATE 
+			game_node
+		SET
+			nodecontent=${nodecontent}
+		WHERE
+			nodeid=${nodeid}
+	</update>
+	
+	<resultMap id="selectNodeResult" type="gnode">
+		<result property="nodeid" column="nodeid"/>
+		<result property="parentid" column="parentid"/>
+		<result property="nodename" column="nodename"/>
+		<result property="nodecontent" column="nodecontent" jdbcType="CLOB" javaType="string" />
+	</resultMap>
+</mapper>

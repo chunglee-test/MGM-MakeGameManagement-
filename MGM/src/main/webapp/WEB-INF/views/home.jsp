@@ -18,7 +18,7 @@
 			
 	<script>
 		$(document).ready(function(){
-			$("#loginForm").css("visibility", "hidden");
+			//$("#loginForm").css("display", "none");
 			
 		    $(".push-menu").click(function(){
 		         $(".wrapper").toggleClass("active");
@@ -32,6 +32,14 @@
 		function loginPage(){
 			$("#login-container").css("display", "block");
 		}
+		
+		function logout(){
+			location.href="logout";
+		}
+		
+		function gotoPage(page){
+			$("#mainFrame").attr("src", page);
+		}
 	</script> 
 </head>
 <body>	
@@ -39,20 +47,10 @@
 	<%-- <%@ include file="main/mainNavbar.jsp"%> --%>
 	
 	<!-- SideBar -->
-	<%@ include file="main/mainSidebar.jsp"%>	
-	<article class="container">
-		<div class="content">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Panel heading without title</div>
-                        <div class="panel-body">
-                            Panel content
-                        </div>
-                    </div>
-                </div>
-            </div>	
-	</article>
-	<a href="mapEdit"> Go to Map Editor Page </a>
-	<a href="playGame"> Go to Game Play Page </a>
+	<%@ include file="main/mainSidebar.jsp"%>
+	<%-- <%@ include file="main/main.jsp" %> --%>
+	<iframe src="main" class="mainframe" id="mainFrame">
+		현재 브라우저는 이 사이트 형식을 지원하지 않습니다.
+	</iframe>
 </body>
 </html>
