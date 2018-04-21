@@ -1,7 +1,10 @@
+import {getContextPath} from './util.js';
+
 $(function(){
-	$('#div_event_ctx').hide();
+	let eventX = opener.eventPosX;
+	let eventY = opener.eventPosY;
 	
-	console.log(eventX + ", " + eventY);
+	$('#div_event_ctx').hide();
 	
 	/* 캐릭터 초기 위치 추가 */
     $('#btn_set_char').on('click', function(){
@@ -23,8 +26,8 @@ $(function(){
     		y : eventY
     	};
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
-    	var maplist = new array() ; 
-    	maplist.push(getContextpath() + "resources/tilemaps/autoTilemapJSON2.json");
+    	var maplist = new Array() ;
+    	maplist.push(getContextPath() + "resources/tilemaps/autoTilemapJSON2.json");
     	console.log(maplist);
     	opener.getReturnValue(event);
 //    	window.close();

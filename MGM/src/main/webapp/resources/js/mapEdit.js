@@ -207,10 +207,10 @@ function updateMarker() {
             }
         }
     } else if (game.input.mousePointer.rightButton.justPressed()) {
-    	let x = game.math.snapToFloor(game.input.mousePointer.worldX, 32) / 32;
-        let y = game.math.snapToFloor(game.input.mousePointer.worldY, 32) / 32;
+    	eventPosX = game.math.snapToFloor(game.input.mousePointer.worldX, 32) / 32;
+    	eventPosY = game.math.snapToFloor(game.input.mousePointer.worldY, 32) / 32;
         
-        openNewWindow(x, y);
+        openNewWindow();
 
     	console.log('clicked right button');
     	//console.log(eventsList);
@@ -221,8 +221,7 @@ function openNewWindow(x, y) {
   var name = '이벤트 선택 창';
   var specs = 'width=700, height=400, menubar=no, status=no, toolbar=no';
   var newWindow = window.open('eventEdit', name, specs);
-  newWindow.eventX = x;
-  newWindow.eventY = y;
+  
   newWindow.focus();
 }
 

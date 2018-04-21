@@ -11,6 +11,7 @@
 		<script type="module" src="resources/js/mapEdit.js"></script>
 		<script type="text/javascript">
 			var eventsList = new Array();
+			var eventPosX, eventPosY;
 			function getReturnValue(returnValue) {
 				console.log("total events ");
 				console.log(returnValue);
