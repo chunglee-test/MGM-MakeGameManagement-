@@ -147,6 +147,7 @@ function setEventTile() {
 
 var i = 1;
 var textT, textIf;
+var selection1, selection2;
 var scriptListInEvent;
 var style1;
 var onScript = false;
@@ -179,6 +180,7 @@ function playScript(event) {
 				
 				scriptListInEvent = event.script;
 				onScript = true;
+
 			}
 			
 		}
@@ -203,25 +205,38 @@ function ifHandler() {
 		textIf.text = scriptListInEvent[i].text;
 		i++;
 	} else if (i === scriptListInEvent.length - 2) {
-		var selection1 = scriptListInEvent[i].text;
-		var selection2 = scriptListInEvent[i + 1].text;
-		
-		textIf.text = selection1 + " / " + selection2;
+		selection1 = game.add.text(32, 500, scriptListInEvent[i].text,  {font: "30px Arial", fill: "#ffffff"})
+		selection2 = game.add.text(32, 550, scriptListInEvent[i+1].text,  {font: "30px Arial", fill: "#ffffff"})
+		selection1.inputEnabled = true;
+		selection2.inputEnabled = true;
+		textIf.destroy();
+		selection1.events.onInputDown.add(selection1Handler, this);
+		selection2.events.onInputDown.add(selection2Handler, this);
 		i++;
 	} else {
 		i = 1;
-		script.destroy();
-		textIf.destroy();
+		
+		//script.destroy();
+		//textIf.destroy();
 		onScript = false;
 	}
+	onScript = false;
 }
 
-function click() {
-	
+function selection1Handler() {
+	console.log(scriptListInEvent[i-1].nextScene);
+	script.destroy();
+	selection1.destroy();
+	selection2.destroy();
+	//textIf.destory();
 }
 
-function click1() {
-	
+function selection2Handler() {
+	console.log(scriptListInEvent[i].nextScene);
+	script.destroy();
+	selection1.destroy();
+	selection2.destroy();
+	//textIf.destory();
 }
 
 function changeMap() {
