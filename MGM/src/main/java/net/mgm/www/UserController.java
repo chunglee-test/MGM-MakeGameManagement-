@@ -38,4 +38,12 @@ public class UserController {
 		
 		return "home";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/signup")
+	public String signup(User signupUser) {
+		System.out.println(signupUser);
+		
+		return "true";
+	}
 }

@@ -4,8 +4,7 @@ import {getContextPath} from './util.js';
 $(document).ready(function(){
 	
 	let eventX = opener.eventPosX;
-	let eventY = opener.eventPosY;
-	
+	let eventY = opener.eventPosY;	
 	$('#div_event_ctx').hide();
 	$('#div_map_change').hide();
 	
@@ -30,19 +29,45 @@ $(document).ready(function(){
     	};
     	
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
-    	var maplist = new Array() ; 
-    	maplist.push(getContextpath() + "resources/tilemaps/autoTilemapJSON.json");
-    	maplist.push(getContextpath() + "resources/tilemaps/autoTilemapJSON2.json");
-    	maplist.push(getContextpath() + "resources/tilemaps/cave.json");
-    	maplist.push(getContextpath() + "resources/tilemaps/desert.json");
-    	var test;
-    	var i;
-    	for(i = 0; i < maplist.length; i++) {
-    		test += maplist;
-    	};
+    	$("#div_map_change").show();
     	
-    	$('#div_map_change').innerHTML += test;
-    
+    	var maplist = new Array(); 
+    	//maplist.push("resources/tilemaps/autoTilemapJSON2.json");
+    	$.ajax({
+    		url: "getMap",
+    		type: "GET",
+    	 success : function(data) {
+
+             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+
+             // TODO
+
+       },
+
+       complete : function(data) {
+
+             // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+
+             // TODO
+
+       },
+
+       error : function(xhr, status, error) {
+
+             alert("에러발생");
+
+       }
+
+
+    	});
+    	var mapoptions, i;
+    	for(i=0; i<maplist.length;i++) {
+    		mapoptions += "<option>" + maplist[i] + "</option>";
+    	};
+    	$('#ch_map').html(mapoptions);
+    	$('#btn_map_select').on('click', function(){
+    		console.log($('#ch_map').val());
+    	});
     	opener.getReturnValue(event);
     	//  window.close();
     });

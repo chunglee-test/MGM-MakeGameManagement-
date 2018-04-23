@@ -18,4 +18,15 @@ public class UserDAO implements UserMapper{
 		return session.getMapper(UserMapper.class).loginUser(loginUser);
 	}
 
+	@Override
+	public void signupUser(User signupUser) {
+		session.getMapper(UserMapper.class).signupUser(signupUser);
+	}
+
+	@Override
+	public void signupUserProfile(String userid, String profileName) {
+		
+		session.getMapper(UserMapper.class).signupUserProfile(userid, profileName);
+	}
+
 }

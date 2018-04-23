@@ -144,6 +144,7 @@ function setEventTile() {
 	}
 }
 
+
 var i = 1;
 var textT, textIf;
 var scriptListInEvent;
@@ -171,14 +172,14 @@ function playScript(event) {
 			} else if (event.scripttype === 'if') {
 				script = game.add.sprite(32, 500, 'script');
 				script.inputEnabled = true;
-				script.events.onInputDown.add(Handler, this);
+				script.events.onInputDown.add(ifHandler, this);
 				
 				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
 				textIf = game.add.text(35, 500, event.script[0].text, style1);
 				
 				scriptListInEvent = event.script;
 				onScript = true;
-				
+
 			}
 			
 		}
@@ -198,22 +199,22 @@ function scriptHandler() {
 	}
 }
 
-function Handler() {
-	alert(i);
-	console.log(scriptListInEvent);
-	if (i < scriptListInEvent.length-2) {
+
+function ifHandler() {
+	if (i < scriptListInEvent.length - 2) {
 		textIf.text = scriptListInEvent[i].text;
-	}
-	i++;
-	
-	if(i == scriptListInEvent.length - 1) {
-		var sss = scriptListInEvent[i].text;
-		var sss1 = scriptListInEvent[i-1].text;
-		//textIf.text = scriptListInEvent[i].text;
-		textIf.text = sss1+" "+sss;
-		sss.events.onInputDown.add(click, this);
-		sss1.events.onInputDown.add(click1.this);
+		i++;
+	} else if (i === scriptListInEvent.length - 2) {
+		var selection1 = scriptListInEvent[i].text;
+		var selection2 = scriptListInEvent[i + 1].text;
+		
+		textIf.text = selection1 + " / " + selection2;
+		i++;
+	} else {
 		i = 1;
+		script.destroy();
+		textIf.destroy();
+		onScript = false;
 	}
 	onScript = false;
 }
