@@ -169,12 +169,16 @@ function playScript(event) {
 				scriptListInEvent = event.script;
 				onScript = true;
 			} else if (event.scripttype === 'if') {
-				script = game.addsprite(32, 500, 'script');
+				script = game.add.sprite(32, 500, 'script');
 				script.inputEnabled = true;
 				script.events.onInputDown.add(Handler, this);
 				
 				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
 				textIf = game.add.text(35, 500, event.script[0].text, style1);
+				
+				scriptListInEvent = event.script;
+				onScript = true;
+				
 			}
 			
 		}
@@ -195,30 +199,36 @@ function scriptHandler() {
 }
 
 function Handler() {
-	if (i < scriptListInEvent.length -2) {
+	alert(i);
+	console.log(scriptListInEvent);
+	if (i < scriptListInEvent.length-2) {
 		textIf.text = scriptListInEvent[i].text;
-		i++;
-	} else if(i === scriptListInEvent.length-1) {
-		var sss = scriptListInEvent[i].text;
-		var sss1 = scriptListInEvent[i+1].text;
-		textIf.text = sss+sss1;
-		sss.events.onInputDown.add(click, this);
-		sss1.events.onInputDown.add(click1, this);
-		
-	} else {
-		i = 1;
-		script.destory();
-		textIf.destory();
-		onScript = false;
 	}
+	i++;
+	
+	if(i == scriptListInEvent.length - 1) {
+		var sss = scriptListInEvent[i].text;
+		var sss1 = scriptListInEvent[i-1].text;
+		//textIf.text = scriptListInEvent[i].text;
+		textIf.text = sss1+" "+sss;
+		sss.events.onInputDown.add(click, this);
+		sss1.events.onInputDown.add(click1.this);
+		i = 1;
+	}
+	onScript = false;
 }
 
 function click() {
-	
+	console.log("click");
+	alert("dd");
+	script.destory();
+	textIf.destory();
 }
 
 function click1() {
-	
+	alert("ddd");
+	//script.destory();
+	//textIf.destory();
 }
 
 function changeMap() {
