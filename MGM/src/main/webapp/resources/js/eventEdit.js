@@ -31,43 +31,32 @@ $(document).ready(function(){
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
     	$("#div_map_change").show();
     	
-    	var maplist = new Array(); 
-    	//maplist.push("resources/tilemaps/autoTilemapJSON2.json");
+    	var mapoptions, i;
     	$.ajax({
     		url: "getMap",
     		type: "GET",
-    	 success : function(data) {
-
-             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-
-             // TODO
-
-       },
-
-       complete : function(data) {
-
-             // 통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
-
-             // TODO
-
-       },
-
-       error : function(xhr, status, error) {
-
-             alert("에러발생");
-
-       }
-
-
+    		dataType: "json",
+    		success : function(data) {
+    			//통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
+    			
+    			for(i=0; i<data.length;i++) {
+    	    		mapoptions += "<option>" + data[i].mapname + "</option>";
+    	    	};
+    	    	$('#ch_map').html(mapoptions);
+    	    	
+    	    	$('#btn_map_select').on('click', function(){
+    	    		console.log($('#ch_map').val());
+    	    	});
+    		},
+    		complete : function(data) {
+    			//통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
+    			
+    		},
+    		error : function(xhr, status, error) {
+    			alert("에러발생");
+    		}
     	});
-    	var mapoptions, i;
-    	for(i=0; i<maplist.length;i++) {
-    		mapoptions += "<option>" + maplist[i] + "</option>";
-    	};
-    	$('#ch_map').html(mapoptions);
-    	$('#btn_map_select').on('click', function(){
-    		console.log($('#ch_map').val());
-    	});
+    
     	opener.getReturnValue(event);
     	//  window.close();
     });
