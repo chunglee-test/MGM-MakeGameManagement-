@@ -146,7 +146,7 @@ function setEventTile() {
 
 
 var i = 1;
-var textT, textIf;
+var textT, textIf, textIf2;
 var scriptListInEvent;
 var style1;
 var onScript = false;
@@ -186,6 +186,7 @@ function playScript(event) {
 }
 
 function scriptHandler() {
+	console.log('script handler');
 	if (i < scriptListInEvent.length) {
 		textT.text = scriptListInEvent[i].text;
 		i++;
@@ -203,25 +204,32 @@ function ifHandler() {
 		textIf.text = scriptListInEvent[i].text;
 		i++;
 	} else if (i === scriptListInEvent.length - 2) {
-		var selection1 = scriptListInEvent[i].text;
-		var selection2 = scriptListInEvent[i + 1].text;
+		//var selection1 = scriptListInEvent[i].text;
+		//var selection2 = scriptListInEvent[i + 1].text;
 		
-		textIf.text = selection1 + " / " + selection2;
+		var selection1 = game.add.text(35, 400, scriptListInEvent[i].text, style1);
+		var selection2 = game.add.text(35, 450, scriptListInEvent[i+1].text, style1);
+		
+		selection1.events.onInputDown.add(click11, this);
+		selection2.events.onInputDown.add(click12, this);
+		
+		textIf.destroy();
+		//textIf.text = selection1 + " / " + selection2;
 		i++;
 	} else {
 		i = 1;
-		script.destroy();
-		textIf.destroy();
+		//script.destroy();
+		//textIf.destroy();
 		onScript = false;
 	}
 }
 
-function click() {
-	
+function click11() {
+	alert('clickA');
 }
 
-function click1() {
-	
+function click12() {
+	alert('clickB');
 }
 
 function changeMap() {
