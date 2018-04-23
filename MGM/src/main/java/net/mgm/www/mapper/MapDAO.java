@@ -16,5 +16,6 @@ public class MapDAO {
 	
 	public ArrayList<maptest> maplist() {
 		return session.getMapper(MapMapper.class).maplist();
+		
 	}
 }
