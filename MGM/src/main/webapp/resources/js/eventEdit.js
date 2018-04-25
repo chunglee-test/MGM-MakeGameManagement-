@@ -1,10 +1,8 @@
-import {getContextPath} from './util.js';
-
-
 $(document).ready(function(){
 	
 	let eventX = opener.eventPosX;
 	let eventY = opener.eventPosY;	
+	
 	$('#div_event_ctx').hide();
 	$('#div_map_change').hide();
 	
@@ -15,7 +13,6 @@ $(document).ready(function(){
     		x : eventX,
     		y : eventY
     	};
-    	//opener.getReturnValue(JSON.stringify(event));
     	opener.getReturnValue(event);
     	window.close();
     });
@@ -31,14 +28,12 @@ $(document).ready(function(){
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
     	$("#div_map_change").show();
     	
-    	var mapoptions, i;
+    	/*var mapoptions, i;
     	$.ajax({
     		url: "getMap",
     		type: "GET",
     		dataType: "json",
     		success : function(data) {
-    			//통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.
-    			
     			for(i=0; i<data.length;i++) {
     	    		mapoptions += "<option>" + data[i].mapname + "</option>";
     	    	};
@@ -48,17 +43,14 @@ $(document).ready(function(){
     	    		console.log($('#ch_map').val());
     	    	});
     		},
-    		complete : function(data) {
-    			//통신이 실패했어도 완료가 되었을 때 이 함수를 타게 된다.
-    			
-    		},
     		error : function(xhr, status, error) {
     			alert("에러발생");
     		}
-    	});
-    
+    	});*/
+    	
+    	
     	opener.getReturnValue(event);
-    	//  window.close();
+    	window.close();
     });
     
     /* 대화 추가 이벤트 추가 */

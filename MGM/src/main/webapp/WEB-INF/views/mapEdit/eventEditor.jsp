@@ -7,7 +7,6 @@
 		<title>MGM - Event Editor</title>
 		
 		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-		<script type="module" src="resources/js/eventEdit.js"></script>
 	</head>
 	<body>
 		
@@ -83,5 +82,7 @@
 			</select>
 			<button id="btn_map_select">선택</button>
 		</div>
+		
+		<script type="text/javascript" src="resources/js/eventEdit.js"></script>
 	</body>
 </html>

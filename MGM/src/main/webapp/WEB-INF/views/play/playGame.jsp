@@ -8,8 +8,10 @@
 		
 		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 		<script src="resources/js/phaser-2-10-3.js"></script>
+		
+		<script type="text/javascript" src="resources/js/util.js"></script>
 	</head>
 	<body>
-		<script type="module" src="resources/js/playGame.js"></script>
+		<script type="text/javascript" src="resources/js/playGame.js"></script>
 	</body>
 </html>

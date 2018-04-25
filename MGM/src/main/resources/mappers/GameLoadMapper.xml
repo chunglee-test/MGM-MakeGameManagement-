@@ -3,12 +3,11 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.mgm.www.mapper.GameLoadMapper">
-	<select id="selectGameNode" parameterType="int" resultMap="selectNodeResult">
+	<select id="loadGameScenes" parameterType="int" resultType="gnode">
 		SELECT
 			nodeid, 
 			parentid, 
-			nodename, 
-			nodecontent
+			nodename
 		FROM
 			game_node
 		WHERE
@@ -16,37 +15,68 @@
 		ORDER BY
 			parentid NULLS FIRST, nodeid
 	</select>
-	<insert id="insertGameNode" parameterType="gnode">
+	
+	<select id="editScene" parameterType="int" resultMap="selectNodeResult">
+		SELECT
+		    g.userid, n.nodename, n.nodecontent
+		FROM
+		    game_node n
+		LEFT JOIN
+		    games g
+		ON
+		    n.gameid = g.gameid
+		WHERE
+		    n.nodeid = #{nodeid}
+	</select>	
+	<resultMap id="selectNodeResult" type="hashmap">
+		<result property="userid" column="userid" javaType="string"/>
+		<result property="nodename" column="nodename" javaType="string"/>
+		<result property="nodecontent" column="nodecontent" jdbcType="CLOB" javaType="string" />
+	</resultMap>
+	
+	<select id="getChildnode" parameterType="int" resultType="int">
+		SELECT
+			nodeid
+		FROM
+			game_node
+		WHERE
+			parentid = ${parentid}
+		ORDER BY
+			nodeid
+	</select>
+	
+	<insert id="saveGameScene" parameterType="gnode">
 		INSERT INTO 
 			game_node(
 				gameid, 
 				nodeid, 
 				parentid, 
-				nodename, 
+				nodename,
 				nodecontent
 			)
 		VALUES(
 			#{gameid}, 
 			seq_nodeid.nextval, 
 			#{parentid}, 
-			#{nodename}, 
+			'SceneName',
 			#{nodecontent}
-		);
+		)
 	</insert>
 	
 	<update id="updateNodeContent" parameterType="gnode">
 		UPDATE 
 			game_node
 		SET
+			nodename = ${nodename},
 			nodecontent=${nodecontent}
 		WHERE
 			nodeid=${nodeid}
 	</update>
 	
-	<resultMap id="selectNodeResult" type="gnode">
-		<result property="nodeid" column="nodeid"/>
-		<result property="parentid" column="parentid"/>
-		<result property="nodename" column="nodename"/>
-		<result property="nodecontent" column="nodecontent" jdbcType="CLOB" javaType="string" />
-	</resultMap>
+	<delete id="deleteNode" parameterType="int">
+		DELETE FROM
+			game_node
+		WHERE
+			nodeid = ${nodeid}
+	</delete>
 </mapper>

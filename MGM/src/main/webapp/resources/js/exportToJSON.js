@@ -1,6 +1,4 @@
-export function exportJSON (layersData, eventsData) {
-	//console.log(layersData);
-	console.log(eventsData);
+function exportJSON (layersData, eventsData) {
 	var mapData = new Object();
 
 	/*
@@ -169,18 +167,49 @@ export function exportJSON (layersData, eventsData) {
 
 	var jsonData = JSON.stringify(mapData);
 
-	download(jsonData, 'autoTilemapJSON.json', 'text/plain');
-
-	console.log(jsonData);
+	//download(jsonData, 'autoTilemapJSON.json', 'text/plain');
+	
+	var scene = {
+		gameid: 1
+		, nodeid: 99
+		, parentid: 15
+		, nodename: "testSaveScene"
+		, nodecontent: jsonData
+		, childnode: [1, 2, 3]
+	};
+	
+	saveScene(jsonData);
 }
 
-function download(content, fileName, contentType) {
+function saveScene(jsonData) {
+	$.ajax({
+		url: 'saveScene'
+		, type: 'POST'
+		, dataType: "text"
+		, data: {
+			gameid: 1
+			, nodeid: 99
+			, parentid: 15
+			, nodename: "testSaveScene"
+			, nodecontent: jsonData
+			, childnode: [1, 2, 3]
+		}
+		, success: function (data) {
+			location.href = data;
+		}
+		, error: function (data) {
+			console.log('error');
+		}
+	});	
+}
+
+/*function download(content, fileName, contentType) {
     var a = document.createElement("a");
     var file = new Blob([content], {type: contentType});
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
-}
+}*/
 
 function addTilesetGround(mapData) {
 	var tilesetData = new Object();

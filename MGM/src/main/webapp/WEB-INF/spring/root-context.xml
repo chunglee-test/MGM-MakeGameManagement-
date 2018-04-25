@@ -12,10 +12,10 @@
 	<!-- jdbc를 사용하기 위한 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"></property>
-		<property name="username" value="hr"></property>
-		<property name="password" value="hr"></property>
-	</bean>
+		<property name="url" value="jdbc:oracle:thin:@mgminstance.ctrhz6lm0fst.ap-northeast-2.rds.amazonaws.com:1521:ORCL"></property>
+		<property name="username" value="cjlee"></property>
+		<property name="password" value="cjlee0304"></property>
+   </bean>
 	
 	<!-- mybatis를 사용하기 위한 sessionfactory 등록 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

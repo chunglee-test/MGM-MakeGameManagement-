@@ -1,5 +1,3 @@
-import {getContextPath} from './util.js';
-
 var game = new Phaser.Game(
 		800, 600, Phaser.CANVAS, 'phaser-example', 
 		{ preload: preload, create: create, update: update, render: render });
@@ -7,7 +5,7 @@ var game = new Phaser.Game(
 var eventsData;
 
 function preload() {
-	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithSelection.json', 
+	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithEvent.json', 
 		function(jsonData) {
 			eventsData = jsonData.events;
 			game.load.tilemap('eventMap', null, jsonData, Phaser.Tilemap.TILED_JSON);
@@ -137,8 +135,8 @@ function setEventTile() {
 			spritePosX = event.x * 32;
 			spritePosY = event.y * 32;
 		} else if (event.type === 'changeMap') {
-			map.setTileLocationCallback(event.x, event.y, 1, 1, changeMap, this);
-		} else if (eventsData[i].type === 'playScript') {
+			map.setTileLocationCallback(event.x, event.y, 1, 1, changeMapHandler(event), this);
+		} else if (event.type === 'playScript') {
 			map.setTileLocationCallback(event.x, event.y, 1, 1, playScript(event), this);
 		}
 	}
@@ -239,38 +237,59 @@ function selection2Handler() {
 	//textIf.destory();
 }
 
-function changeMap() {
-	console.log('changed map');
-	
-	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithEvent.json', 
-		function(jsonData) {
-			console.log('load json successfully');
-			eventsData = jsonData.events;
-			game.load.tilemap('map2', null, jsonData, Phaser.Tilemap.TILED_JSON);
-			layer.destroy();
-			layer2.destroy();
-			map.destroy();
-			
-			map = game.add.tilemap('map2');
-			
-			map.addTilesetImage('Ground', 'Ground', 32, 32, 0, 0, 1);
-		    map.addTilesetImage('Ground2', 'Ground2', 32, 32, 0, 0, 105);
-		    map.addTilesetImage('Ground3', 'Ground3', 32, 32, 0, 0, 297);
-		    map.addTilesetImage('Tileset1', 'Tileset1', 32, 32, 0, 0, 489);
-		    map.addTilesetImage('Forest', 'Forest', 32, 32, 0, 0, 649);
-		    
-			layer = map.createLayer('Tile Layer 1');
-		    layer.resizeWorld();
+var changeMapFlag = true;
+function changeMapHandler(event) {
+	return function () {
+		if(changeMapFlag) {
+			changeMapFlag = false;
+			$.ajax({
+	    		url: "loadScene"
+	    		, type: "GET"
+	    		, data: {
+	    			nodeid: 25
+	    		}
+	    		, dataType: "json"
+	    		, success : function(data) {
+	    			console.log('load json successfully');
+					changeMap(JSON.parse(data.nodecontent));
+	    		}
+	    		, error : function(xhr, status, error) {
+	    			alert("에러발생");
+	    		}
+	    	});
+		}
+		
+	}
+}
 
-		    layer2 = map.createLayer('Tile Layer 2');
-		    layer2.resizeWorld();
-		    
-		    setEventTile();
-		    
-		    sprite.bringToTop();
-		    sprite.x = spritePosX;
-		    sprite.y = spritePosY;
-	});
+function changeMap(nodecontent) {
+	
+		eventsData = nodecontent.events;
+		game.load.tilemap('map2', null, nodecontent, Phaser.Tilemap.TILED_JSON);
+		layer.destroy();
+		layer2.destroy();
+		map.destroy();
+		
+		map = game.add.tilemap('map2');
+		
+		map.addTilesetImage('Ground', 'Ground', 32, 32, 0, 0, 1);
+	    map.addTilesetImage('Ground2', 'Ground2', 32, 32, 0, 0, 105);
+	    map.addTilesetImage('Ground3', 'Ground3', 32, 32, 0, 0, 297);
+	    map.addTilesetImage('Tileset1', 'Tileset1', 32, 32, 0, 0, 489);
+	    map.addTilesetImage('Forest', 'Forest', 32, 32, 0, 0, 649);
+	    
+		layer = map.createLayer('Tile Layer 1');
+	    layer.resizeWorld();
+
+	    layer2 = map.createLayer('Tile Layer 2');
+	    layer2.resizeWorld();
+	    
+	    setEventTile();
+	    
+	    sprite.bringToTop();
+	    sprite.x = spritePosX;
+	    sprite.y = spritePosY;
+
 }
 
 var talkNum = 0;

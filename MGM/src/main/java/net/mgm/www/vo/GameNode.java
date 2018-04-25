@@ -1,8 +1,10 @@
 package net.mgm.www.vo;
 
+import java.util.ArrayList;
+
 /*
  * 
- * °ÔÀÓÂÊ ±¸Çö ÀÌÈÄ ÀÛ¼º
+ * ê²Œì„ìª½ êµ¬í˜„ ì´í›„ ì‘ì„±
  */
 
 public class GameNode {
@@ -11,6 +13,7 @@ public class GameNode {
 	private int parentid;
 	private String nodename;
 	private String nodecontent;
+	private ArrayList<Integer> childnode;
 	
 	public int getGameid() {
 		return gameid;
@@ -41,6 +44,12 @@ public class GameNode {
 	}
 	public void setNodecontent(String nodecontent) {
 		this.nodecontent = nodecontent;
+	}
+	public void setChildnode(ArrayList<Integer> childnode){
+		this.childnode = childnode;
+	}
+	public ArrayList<Integer> getChildnode(){
+		return childnode;
 	}
 	
 	@Override

@@ -1,13 +1,15 @@
-import {exportJSON} from './exportToJSON.js';
-import {getContextPath} from './util.js';
-
-//alert(getContextPath());
+var tileNumWidth = 40, tileNumHeight = 30, sceneName = 'map name';
+(function () {
+	tileNumWidth = prompt('맵의 너비를 지정해주세요', '타일수 입력');
+	tileNumHeight = prompt('맵의 높이를 지정해주세요', '타일수 입력');
+	sceneName = prompt('맵 이름을 지정해주세요', 'map name');
+})();
 
 /* 타일셋 부분 */
 const arrGID = [1, 105, 297, 489, 649];
 const arrTilesetName = ['Ground', 'Ground2', 'Ground3', 'Tileset1', 'Forest'];
 
-const cvsTileset = document.getElementById('tileset');
+const cvsTileset = document.getElementById("tileset");
 const ctxTileset = cvsTileset.getContext('2d');
 
 var tilesetImg, currTileset = 0, currTile = 0;
@@ -82,7 +84,6 @@ var game = new Phaser.Game(
     800, 600, Phaser.AUTO, 'phaser-example', 
     { preload: preload, create: create, update: update, render: render });
 
-var tileNumWidth = 40, tileNumHeight = 30;
 var map, layer1, layer2;
 var layersData, eventsData;
 
@@ -101,6 +102,8 @@ function preload() {
     game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');
     game.load.image('Tileset1', getContextPath() + '/resources/tilemaps/tiles/Tileset1.png');
     game.load.image('Forest', getContextPath() + '/resources/tilemaps/tiles/Forest.png');
+    
+    game.load.spritesheet('dude', getContextPath() + '/resources/sprites/CharacterTileset.png', 32, 32);
 }
 
 function create() {
@@ -168,7 +171,16 @@ function create() {
     
     // 이벤트 정보를 저장하기 위한 배열
     eventsData = new Array();
-    
+}
+
+// 이벤트 추가 자식창으로부터 정보를 받아 처리하는 메소드
+var eventsList = new Array();
+var eventPosX, eventPosY, sprite;
+function getReturnValue(returnValue) {
+	eventsList.push(returnValue);
+	if (returnValue.type === 'posCharacter') {
+		sprite = game.add.sprite(eventPosX*32, eventPosY*32, 'dude', 48);
+	}
 }
 
 // 맵을 찍으면 타일을 놓는 메소드
