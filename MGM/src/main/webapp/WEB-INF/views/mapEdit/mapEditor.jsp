@@ -13,14 +13,21 @@
 		<script type="text/javascript" src="resources/js/util.js"></script>
 	</head>
 	<body>
-		<canvas id="tileset" style="background-color: gray"></canvas>
-		<button id="btn_tileset">타일셋 변경</button>
-		<button id="btn_save">저장하기</button>
-		
-		<br>
-
-		<button id="btn_tile_1x1">1x1타일</button>
-		<button id="btn_tile_4x4">4x4타일</button>
+		<div class="search_div">
+			<input type="text" class="search_area">
+			<button><img src="resources/img/Icon/searchbt.png"></button>
+			<button class="bt_save">저장</button>
+			<button class="bt_uppermenu">상위메뉴로</button>
+		</div>
+		<div style="float: left;">
+			<div class="inner_div">
+				<canvas id="tileset" style="background-color: gray"></canvas><br>
+				<button id="btn_tileset">타일셋 변경</button>
+				<button id="btn_save">저장하기</button>
+				<button id="btn_tile_1x1">1x1타일</button>
+				<button id="btn_tile_4x4">4x4타일</button>
+			</div>
+		</div>
 		
 		<script type="text/javascript" src="resources/js/mapEdit.js"></script>
 	</body>

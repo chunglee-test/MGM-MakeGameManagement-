@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+.nodeViewDiv {
+	display: table;
+}
+.nodeViewDiv ul {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	padding-left: 20px;
+}
+.nodeViewDiv li {
+	vertical-align: middle;
+	position: relative;
+	list-style-type: none;
+	width: 100%;
+	height: 100%;
+	padding: 0px 0px 20px 20px;
+}
+.nodeViewDiv li:before,
+.nodeViewDiv li:after {
+	content: '';
+    position: absolute; 
+	width: 20px;
+}
+.nodeViewDiv li:before {
+	bottom: 0;
+	border-left: 0 none;
+}
+.nodeViewDiv li:after {
+	top: 40px;
+	bottom: auto;
+    left: 0;
+    height: 100%;
+    border-left: 5px solid #ccc;
+	border-top: 5px solid #ccc;
+}
+
+.nodeViewDiv li:only-child:after,
+.nodeViewDiv li:only-child:before {
+	padding-right: 0;
+}
+.nodeViewDiv > ul > li:after {
+	border: 0 none;
+}
+.nodeViewDiv li:first-child:before,
+.nodeViewDiv li:last-child:after {
+	border-left: 0 none;
+	border-right: 0 none;
+}
+.nodeViewDiv ul ul:after {
+	content: '';
+	position: absolute; top: 40px; left: 0;
+	border-top: 5px solid #ccc;
+	width: 20px;
+}
+
+.nodeViewDiv li span:hover+ul:after,
+.nodeViewDiv li span:hover+ul span:after {
+	border-color:  #94a0b4;
+}
+.nodeViewDiv li span {
+	border: 5px solid #ccc;
+	padding: 5px 10px;
+	text-decoration: none;
+	display: inline-block;
+	vertical-align: middle;
+	
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+.nodeViewDiv li span:hover,
+.nodeViewDiv li span:hover+ul li span {
+	background: #c8e4f8; 
+	color: #000; 
+	border: 5px solid #94a0b4;
+}
+.nodeViewDiv li span:hover+ul li:after,
+.nodeViewDiv li span:hover+ul li:before, 
+.nodeViewDiv li span:hover+ul:before, 
+.nodeViewDiv li span:hover+ul ul:before {
+	border-color:  #94a0b4;
+}

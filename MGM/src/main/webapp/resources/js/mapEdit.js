@@ -6,7 +6,7 @@ var tileNumWidth = 40, tileNumHeight = 30, sceneName = 'map name';
 })();
 
 /* 타일셋 부분 */
-const arrGID = [1, 105, 297, 489, 649];
+const arrGID = [2, 106, 298, 490, 650];
 const arrTilesetName = ['Ground', 'Ground2', 'Ground3', 'Tileset1', 'Forest'];
 
 const cvsTileset = document.getElementById("tileset");
@@ -97,6 +97,7 @@ var layer1Key, layer2Key, showLayersKey;
 $('body').on('contextmenu', 'canvas', function(e){ return false; });
 
 function preload() {
+	game.load.image('Blank', getContextPath() + '/resources/tilemaps/tiles/blank_block.jpg');
     game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
     game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
     game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');
@@ -164,7 +165,7 @@ function create() {
     for (let i = 0; i < 2; i ++) {
         for (let j = 0; j < tileNumHeight; j++) {
             for(let k = 0; k < tileNumWidth; k++) {
-                layersData[i][j][k] = 0;
+                layersData[i][j][k] = 1;
             }
         }
     }
@@ -177,9 +178,25 @@ function create() {
 var eventsList = new Array();
 var eventPosX, eventPosY, sprite;
 function getReturnValue(returnValue) {
-	eventsList.push(returnValue);
+	let findPosChar = false;
+	
 	if (returnValue.type === 'posCharacter') {
-		sprite = game.add.sprite(eventPosX*32, eventPosY*32, 'dude', 48);
+		for (let i = 0; i < eventsList.length; i++) {
+			if (eventsList[i].type === 'posCharacter') {
+				findPosChar = true;
+				eventsList[i] = returnValue;
+				sprite.destroy();
+				sprite = game.add.sprite(eventPosX*32, eventPosY*32, 'dude', 48);
+			}
+		}
+		
+		if (!findPosChar) {
+			sprite = game.add.sprite(eventPosX*32, eventPosY*32, 'dude', 48);
+		}
+	} 
+	
+	if (!findPosChar) {
+		eventsList.push(returnValue);
 	}
 }
 

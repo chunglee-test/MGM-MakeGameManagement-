@@ -5,12 +5,13 @@ var game = new Phaser.Game(
 var eventsData;
 
 function preload() {
-	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithEvent.json', 
+	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONcollision.json', 
 		function(jsonData) {
 			eventsData = jsonData.events;
 			game.load.tilemap('eventMap', null, jsonData, Phaser.Tilemap.TILED_JSON);
 	});
     
+	game.load.image('Blank', getContextPath() + '/resources/tilemaps/tiles/blank_block.jpg');
     game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
     game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
     game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');
@@ -21,7 +22,6 @@ function preload() {
     // 캐릭터 스프라이트시트 불러오기
     // game.load.spritesheet(유니크한 이름, 경로, 타일 한 개당 너비, 타일 한 개당 높이)
     game.load.spritesheet('dude', getContextPath() + '/resources/sprites/CharacterTileset.png', 32, 32);
-    game.load.spritesheet('dude-test', getContextPath() + '/resources/sprites/32x32.png', 32, 32);
     
     // 이미지 불러오기
     //game.load.image('phaser', getContextPath() + '/resources/sprites/mushroom2.png');
@@ -44,11 +44,12 @@ function create() {
 	map = game.add.tilemap('eventMap');
 
     //map.addTilesetImage(json내 tileset name, loaded image name, 32, 32, 0, 0, 0);
-    map.addTilesetImage('Ground', 'Ground', 32, 32, 0, 0, 1);
-    map.addTilesetImage('Ground2', 'Ground2', 32, 32, 0, 0, 105);
-    map.addTilesetImage('Ground3', 'Ground3', 32, 32, 0, 0, 297);
-    map.addTilesetImage('Tileset1', 'Tileset1', 32, 32, 0, 0, 489);
-    map.addTilesetImage('Forest', 'Forest', 32, 32, 0, 0, 649);
+	map.addTilesetImage('Blank', 'Blank', 32, 32, 0, 0, 1);
+	map.addTilesetImage('Ground', 'Ground', 32, 32, 0, 0, 2);
+    map.addTilesetImage('Ground2', 'Ground2', 32, 32, 0, 0, 106);
+    map.addTilesetImage('Ground3', 'Ground3', 32, 32, 0, 0, 298);
+    map.addTilesetImage('Tileset1', 'Tileset1', 32, 32, 0, 0, 490);
+    map.addTilesetImage('Forest', 'Forest', 32, 32, 0, 0, 650);
 
     // 맵 레이어 불러오기
     layer = map.createLayer('Tile Layer 1');
@@ -59,8 +60,9 @@ function create() {
     
     // 통행 불가 타일들 지정하기
     // map.setCollisionBetween(9, 9, true, layer2);
-    map.setCollisionBetween(601, 601);
-    map.setCollisionBetween(161, 161);
+    // map.setCollisionBetween(601, 601);
+    // map.setCollisionBetween(161, 161);
+    map.setCollisionBetween(1, 1);
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
     
@@ -124,6 +126,10 @@ function update() {
     	sprite.body.velocity.y = 300;
         sprite.animations.play('down');
     }
+    
+    if (spacebar.justPressed()) {
+    	console.log('space bar clicked');
+    }
 }
 
 function setEventTile() {
@@ -157,30 +163,49 @@ function playScript(event) {
 				var textEx = event.script.text;
 				textEx = game.add.text(event.x * 28, event.y * 28, event.script.text, {font: "10px Arial", fill: "#ffffff"} );
 				
-				onScript = true;
+				//game.time.events.add(Phaser.Timer.SECOND * 4, textEx, this);
+			    game.add.tween(textEx).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
+
+				//onScript = true;
 			} else if (event.scripttype === 'talk') {
 				script = game.add.sprite(32, 500, 'script');
 				script.inputEnabled = true;
 				script.events.onInputDown.add(scriptHandler, this);
 				
+				script.fixedToCamera = true;
+			    script.cameraOffset.setTo(0, 450);
+				
 				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
 				textT = game.add.text(35, 500, event.script[0].text, style1);
 				
+				textT.fixedToCamera = true;
+			    textT.cameraOffset.setTo(30, 500);
+				
 				scriptListInEvent = event.script;
 				onScript = true;
+				cursors.inputEnabled = false;
+
+				game.input.keyboard.stop();
 			} else if (event.scripttype === 'if') {
 				script = game.add.sprite(32, 500, 'script');
 				script.inputEnabled = true;
 				script.events.onInputDown.add(ifHandler, this);
 				
+				script.fixedToCamera = true;
+			    script.cameraOffset.setTo(0, 450);
+
 				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
 				textIf = game.add.text(35, 500, event.script[0].text, style1);
 				
+				textIf.fixedToCamera = true;
+			    textIf.cameraOffset.setTo(30, 500);
+
 				scriptListInEvent = event.script;
 				onScript = true;
-
+				game.input.keyboard.stop();
 			}
-			
+		} else if (!onScript) {
+			console.log('playScript');
 		}
 	};
 }
@@ -192,10 +217,12 @@ function scriptHandler() {
 		i++;
 	} else {
 		// TODO: destroy script
+		console.log('script handler finished');
 		i = 1;
 		script.destroy();
 		textT.destroy();
 		onScript = false;
+		game.input.keyboard.start();
 	}
 }
 
@@ -209,6 +236,13 @@ function ifHandler() {
 		selection1.inputEnabled = true;
 		selection2.inputEnabled = true;
 		textIf.destroy();
+
+		selection1.fixedToCamera = true;
+	    selection1.cameraOffset.setTo(30, 500);
+	    
+	    selection2.fixedToCamera = true;
+	    selection2.cameraOffset.setTo(30, 500);
+	    
 		selection1.events.onInputDown.add(selection1Handler, this);
 		selection2.events.onInputDown.add(selection2Handler, this);
 		i++;

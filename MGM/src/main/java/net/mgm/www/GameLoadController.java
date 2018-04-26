@@ -139,9 +139,41 @@ public class GameLoadController {
 		GameNode returnScene = new GameNode();
 		returnScene.setNodename(scene.get("nodename"));
 		returnScene.setNodecontent(scene.get("nodecontent"));
-		//returnScene.setChildnode(loadDAO.getChildnode(iNodeid));
+		returnScene.setChildnode(loadDAO.getChildnode(iNodeid));
 		
 		return returnScene;
 	}
 	
+	/**
+	 * 자식노드 추가
+	 */
+	@ResponseBody
+	@RequestMapping(value="addChildScene", method=RequestMethod.GET)
+	public String addChildScene(String gameid, String nodeid) {
+		int iNodeid = 0;
+		try {
+			iNodeid = Integer.parseInt(nodeid);
+		}
+		catch(Exception e) {
+			return "false";
+		}
+
+		int iGameid = 0;
+		try {
+			iGameid = Integer.parseInt(gameid);
+		}
+		catch(Exception e) {
+			return "false";
+		}
+		
+		System.out.println(iGameid + "/" + iNodeid);
+		
+		GameNode addNode = new GameNode();
+		addNode.setGameid(iGameid);
+		addNode.setParentid(iNodeid);
+		
+		loadDAO.addChildScene(addNode);
+		
+		return "true";
+	}
 }

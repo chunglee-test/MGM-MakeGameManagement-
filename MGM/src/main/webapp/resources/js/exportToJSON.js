@@ -154,12 +154,14 @@ function exportJSON (layersData, eventsData) {
 	 */
 	mapData.tilesets = new Array();
 
+	//addTilesetBlank(mapData);
 	addTilesetGround(mapData);
 	addTilesetGround2(mapData);
 	addTilesetGround3(mapData);
 	addTilesetTileset1(mapData);
 	addTilesetForest(mapData);
-
+	addTilesetBlank(mapData);
+	
 	mapData.tilewidth = 32;
 	mapData.type = "map";
 	mapData.version = 1;
@@ -167,9 +169,9 @@ function exportJSON (layersData, eventsData) {
 
 	var jsonData = JSON.stringify(mapData);
 
-	//download(jsonData, 'autoTilemapJSON.json', 'text/plain');
+	download(jsonData, 'autoTilemapJSON.json', 'text/plain');
 	
-	var scene = {
+	/*var scene = {
 		gameid: 1
 		, nodeid: 99
 		, parentid: 15
@@ -178,7 +180,7 @@ function exportJSON (layersData, eventsData) {
 		, childnode: [1, 2, 3]
 	};
 	
-	saveScene(jsonData);
+	saveScene(jsonData);*/
 }
 
 function saveScene(jsonData) {
@@ -187,9 +189,9 @@ function saveScene(jsonData) {
 		, type: 'POST'
 		, dataType: "text"
 		, data: {
-			gameid: 1
-			, nodeid: 99
-			, parentid: 15
+			gameid: 2
+			, nodeid: 1
+			, parentid: 1
 			, nodename: "testSaveScene"
 			, nodecontent: jsonData
 			, childnode: [1, 2, 3]
@@ -203,18 +205,35 @@ function saveScene(jsonData) {
 	});	
 }
 
-/*function download(content, fileName, contentType) {
+function download(content, fileName, contentType) {
     var a = document.createElement("a");
     var file = new Blob([content], {type: contentType});
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
-}*/
+}
+
+function addTilesetBlank(mapData) {
+	var tilesetData = new Object();
+
+	tilesetData.firstgid = 1;
+	tilesetData.image = "..\/tiles\/blank_block.jpg";
+	tilesetData.imageheight = 32;
+	tilesetData.imagewidth = 32;
+	tilesetData.margin = 0;
+	tilesetData.name = "Blank";
+	tilesetData.properties = new Object();
+	tilesetData.spacing = 0;
+	tilesetData.tileheight = 32;
+	tilesetData.tilewidth = 32;
+
+	mapData.tilesets.push(tilesetData);
+}
 
 function addTilesetGround(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 1;
+	tilesetData.firstgid = 2;
 	tilesetData.image = "..\/tiles\/Ground.png";
 	tilesetData.imageheight = 256;
 	tilesetData.imagewidth = 416;
@@ -231,7 +250,7 @@ function addTilesetGround(mapData) {
 function addTilesetGround2(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 105;
+	tilesetData.firstgid = 106;
 	tilesetData.image = "..\/tiles\/Ground2.png";
 	tilesetData.imageheight = 384;
 	tilesetData.imagewidth = 512;
@@ -248,7 +267,7 @@ function addTilesetGround2(mapData) {
 function addTilesetGround3(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 297;
+	tilesetData.firstgid = 298;
 	tilesetData.image = "..\/tiles\/Ground3.png";
 	tilesetData.imageheight = 384;
 	tilesetData.imagewidth = 512;
@@ -265,7 +284,7 @@ function addTilesetGround3(mapData) {
 function addTilesetTileset1(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 489;
+	tilesetData.firstgid = 490;
 	tilesetData.image = "..\/tiles\/Tileset1.png";
 	tilesetData.imageheight = 320;
 	tilesetData.imagewidth = 512;
@@ -282,7 +301,7 @@ function addTilesetTileset1(mapData) {
 function addTilesetForest(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 649;
+	tilesetData.firstgid = 650;
 	tilesetData.image = "..\/tiles\/Forest.png";
 	tilesetData.imageheight = 512;
 	tilesetData.imagewidth = 512;

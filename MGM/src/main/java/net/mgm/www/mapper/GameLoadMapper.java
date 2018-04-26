@@ -12,4 +12,5 @@ public interface GameLoadMapper {
 	public ArrayList<Integer> getChildnode(int parentid);
 	public void updateNodeContent(GameNode updateNode);
 	public void deleteNode(int nodeid);
+	public void addChildScene(GameNode addNode);
 }

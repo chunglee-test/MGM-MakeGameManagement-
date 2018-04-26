@@ -45,12 +45,17 @@
 <body>	
 	<!-- NavBar -->
 	<%-- <%@ include file="main/mainNavbar.jsp"%> --%>
-	
 	<!-- SideBar -->
 	<%@ include file="main/mainSidebar.jsp"%>
 	<%-- <%@ include file="main/main.jsp" %> --%>
-	<iframe src="main" class="mainframe" id="mainFrame">
+	<!-- <iframe src="main" class="mainframe" id="mainFrame">
 		현재 브라우저는 이 사이트 형식을 지원하지 않습니다.
+	</iframe> -->
+	
+	<iframe src="main" class="mainframe" id="mainFrame" >
+	    Your browser doesn't support iframes
 	</iframe>
+	
+	
 </body>
 </html>

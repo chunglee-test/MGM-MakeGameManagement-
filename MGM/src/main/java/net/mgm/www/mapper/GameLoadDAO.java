@@ -44,4 +44,9 @@ public class GameLoadDAO implements GameLoadMapper{
 	public void deleteNode(int nodeid) {
 		session.getMapper(GameLoadMapper.class).deleteNode(nodeid);
 	}
+
+	@Override
+	public void addChildScene(GameNode addNode) {
+		session.getMapper(GameLoadMapper.class).addChildScene(addNode);
+	}
 }
