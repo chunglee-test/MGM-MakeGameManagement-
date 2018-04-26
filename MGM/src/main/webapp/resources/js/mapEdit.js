@@ -47,7 +47,6 @@ function addEventListeners() {
         let x = Math.floor(e.layerX / 32);
         let y = Math.floor(e.layerY / 32);
 
-        console.log({x: x, y: y});
         ctxTileset.clearRect(0, 0, 300, 300);
         ctxTileset.drawImage(tilesetImg, 0, 0);
         ctxTileset.lineWidth="2";
@@ -97,7 +96,7 @@ var layer1Key, layer2Key, showLayersKey;
 $('body').on('contextmenu', 'canvas', function(e){ return false; });
 
 function preload() {
-	game.load.image('Blank', getContextPath() + '/resources/tilemaps/tiles/blank_block.jpg');
+	game.load.image('Blank', getContextPath() + '/resources/tilemaps/tiles/blank.png');
     game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
     game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
     game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');
@@ -165,7 +164,7 @@ function create() {
     for (let i = 0; i < 2; i ++) {
         for (let j = 0; j < tileNumHeight; j++) {
             for(let k = 0; k < tileNumWidth; k++) {
-                layersData[i][j][k] = 1;
+                layersData[i][j][k] = (i === 0) ? 1 : 0;
             }
         }
     }
@@ -214,7 +213,6 @@ function updateMarker() {
         marker.lineStyle(2, 0xFFFFFF, 1);
         marker.drawRect(0, 0, 4 * 32, 4 * 32);
     }
-    
     
     if (game.input.mousePointer.leftButton.isDown) {
         let x = game.math.snapToFloor(game.input.mousePointer.worldX, 32) / 32;

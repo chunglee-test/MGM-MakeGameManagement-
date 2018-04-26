@@ -11,7 +11,7 @@ function preload() {
 			game.load.tilemap('eventMap', null, jsonData, Phaser.Tilemap.TILED_JSON);
 	});
     
-	game.load.image('Blank', getContextPath() + '/resources/tilemaps/tiles/blank_block.jpg');
+	game.load.image('Blank', getContextPath() + '/resources/tilemaps/tiles/blank.png');
     game.load.image('Ground', getContextPath() + '/resources/tilemaps/tiles/Ground.png');
     game.load.image('Ground2', getContextPath() + '/resources/tilemaps/tiles/Ground2.png');
     game.load.image('Ground3', getContextPath() + '/resources/tilemaps/tiles/Ground3.png');

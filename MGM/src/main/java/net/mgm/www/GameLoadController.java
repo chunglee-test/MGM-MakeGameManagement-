@@ -125,7 +125,7 @@ public class GameLoadController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="loadScene", method=RequestMethod.GET)
-	public GameNode loadScene(String nodeid, HttpSession session) {	
+	public GameNode loadScene(String nodeid, HttpSession session) {
 		int iNodeid = 0;
 		try {
 			iNodeid = Integer.parseInt(nodeid);

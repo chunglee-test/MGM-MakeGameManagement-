@@ -40,7 +40,7 @@
 		FROM
 			game_node
 		WHERE
-			parentid = ${parentid}
+			parentid = #{parentid}
 		ORDER BY
 			nodeid
 	</select>

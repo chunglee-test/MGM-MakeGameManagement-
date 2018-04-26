@@ -217,7 +217,7 @@ function addTilesetBlank(mapData) {
 	var tilesetData = new Object();
 
 	tilesetData.firstgid = 1;
-	tilesetData.image = "..\/tiles\/blank_block.jpg";
+	tilesetData.image = "..\/tiles\/blank.png";
 	tilesetData.imageheight = 32;
 	tilesetData.imagewidth = 32;
 	tilesetData.margin = 0;
