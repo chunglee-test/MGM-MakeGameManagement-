@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -48,19 +49,13 @@
 					<h3>선택지 추가</h3>
 					<span>선택지1: </span>
 					<input id="txt_if1" type="text"/>
-					<select id="nextScene1">
-						<option>11</option>
-						<option>22</option>
-					</select>
+					<select id="nextScene1"></select>
 					
 					<br>
 					
 					<span>선택지2: </span>
 					<input id="txt_if2" type="text"/>
-					<select id="nextScene2">
-						<option>99</option>
-						<option>88</option>
-					</select>
+					<select id="nextScene2"></select>
 					
 					<button id="btn_add_if">선택지 추가 완료</button>
 				</div>
@@ -77,9 +72,7 @@
 		
 		<div id="div_map_change">
 			<span>맵 선택</span>
-			<select id="ch_map">
-				
-			</select>
+			<select id="ch_map"></select>
 			<button id="btn_map_select">선택</button>
 		</div>
 		

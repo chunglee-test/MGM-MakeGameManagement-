@@ -1,4 +1,4 @@
-function exportJSON (layersData, eventsData) {
+function exportJSON (nodeid, layersData, eventsData) {
 	var mapData = new Object();
 
 	/*
@@ -75,7 +75,7 @@ function exportJSON (layersData, eventsData) {
 		if (eventData.type === 'posCharacter') {
 			
 		} else if (eventData.type === 'changeMap') {
-			
+			eventData.nextScene = eventsData[eventNum].nextScene;
 		} else if (eventData.type === 'playScript') {
 			eventData.scripttype = eventsData[eventNum].scripttype;
 			
@@ -154,13 +154,12 @@ function exportJSON (layersData, eventsData) {
 	 */
 	mapData.tilesets = new Array();
 
-	//addTilesetBlank(mapData);
+	addTilesetBlank(mapData);
 	addTilesetGround(mapData);
 	addTilesetGround2(mapData);
 	addTilesetGround3(mapData);
 	addTilesetTileset1(mapData);
 	addTilesetForest(mapData);
-	addTilesetBlank(mapData);
 	
 	mapData.tilewidth = 32;
 	mapData.type = "map";
@@ -169,35 +168,24 @@ function exportJSON (layersData, eventsData) {
 
 	var jsonData = JSON.stringify(mapData);
 
-	download(jsonData, 'autoTilemapJSON.json', 'text/plain');
+	//download(jsonData, 'autoTilemapJSON.json', 'text/plain');
 	
-	/*var scene = {
-		gameid: 1
-		, nodeid: 99
-		, parentid: 15
-		, nodename: "testSaveScene"
-		, nodecontent: jsonData
-		, childnode: [1, 2, 3]
-	};
-	
-	saveScene(jsonData);*/
+	saveScene(nodeid, jsonData);
 }
 
-function saveScene(jsonData) {
+function saveScene(nodeid, jsonData) {
 	$.ajax({
-		url: 'saveScene'
+		url: 'updateGameScene'
 		, type: 'POST'
 		, dataType: "text"
 		, data: {
-			gameid: 2
-			, nodeid: 1
-			, parentid: 1
+			nodeid: nodeid
 			, nodename: "testSaveScene"
 			, nodecontent: jsonData
-			, childnode: [1, 2, 3]
 		}
 		, success: function (data) {
-			location.href = data;
+			//location.href = data;
+			alert('맵 수정 완료');
 		}
 		, error: function (data) {
 			console.log('error');

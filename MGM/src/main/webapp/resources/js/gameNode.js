@@ -106,6 +106,7 @@ $(window).click(function(e) {
 		}
 		
 		if(cnt > 5){
+			closeInformation();
 			return;
 		}
 	}

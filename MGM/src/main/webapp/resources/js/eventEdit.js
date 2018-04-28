@@ -2,6 +2,7 @@ $(document).ready(function(){
 	
 	let eventX = opener.eventPosX;
 	let eventY = opener.eventPosY;	
+	let childList = opener.childList;
 	
 	$('#div_event_ctx').hide();
 	$('#div_map_change').hide();
@@ -19,39 +20,34 @@ $(document).ready(function(){
     
     /* 맵 이동 이벤트 추가 */
     $('#btn_change_map').on('click', function(){
-    	let event = {
-    		type: 'changeMap',
-    		x : eventX,
-    		y : eventY
-    	};
     	
     	// 멥 리스트를 보여주기 위한 배열을 생성함.
     	$("#div_map_change").show();
     	
-    	/*var mapoptions, i;
-    	$.ajax({
-    		url: "getMap",
-    		type: "GET",
-    		dataType: "json",
-    		success : function(data) {
-    			for(i=0; i<data.length;i++) {
-    	    		mapoptions += "<option>" + data[i].mapname + "</option>";
-    	    	};
-    	    	$('#ch_map').html(mapoptions);
-    	    	
-    	    	$('#btn_map_select').on('click', function(){
-    	    		console.log($('#ch_map').val());
-    	    	});
-    		},
-    		error : function(xhr, status, error) {
-    			alert("에러발생");
-    		}
-    	});*/
+    	let mapOptions = "";
+    	for (let i = 0; i < childList.length; i++) {
+    		mapOptions += "<option val='" + childList[i].nodeid + "'>" + childList[i].nodename + "</option>";
+    	}
+    	$('#ch_map').html(mapOptions);
     	
-    	
+    	$('#btn_map_select').on('click', function(){
+    		let nextScene = $('#ch_map').val();
+    		let event = {
+	    		type: 'changeMap',
+	    		x : eventX,
+	    		y : eventY,
+	    		nextScene: nextScene
+	    	};
+    		
+        	opener.getReturnValue(event);
+        	window.close();
+    	});
+    });
+    
+    $('#btn_map_select').on('click', function(){
     	opener.getReturnValue(event);
     	window.close();
-    });
+	});
     
     /* 대화 추가 이벤트 추가 */
     $('#btn_add_script').on('click', function(){
@@ -78,6 +74,13 @@ $(document).ready(function(){
     		$('#div_talk').append('<button id="btn_if_continue">선택지 추가</button>');
     		
     		$('#btn_if_continue').on('click', function() {
+    			let mapOptions = "";
+    	    	for (let i = 0; i < childList.length; i++) {
+    	    		mapOptions += "<option val='" + childList[i].nodeid + "'>" + childList[i].nodename + "</option>";
+    	    	}
+    	    	$('#nextScene1').html(mapOptions);
+    	    	$('#nextScene2').html(mapOptions);
+    	    	
     			$('#div_if').show();
     		});
     	}
@@ -150,6 +153,8 @@ $(document).ready(function(){
     
     /* 선택지 추가하기 */
     $('#btn_add_if').on('click', function() {
+    	
+    	
     	let selection1 = {
     			text : $('#txt_if1').val(),
     			nextScene : $('#nextScene1').val()

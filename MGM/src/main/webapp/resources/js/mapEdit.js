@@ -55,7 +55,11 @@ function addEventListeners() {
 
         currTile = arrGID[currTileset] + x + y * (tilesetImg.width / 32);
     });
-
+    
+    document.getElementById('btn_save').addEventListener("click", function (e) {
+        exportJSON(nodeid, layersData, eventsList);
+    });
+    
     document.getElementById('btn_tileset').addEventListener("click", function (e) {
         if (currTileset < arrTilesetName.length - 1) {
             currTileset++;
@@ -63,10 +67,6 @@ function addEventListeners() {
             currTileset = 0;
         }
         loadTilesets(currTileset);
-    });
-
-    document.getElementById('btn_save').addEventListener("click", function (e) {
-        exportJSON(layersData, eventsList);
     });
 
     document.getElementById('btn_tile_1x1').addEventListener("click", function (e) {
@@ -289,3 +289,7 @@ function render() {
     game.debug.text('현재 레이어: ' + currentLayer.name, 16, 550);
     game.debug.text('숫자(1,2) = 레이어 전환. 스페이스 = 모든 레이어. 화살표 = 창 이동', 16, 570);
 }
+
+document.getElementById('btn_uppermenu').addEventListener("click", function (e) {
+    location.href = "produceScene?gameid=" + gameid;
+});

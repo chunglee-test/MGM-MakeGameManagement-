@@ -92,7 +92,7 @@ public class GameLoadController {
 		GameNode returnScene = new GameNode();
 		returnScene.setNodename(scene.get("nodename"));
 		returnScene.setNodecontent(scene.get("nodecontent"));
-		returnScene.setChildnode(loadDAO.getChildnode(iNodeid));
+		//returnScene.setChildnode(loadDAO.getChildnode(iNodeid));
 		
 		return returnScene;		
 	}
@@ -126,6 +126,7 @@ public class GameLoadController {
 	@ResponseBody
 	@RequestMapping(value="loadScene", method=RequestMethod.GET)
 	public GameNode loadScene(String nodeid, HttpSession session) {
+		System.out.println("loadScene() nodeid: " + nodeid);
 		int iNodeid = 0;
 		try {
 			iNodeid = Integer.parseInt(nodeid);
@@ -139,7 +140,6 @@ public class GameLoadController {
 		GameNode returnScene = new GameNode();
 		returnScene.setNodename(scene.get("nodename"));
 		returnScene.setNodecontent(scene.get("nodecontent"));
-		returnScene.setChildnode(loadDAO.getChildnode(iNodeid));
 		
 		return returnScene;
 	}
@@ -150,6 +150,7 @@ public class GameLoadController {
 	@ResponseBody
 	@RequestMapping(value="addChildScene", method=RequestMethod.GET)
 	public String addChildScene(String gameid, String nodeid) {
+		System.out.println("nodeid: " + nodeid);
 		int iNodeid = 0;
 		try {
 			iNodeid = Integer.parseInt(nodeid);
@@ -175,5 +176,72 @@ public class GameLoadController {
 		loadDAO.addChildScene(addNode);
 		
 		return "true";
+	}
+	
+	/**
+	 * 맵 에디터에서 정보를 수정하고 해당 노드의 정보를 업데이트하는 메소드
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updateGameScene", method=RequestMethod.POST)
+	public String updateGameScene(int nodeid, String nodename, String nodecontent) {
+		GameNode scene = new GameNode();
+		scene.setNodeid(nodeid);
+		scene.setNodename(nodename);
+		scene.setNodecontent(nodecontent);
+		
+		loadDAO.updateNodeContent(scene);
+		
+		return "true";
+	}
+	
+	/**
+	 * 노드 에디터에서 맵 수정으로 넘어갈 때 노드의 정보 가져오는 메소드
+	 */
+	@RequestMapping(value="/loadGameScene", method=RequestMethod.GET)
+	public String loadGameScene(String nodeid, Model model) {
+		int iNodeid = 0;
+		try {
+			iNodeid = Integer.parseInt(nodeid);
+		}
+		catch(Exception e) {
+			return null;
+		}
+		
+		HashMap<String, String> scene = loadDAO.loadGameScene(iNodeid);
+		ArrayList<GameNode> childList = loadDAO.getChildnode(iNodeid);
+		
+		if (scene.get("nodecontent") == null) {
+			scene.put("nodecontent", "null");
+		}
+		
+		model.addAttribute("scene", scene);
+		model.addAttribute("childList", childList);
+		
+		return "mapEdit/mapEditor";		
+	}
+	
+	/**
+	 * 게임 플레이시 첫 노드 화면을 가져오는 메소드
+	 */
+	@RequestMapping(value="/loadGame", method=RequestMethod.GET)
+	public String loadGame(String gameid, Model model) {
+		int iGameid = 0;
+		try {
+			iGameid = Integer.parseInt(gameid);
+		}
+		catch(Exception e) {
+			return null;
+		}
+		
+		HashMap<String, String> scene = loadDAO.loadGame(iGameid);
+		//ArrayList<Integer> childList = loadDAO.getChildnode(Integer.parseInt(scene.get("nodeid")));
+		
+		if (scene.get("nodecontent") == null) {
+			scene.put("nodecontent", "null");
+		}
+		
+		model.addAttribute("scene", scene);
+		
+		return "play/playGame";
 	}
 }
