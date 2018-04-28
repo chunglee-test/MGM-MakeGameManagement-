@@ -16,19 +16,49 @@
 	<!-- 부가적인 테마 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 </head>
-<body>
-	<article class="container">
-		<div class="content">
-		    <div class="col-md-12">
-		        <div class="panel panel-default">
-		            <div class="panel-heading">Panel heading without title</div>
-		            <div class="panel-body">
-		                Panel content
-		            </div>
-		        </div>
-		    </div>
-		</div>	
-	</article>
-	<a href="mapEdit"> Go to Map Editor Page </a>
-	<a href="playGame"> Go to Game Play Page </a>
+<body class="mainpage_body">
+	<div class="main_bottom_div">
+		<header><h1 style="color: white;">인기</h1></header>
+		<div class="wrapper">
+			<div class="gallery">
+				<ul>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+				</ul>
+				<div class="inner_gamename">
+					<label class="gamename_one">게임 이름</label>
+					<label class="gamename_others">게임 이름</label>
+					<label class="gamename_others">게임 이름</label>
+					<label class="gamename_others">게임 이름</label>
+				</div>
+			</div>
+		</div>
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)" style="margin-right: 95px;">&#10095;</a>
+	</div>
+	<div class="main_bottom_div2">
+		<header><h1 style="color: white;">최근 등록</h1></header>
+		<div class="wrapper">
+			<div class="gallery">
+				<ul>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+					<li><img src="resources/img/Dummy/Aion.jpg"></li>
+				</ul>
+				<div class="inner_gamename">
+					<label class="gamename_one">게임 이름</label>
+					<label class="gamename_others">게임 이름</label>
+					<label class="gamename_others">게임 이름</label>
+					<label class="gamename_others">게임 이름</label>
+				</div>
+			</div>
+		</div>
+		<a class="prev2" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next2" onclick="plusSlides(1)" style="margin-right: 95px;">&#10095;</a>
+	</div>
+	<!-- <a href="mapEdit"> Go to Map Editor Page </a>
+	<a href="playGame"> Go to Game Play Page </a> -->
 </body>    

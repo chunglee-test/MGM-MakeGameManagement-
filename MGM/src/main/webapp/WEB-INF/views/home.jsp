@@ -44,9 +44,9 @@
 </head>
 <body>	
 	<!-- NavBar -->
-	<%-- <%@ include file="main/mainNavbar.jsp"%> --%>
+	<%@ include file="main/mainNavbar.jsp"%>
 	<!-- SideBar -->
-	<%@ include file="main/mainSidebar.jsp"%>
+	<%-- <%@ include file="main/mainSidebar.jsp"%> --%>
 	<%-- <%@ include file="main/main.jsp" %> --%>
 	<!-- <iframe src="main" class="mainframe" id="mainFrame">
 		현재 브라우저는 이 사이트 형식을 지원하지 않습니다.

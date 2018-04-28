@@ -4,22 +4,24 @@
 
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
-		<div class="navbar-header">
+		<div class="navbar-header" style="width: 300px;">
 			<a class="navbar-brand" href="#">WebSiteName</a>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="active">
-				<a href="#">Home</a>
-			</li>
-			<li><a href="#">Page 1</a></li>
-			<li><a href="#">Page 2</a></li>
-		</ul>
-		<form class="navbar-form navbar-left" action="/action_page.php">
+		<form class="navbar-form navbar-left" action="/action_page.php" style="width: 940px">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search"
-					name="search">
+					name="search" style="width: 650px">
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-default" style="width: 150px; margin-bottom: 4px">Submit</button>
 		</form>
+		<c:choose>
+			<c:when test="${userid == null }">		
+				<button onclick="loginPage();" class="btn btn-primary" style="width:5%; margin-left: 70px; margin-top: 15px">Login</button>
+				<%@ include file="loginPage.jsp" %>
+			</c:when>
+			<c:when test="${userid != null}">		
+				<%@ include file="userPage.jsp" %>
+			</c:when>
+		</c:choose>
 	</div>
 </nav>

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:700);
 	body {
 		background: #F1F3FA;
 	}
@@ -123,7 +124,6 @@ iframe {
     border: none;         /* Reset default border */
     height: 100vh;        /* Viewport-relative units */
     width: 100vw;
-    padding-left: 80px; 
 }
 
 .search_div {
@@ -144,6 +144,179 @@ iframe {
 	padding-top: 15px;
 }
 
+.mainpage_body {
+	background-color: #333333;
+}
+
+.main_bottom_div {
+	display: inline-block;
+	padding-left: 40px;
+}
+
+.main_bottom_div2 {
+	display: inline-block;
+	padding-left: 40px;
+}
+
 .bt_save {
 	margin-left: 700px;
+}
+
+.main_top_logo {
+	height: 150px;
+}
+
+header {
+	width: 100%;
+}
+
+h1 {
+	font-style: italic;
+	font-size: 2.3em;
+}
+
+div.gallery {
+	margin-top: 20px;
+}
+
+div.gallery ul {
+	list-style-type: none;
+	margin-left: 35px;
+}
+
+/* animation */
+div.gallery ul li, div.gallery li img {
+	-webkit-transition: all 0.1s ease-in-out;
+  	-moz-transition: all 0.1s ease-in-out;
+  	-o-transition: all 0.1s ease-in-out;
+  	transition: all 0.1s ease-in-out;
+}
+
+div.gallery ul li {
+	position: relative;
+	float: left;
+	width: 300px;
+	height: 200px;
+	margin: 5px;
+	padding: 5px;
+	z-index: 0;
+}
+
+/* Make sure z-index is higher on hover */
+/* Ensure that hover image overlapped the others */
+div.gallery ul li:hover {
+	z-index: 50;
+}
+
+div.gallery ul li img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: 1px solid #dddddd;
+	padding: 5px;
+	width: 300px;
+	height: 180px;
+	background: #f0f0f0;
+}
+
+div.gallery ul li img:hover {
+	background-color: red;
+}
+
+/* Next & previous buttons */
+.prev {
+  cursor: pointer;
+  position: absolute;
+  top: 25%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0 ,50) );
+}
+
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 25%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0 ,50) );
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.prev2  {
+  cursor: pointer;
+  position: absolute;
+  top: 65%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0 ,50) );
+}
+
+.next2 {
+  cursor: pointer;
+  position: absolute;
+  top: 65%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0 ,50) );
+}
+
+/* Position the "next button" to the right */
+.next2 {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev2:hover, .next2:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.inner_gamename {
+	height: 35px;
+	float: left;
+}
+
+.gamename_one {
+	padding-left: 120px;
+	color: white;
+}
+
+.gamename_others {
+	padding-left: 240px;
+	color: white;
 }
