@@ -1,6 +1,8 @@
-function exportJSON (nodeid, layersData, eventsData) {
+function exportJSON (nodeid, nodename, layersData, eventsData) {
 	var mapData = new Object();
 
+	console.log('exportJSON');
+	console.log(eventsData);
 	/*
 		Map
 		Field			Type	Description
@@ -170,17 +172,17 @@ function exportJSON (nodeid, layersData, eventsData) {
 
 	//download(jsonData, 'autoTilemapJSON.json', 'text/plain');
 	
-	saveScene(nodeid, jsonData);
+	saveScene(nodeid, nodename, jsonData);
 }
 
-function saveScene(nodeid, jsonData) {
+function saveScene(nodeid, nodename, jsonData) {
 	$.ajax({
 		url: 'updateGameScene'
 		, type: 'POST'
 		, dataType: "text"
 		, data: {
 			nodeid: nodeid
-			, nodename: "testSaveScene"
+			, nodename: nodename
 			, nodecontent: jsonData
 		}
 		, success: function (data) {

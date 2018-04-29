@@ -87,10 +87,6 @@ function create() {
     
     // tile에 충돌효과 주기
     //map.getTile(eventsData[0].x, eventsData[0].y).setCollision(true,true,true,true);
-    
-    /*script = game.add.sprite(32, 500, 'script');
-	script.inputEnable = true;
-	script.input.enableDrag();*/
 }
 
 function update() {
@@ -116,8 +112,8 @@ function update() {
     }
 }
 
+let tileOnEvent;
 function setEventTile() {	
-	
 	//setTileLocationCallback(x, y, width, height, callback, callbackContext [, layer])
 	for (let i = 0; i < eventsData.length; i++) {
 		let event = eventsData[i];
@@ -133,7 +129,6 @@ function setEventTile() {
 	}
 }
 
-
 var i = 1;
 var textT, textIf;
 var selection1, selection2;
@@ -141,8 +136,13 @@ var scriptListInEvent;
 var styleForScript;
 var onScript = false;
 function playScript(event) {
-	return function() {
+	/**
+	 * @param  sprite 충돌을 일으킨 캐릭터
+	 * @param  tile   충돌이 일어난 타일
+	 */
+	return function(sprite, tile) {
 		if (spacebar.justPressed() && !onScript) {
+			
 			if (event.scripttype === 'explanation') {
 				var textEx = event.script.text;
 				textEx = game.add.text(event.x * 28, event.y * 28, event.script.text, {font: "20px Arial", fill: "#ffffff"} );
@@ -191,6 +191,7 @@ function playScript(event) {
 		} else if (!onScript) {
 			//console.log('playScript');
 		}
+		
 	};
 }
 
@@ -278,31 +279,33 @@ function changeMapHandler(event) {
 
 function changeMap(nodecontent) {
 		eventsData = nodecontent.events;
+
 		game.load.tilemap('Map', null, nodecontent, Phaser.Tilemap.TILED_JSON);
 		layer.destroy();
 		layer2.destroy();
 		map.destroy();
 		
 		map = game.add.tilemap('Map');
-		
+
+		map.addTilesetImage('Blank', 'Blank', 32, 32, 0, 0, 1);
 		map.addTilesetImage('Ground', 'Ground', 32, 32, 0, 0, 2);
 	    map.addTilesetImage('Ground2', 'Ground2', 32, 32, 0, 0, 106);
 	    map.addTilesetImage('Ground3', 'Ground3', 32, 32, 0, 0, 298);
 	    map.addTilesetImage('Tileset1', 'Tileset1', 32, 32, 0, 0, 490);
 	    map.addTilesetImage('Forest', 'Forest', 32, 32, 0, 0, 650);
-	    
+		
 		layer = map.createLayer('Tile Layer 1');
 	    layer.resizeWorld();
 
 	    layer2 = map.createLayer('Tile Layer 2');
 	    layer2.resizeWorld();
-	    
+		
 	    setEventTile();
 	    
 	    sprite.bringToTop();
 	    sprite.x = spritePosX;
 	    sprite.y = spritePosY;
-	    
+		
 	    map.setCollisionBetween(1, 1, true, layer);
 }
 
@@ -311,6 +314,7 @@ function collectCoin(player, coin) {
 }
 
 function render() {
-    //game.debug.body(sprite);
+	//game.debug.body(sprite);
+	//game.debug.bodyInfo(sprite, 16, 24);
 	//game.debug.text('x: ' + sprite.x + ', y: ' + sprite.y, 32, 32);
 }

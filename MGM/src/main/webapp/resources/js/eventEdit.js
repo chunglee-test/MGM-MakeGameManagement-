@@ -26,12 +26,14 @@ $(document).ready(function(){
     	
     	let mapOptions = "";
     	for (let i = 0; i < childList.length; i++) {
-    		mapOptions += "<option val='" + childList[i].nodeid + "'>" + childList[i].nodename + "</option>";
+    		mapOptions += "<option value='" + childList[i].nodeid + "'>" + childList[i].nodename + "</option>";
     	}
     	$('#ch_map').html(mapOptions);
     	
     	$('#btn_map_select').on('click', function(){
-    		let nextScene = $('#ch_map').val();
+
+    		let nextScene = $('#ch_map option:selected').val();
+            alert("val: " + nextScene);
     		let event = {
 	    		type: 'changeMap',
 	    		x : eventX,
@@ -43,11 +45,6 @@ $(document).ready(function(){
         	window.close();
     	});
     });
-    
-    $('#btn_map_select').on('click', function(){
-    	opener.getReturnValue(event);
-    	window.close();
-	});
     
     /* 대화 추가 이벤트 추가 */
     $('#btn_add_script').on('click', function(){
@@ -76,7 +73,7 @@ $(document).ready(function(){
     		$('#btn_if_continue').on('click', function() {
     			let mapOptions = "";
     	    	for (let i = 0; i < childList.length; i++) {
-    	    		mapOptions += "<option val='" + childList[i].nodeid + "'>" + childList[i].nodename + "</option>";
+    	    		mapOptions += "<option value='" + childList[i].nodeid + "'>" + childList[i].nodename + "</option>";
     	    	}
     	    	$('#nextScene1').html(mapOptions);
     	    	$('#nextScene2').html(mapOptions);

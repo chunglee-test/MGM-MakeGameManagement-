@@ -16,13 +16,18 @@
 			var gameid = "${scene.gameid}";
 			var nodeid = "${scene.nodeid}";
 			var nodename = "${scene.nodename}";
-			var nodecontent = '${scene.nodecontent}';
-			var childList = ${childList};
+			var nodecontent = ${scene.nodecontent};
+
+			var childList = new Array();
+			let child = new Object();
+			<c:forEach items="${childList}" var="child">
+				childList.push({nodeid:'${child.nodeid}', nodename:'${child.nodename}'});
+			</c:forEach>
 		</script>
 	</head>
 	<body>
 		<div class="search_div">
-			<input type="text" class="search_area" value="${scene.nodename}">
+			<input type="text" id="txt_nodename">
 			<button><img src="resources/img/Icon/searchbt.png"></button>
 			<button id="btn_save">저장</button>
 			<button id="btn_uppermenu">상위메뉴로</button>

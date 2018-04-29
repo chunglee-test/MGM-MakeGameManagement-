@@ -126,7 +126,6 @@ public class GameLoadController {
 	@ResponseBody
 	@RequestMapping(value="loadScene", method=RequestMethod.GET)
 	public GameNode loadScene(String nodeid, HttpSession session) {
-		System.out.println("loadScene() nodeid: " + nodeid);
 		int iNodeid = 0;
 		try {
 			iNodeid = Integer.parseInt(nodeid);
@@ -216,7 +215,7 @@ public class GameLoadController {
 		
 		model.addAttribute("scene", scene);
 		model.addAttribute("childList", childList);
-		
+
 		return "mapEdit/mapEditor";		
 	}
 	
@@ -234,7 +233,6 @@ public class GameLoadController {
 		}
 		
 		HashMap<String, String> scene = loadDAO.loadGame(iGameid);
-		//ArrayList<Integer> childList = loadDAO.getChildnode(Integer.parseInt(scene.get("nodeid")));
 		
 		if (scene.get("nodecontent") == null) {
 			scene.put("nodecontent", "null");
