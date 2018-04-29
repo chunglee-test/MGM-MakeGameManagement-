@@ -1,0 +1,16 @@
+diff a/MGM/src/main/resources/mappers/GameListMapper.xml b/MGM/src/main/resources/mappers/GameListMapper.xml	(rejected hunks)
+@@ -41,4 +41,13 @@
+ 		ORDER BY 
+ 			writedate
+ 	</select>
++	<update id="updateGameAccount" parameterType="game">
++		UPDATE
++			games
++		SET
++			gamename = #{gamename},
++			gamecontent = #{gamecontent}
++		WHERE
++			gameid = #{gameid}
++	</update>
+ </mapper>
+\ No newline at end of file

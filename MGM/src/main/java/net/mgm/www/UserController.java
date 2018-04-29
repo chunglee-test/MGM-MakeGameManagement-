@@ -36,7 +36,7 @@ public class UserController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		
-		return "home";
+		return "redirect:./";
 	}
 	
 	@ResponseBody

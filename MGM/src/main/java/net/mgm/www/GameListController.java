@@ -91,7 +91,11 @@ public class GameListController {
     		
             newFileName = updateGameAccount.getGameid() + "_maintitle." + fileName.substring(fileName.lastIndexOf(".")+1);
             try {
-                mFile.transferTo(new File(path + newFileName));
+            	File saveImg = new File(path + newFileName);
+            	if(saveImg.isFile()) {
+            		saveImg.delete();
+            	}
+                mFile.transferTo(saveImg);
             } catch (Exception e) {
                 e.printStackTrace();
             }

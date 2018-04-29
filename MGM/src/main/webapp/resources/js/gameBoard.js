@@ -33,14 +33,3 @@ function saveEditData(){
         }
 	});
 }
-
-$("[name='checkbox1']").bootstrapSwitch({
-	  on: 'On',
-	  off: 'Off ',
-	  onLabel: '&nbsp;&nbsp;&nbsp;',
-	  offLabel: '&nbsp;&nbsp;&nbsp;',
-	  same: false,//same labels for on/off states
-	  size: 'md',
-	  onClass: 'primary',
-	  offClass: 'default'
-});

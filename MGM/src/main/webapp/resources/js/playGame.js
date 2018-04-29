@@ -19,6 +19,8 @@ function preload() {
     game.load.image('tileb4', getContextPath() + '/resources/tilemaps/tiles/tileb4.png');
     game.load.image('tileb5', getContextPath() + '/resources/tilemaps/tiles/tileb5.png');
     
+    game.load.image('script', getContextPath() + '/resources/tilemaps/tiles/script.png');
+    
     // 캐릭터 스프라이트시트 불러오기
     // game.load.spritesheet(유니크한 이름, 경로, 타일 한 개당 너비, 타일 한 개당 높이)
     game.load.spritesheet('dude', getContextPath() + '/resources/sprites/CharacterTileset.png', 32, 32);

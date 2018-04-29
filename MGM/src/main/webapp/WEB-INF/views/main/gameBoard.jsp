@@ -10,7 +10,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="./resources/js/gameBoard.js"></script>
-	<script src="./reosurces/js/bootstrap-switch.js"></script>
 	<script>
 		$(document).ready(function(){
 			$("#playBtn").click(function(){
@@ -40,35 +39,44 @@
 				${game.gamename}
 			</p>
 			<p class="title_button">
-				<button type="button" class="btn btn-primary" id="playBtn">Play&nbsp!</button>
+				<button type="button" class="btn btn-primary" id="playBtn">Play&nbsp;!</button>
+				<button type="button" class="btn btn-success" id="openBtn">Open&nbsp;</button>
 				<button type="button" class="btn btn-warning" id="editBtn">Edit</button>
 				<button type="button" class="btn btn-danger" id="sceneBtn">Scene</button>
 			</p>
 		</div>
-		<div class="right-account-area">
-			<div class="game_image_area">
+		<div class="game_image_area">
+			<div class="left-account-area">
 				<div class="game_screenshot">
 					<div class="game_screenshot_view" id="screenshotMain">
-						<img src="./resources/img/game/screenshot_1.jpg">
+						<img src="./resources/img/game/1_screenshot_1.jpg"
+							onerror="javascript:this.src='./resources/img/game/NoImage.png'">
 					</div>
 					<div class="game_screenshot_wait">
 						<div class="wait_screenshot" id="screenshot_1">
-							<img src="./resources/img/game/screenshot_1.jpg">
+							<img src="./resources/img/game/screenshot_1.jpg"
+								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_2">
-							<img src="./resources/img/game/screenshot_2.jpg">
+							<img src="./resources/img/game/screenshot_2.jpg"
+								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_3">
-							<img src="./resources/img/game/screenshot_3.jpg">
+							<img src="./resources/img/game/screenshot_3.jpg"
+								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_4">
-							<img src="./resources/img/game/screenshot_4.jpg">
+							<img src="./resources/img/game/screenshot_4.jpg"
+								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_5">
-							<img src="./resources/img/game/screenshot_5.jpg">
+							<img src="./resources/img/game/screenshot_5.jpg"
+								onerror="javascript:this.style.display='none'">
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="right-account-area">
 				<div class="game_account">
 					<img class="game_title_view" src="./resources/img/game/${param.gameid}_maintitle.jpg" 
 						onerror="javascript:this.src='./resources/img/game/NoImage.png'">
@@ -79,7 +87,7 @@
 								제작자
 							</td>
 							<td>
-								${nick}
+								${game.nick}
 							</td>
 						</tr>
 						<tr class="opendate">
@@ -87,7 +95,7 @@
 								공개일
 							</td>
 							<td>
-								${opendate }
+								${game.opendate }
 							</td>
 						</tr>
 						<tr class="game_point">
@@ -99,7 +107,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" class="account_area">
+							<td colspan="2" class="account-area">
 								${game.gamecontent }		
 							</td>
 						</tr>
