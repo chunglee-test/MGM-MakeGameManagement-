@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.mgm.www.mapper.UserMapper">
+	<select id="loginUser" parameterType="user" resultType="user">
+		SELECT
+			userid, nick
+		FROM
+			users
+		WHERE
+			userid = #{userid}
+		AND
+			userpw = #{userpw}
+	</select>
+	<select id="idCheck" parameterType="user" resultType="string">
+		SELECT
+			userid
+		FROM
+			users
+		WHERE
+			userid = #{userid}
+	</select>	
+	<insert id="signupUser" parameterType="user">
+		INSERT INTO 
+			users(
+				userid, userpw, nick, email, signup
+			)
+		VALUES(
+			#{userid}, #{userpw}, #{nick}, #{email}, SYSDATE
+		)
+	</insert>
+</mapper>
