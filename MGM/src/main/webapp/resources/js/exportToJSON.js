@@ -1,6 +1,8 @@
-function exportJSON (layersData, eventsData) {
+function exportJSON (nodeid, nodename, layersData, eventsData) {
 	var mapData = new Object();
 
+	console.log('exportJSON');
+	console.log(eventsData);
 	/*
 		Map
 		Field			Type	Description
@@ -75,7 +77,7 @@ function exportJSON (layersData, eventsData) {
 		if (eventData.type === 'posCharacter') {
 			
 		} else if (eventData.type === 'changeMap') {
-			
+			eventData.nextScene = eventsData[eventNum].nextScene;
 		} else if (eventData.type === 'playScript') {
 			eventData.scripttype = eventsData[eventNum].scripttype;
 			
@@ -154,13 +156,16 @@ function exportJSON (layersData, eventsData) {
 	 */
 	mapData.tilesets = new Array();
 
-	//addTilesetBlank(mapData);
-	addTilesetGround(mapData);
-	addTilesetGround2(mapData);
-	addTilesetGround3(mapData);
-	addTilesetTileset1(mapData);
-	addTilesetForest(mapData);
-	addTilesetBlank(mapData);
+	addTilesetA1(mapData);
+	addTilesetA2(mapData);
+	addTilesetA3(mapData);
+	addTilesetA4(mapData);
+	addTilesetA5(mapData);
+	addTilesetB1(mapData);
+	addTilesetB2(mapData);
+	addTilesetB3(mapData);
+	addTilesetB4(mapData);
+	addTilesetB5(mapData);
 	
 	mapData.tilewidth = 32;
 	mapData.type = "map";
@@ -169,35 +174,24 @@ function exportJSON (layersData, eventsData) {
 
 	var jsonData = JSON.stringify(mapData);
 
-	download(jsonData, 'autoTilemapJSON.json', 'text/plain');
+	//download(jsonData, 'autoTilemapJSON.json', 'text/plain');
 	
-	/*var scene = {
-		gameid: 1
-		, nodeid: 99
-		, parentid: 15
-		, nodename: "testSaveScene"
-		, nodecontent: jsonData
-		, childnode: [1, 2, 3]
-	};
-	
-	saveScene(jsonData);*/
+	saveScene(nodeid, nodename, jsonData);
 }
 
-function saveScene(jsonData) {
+function saveScene(nodeid, nodename, jsonData) {
 	$.ajax({
-		url: 'saveScene'
+		url: 'updateGameScene'
 		, type: 'POST'
 		, dataType: "text"
 		, data: {
-			gameid: 2
-			, nodeid: 1
-			, parentid: 1
-			, nodename: "testSaveScene"
+			nodeid: nodeid
+			, nodename: nodename
 			, nodecontent: jsonData
-			, childnode: [1, 2, 3]
 		}
 		, success: function (data) {
-			location.href = data;
+			//location.href = data;
+			alert('맵 수정 완료');
 		}
 		, error: function (data) {
 			console.log('error');
@@ -213,15 +207,15 @@ function download(content, fileName, contentType) {
     a.click();
 }
 
-function addTilesetBlank(mapData) {
+function addTilesetA1(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 1;
-	tilesetData.image = "..\/tiles\/blank.png";
-	tilesetData.imageheight = 32;
-	tilesetData.imagewidth = 32;
+	tilesetData.firstgid = 1; //192개
+	tilesetData.image = "..\/tiles\/tilea1.png";
+	tilesetData.imageheight = 384; //12
+	tilesetData.imagewidth = 512; //16
 	tilesetData.margin = 0;
-	tilesetData.name = "Blank";
+	tilesetData.name = "tilea1";
 	tilesetData.properties = new Object();
 	tilesetData.spacing = 0;
 	tilesetData.tileheight = 32;
@@ -230,32 +224,15 @@ function addTilesetBlank(mapData) {
 	mapData.tilesets.push(tilesetData);
 }
 
-function addTilesetGround(mapData) {
+function addTilesetA2(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 2;
-	tilesetData.image = "..\/tiles\/Ground.png";
-	tilesetData.imageheight = 256;
-	tilesetData.imagewidth = 416;
-	tilesetData.margin = 0;
-	tilesetData.name = "Ground";
-	tilesetData.properties = new Object();
-	tilesetData.spacing = 0;
-	tilesetData.tileheight = 32;
-	tilesetData.tilewidth = 32;
-
-	mapData.tilesets.push(tilesetData);
-}
-
-function addTilesetGround2(mapData) {
-	var tilesetData = new Object();
-
-	tilesetData.firstgid = 106;
-	tilesetData.image = "..\/tiles\/Ground2.png";
+	tilesetData.firstgid = 193; //192개
+	tilesetData.image = "..\/tiles\/tilea2.png";
 	tilesetData.imageheight = 384;
 	tilesetData.imagewidth = 512;
 	tilesetData.margin = 0;
-	tilesetData.name = "Ground2";
+	tilesetData.name = "tilea2";
 	tilesetData.properties = new Object();
 	tilesetData.spacing = 0;
 	tilesetData.tileheight = 32;
@@ -264,15 +241,15 @@ function addTilesetGround2(mapData) {
 	mapData.tilesets.push(tilesetData);
 }
 
-function addTilesetGround3(mapData) {
+function addTilesetA3(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 298;
-	tilesetData.image = "..\/tiles\/Ground3.png";
-	tilesetData.imageheight = 384;
-	tilesetData.imagewidth = 512;
+	tilesetData.firstgid = 385; //240개
+	tilesetData.image = "..\/tiles\/tilea3.png";
+	tilesetData.imageheight = 480; //15
+	tilesetData.imagewidth = 512; //16
 	tilesetData.margin = 0;
-	tilesetData.name = "Ground3";
+	tilesetData.name = "tilea3";
 	tilesetData.properties = new Object();
 	tilesetData.spacing = 0;
 	tilesetData.tileheight = 32;
@@ -281,15 +258,15 @@ function addTilesetGround3(mapData) {
 	mapData.tilesets.push(tilesetData);
 }
 
-function addTilesetTileset1(mapData) {
+function addTilesetA4(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 490;
-	tilesetData.image = "..\/tiles\/Tileset1.png";
-	tilesetData.imageheight = 320;
-	tilesetData.imagewidth = 512;
+	tilesetData.firstgid = 625; //128개
+	tilesetData.image = "..\/tiles\/tilea4.png";
+	tilesetData.imageheight = 512; //16
+	tilesetData.imagewidth = 256; //8
 	tilesetData.margin = 0;
-	tilesetData.name = "Tileset1";
+	tilesetData.name = "tilea4";
 	tilesetData.properties = new Object();
 	tilesetData.spacing = 0;
 	tilesetData.tileheight = 32;
@@ -298,15 +275,100 @@ function addTilesetTileset1(mapData) {
 	mapData.tilesets.push(tilesetData);
 }
 
-function addTilesetForest(mapData) {
+function addTilesetA5(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 650;
-	tilesetData.image = "..\/tiles\/Forest.png";
-	tilesetData.imageheight = 512;
-	tilesetData.imagewidth = 512;
+	tilesetData.firstgid = 753; //128개
+	tilesetData.image = "..\/tiles\/tilea5.png";
+	tilesetData.imageheight = 256; //8
+	tilesetData.imagewidth = 512; //16
 	tilesetData.margin = 0;
-	tilesetData.name = "Forest";
+	tilesetData.name = "tilea5";
+	tilesetData.properties = new Object();
+	tilesetData.spacing = 0;
+	tilesetData.tileheight = 32;
+	tilesetData.tilewidth = 32;
+
+	mapData.tilesets.push(tilesetData);
+}
+
+function addTilesetB1(mapData) {
+	var tilesetData = new Object();
+
+	tilesetData.firstgid = 881; //256개
+	tilesetData.image = "..\/tiles\/tileb1.png";
+	tilesetData.imageheight = 512; //16
+	tilesetData.imagewidth = 512; //16
+	tilesetData.margin = 0;
+	tilesetData.name = "tileb1";
+	tilesetData.properties = new Object();
+	tilesetData.spacing = 0;
+	tilesetData.tileheight = 32;
+	tilesetData.tilewidth = 32;
+
+	mapData.tilesets.push(tilesetData);
+}
+
+function addTilesetB2(mapData) {
+	var tilesetData = new Object();
+
+	tilesetData.firstgid = 1137; //256개
+	tilesetData.image = "..\/tiles\/tileb2.png";
+	tilesetData.imageheight = 512; //16
+	tilesetData.imagewidth = 512; //16
+	tilesetData.margin = 0;
+	tilesetData.name = "tileb2";
+	tilesetData.properties = new Object();
+	tilesetData.spacing = 0;
+	tilesetData.tileheight = 32;
+	tilesetData.tilewidth = 32;
+
+	mapData.tilesets.push(tilesetData);
+}
+
+function addTilesetB3(mapData) {
+	var tilesetData = new Object();
+
+	tilesetData.firstgid = 1393; //256개
+	tilesetData.image = "..\/tiles\/tileb3.png";
+	tilesetData.imageheight = 512; //16
+	tilesetData.imagewidth = 512; //16
+	tilesetData.margin = 0;
+	tilesetData.name = "tileb3";
+	tilesetData.properties = new Object();
+	tilesetData.spacing = 0;
+	tilesetData.tileheight = 32;
+	tilesetData.tilewidth = 32;
+
+	mapData.tilesets.push(tilesetData);
+}
+
+function addTilesetB4(mapData) {
+	var tilesetData = new Object();
+
+	tilesetData.firstgid = 1649; //256개
+	tilesetData.image = "..\/tiles\/tileb4.png";
+	tilesetData.imageheight = 512; //16
+	tilesetData.imagewidth = 512; //16
+	tilesetData.margin = 0;
+	tilesetData.name = "tileb4";
+	tilesetData.properties = new Object();
+	tilesetData.spacing = 0;
+	tilesetData.tileheight = 32;
+	tilesetData.tilewidth = 32;
+
+	mapData.tilesets.push(tilesetData);
+}
+
+function addTilesetB5(mapData) {
+	var tilesetData = new Object();
+
+	tilesetData.firstgid = 1905; //256개
+	tilesetData.image = "..\/tiles\/tileb5.png";
+	tilesetData.imageheight = 512; //16
+	tilesetData.imagewidth = 512; //16
+	tilesetData.margin = 0;
+	tilesetData.name = "tileb5";
 	tilesetData.properties = new Object();
 	tilesetData.spacing = 0;
 	tilesetData.tileheight = 32;

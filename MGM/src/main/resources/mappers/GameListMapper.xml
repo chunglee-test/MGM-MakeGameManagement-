@@ -41,13 +41,4 @@
 		ORDER BY 
 			writedate
 	</select>
-	<update id="updateGameAccount" parameterType="game">
-		UPDATE
-			games
-		SET
-			gamename = #{gamename},
-			gamecontent = #{gamecontent}
-		WHERE
-			gameid = #{gameid}
-	</update>
 </mapper>

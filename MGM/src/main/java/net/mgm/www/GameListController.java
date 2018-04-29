@@ -46,6 +46,7 @@ public class GameListController {
 			return "main/GameList";
 		}		
 		
+		
 		Game game = glDAO.gameSelect(iGameId);
 		ArrayList<GameComment> cList = glDAO.gameComment(iGameId);
 		
@@ -95,8 +96,6 @@ public class GameListController {
                 e.printStackTrace();
             }
         }        
-        
-        System.out.println(updateGameAccount);
         glDAO.updateGameAccount(updateGameAccount);
          
         return "true";

@@ -1,88 +1,126 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>MGM - Event Editor</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="./resources/css/eventEditor.css">
+<style type="text/css">
+	@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+	* {
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+   
+	body{
+		background-color: #333333;
+	}
+	#btn_set_char {
+		background-color: darkgray !important;
+	}
+	#div_event_ctx, #div_character{
+		margin: 20px;
+	}
+	#table_scripts{
+		font: white;
+	}
+</style>
 		
-		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-	</head>
-	<body>
+<div id="eventpopup" class="modal">
+	<div class="modal-content animate container">	
+		<span onclick="closeEventPopup()" class="close" title="Close Modal">
+			&times;
+		</span>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#div_character" data-toggle="tab">
+				<span class="glyphicon glyphicon-picture"></span>  캐릭터/맵  </a></li>
+   			<li><a href="#div_event_ctx" data-toggle="tab">
+   			 	<span class="glyphicon glyphicon-comment"></span>  대화  </a></li>
+		</ul>
 		
-		<div id="div_btns">
-			<button id="btn_set_char">캐릭터 초기위치</button>
-			<button id="btn_change_map">맵 이동</button>
-			<button id="btn_add_script">대화 추가</button>
-			<button id="btn_return">돌아가기</button>
-		</div>
-		
-		<div id="div_event_ctx">
-			<div id="div_selection">
-				<h3>대화 타입 선택</h3>
-				<select id="select_script">
-					<option>설명</option>
-					<option>대화</option>
-					<option>분기점</option>
+		<div class="tab-content">
+		    <div id="div_character" class="tab-pane fade in active">
+		    	<img id="img" name="img" height="100" width="100" />
+				<select id="select_char" onchange="previewImg(value)">
+					<option value="./resources/img/character/character1.png">NPC1</option>
+					<option value="./resources/img/character/character2.png">NPC2</option>
 				</select>
-			</div>
-			
-			<div id="div_script_input">
-				<h3>대화 입력</h3>
-				<div id="div_explanation">
-					<textarea id="txt_explanation" rows="5" cols="70"></textarea>
-				</div>
+				<button id="btn_submit_char" class="btn">캐릭터 초기 위치 완료</button>
 				
-				<div id="div_talk">
-					<span>캐릭터 선택</span>
-					<select id="select_talker">
-						<option>NPC1</option>
-						<option>NPC2</option>
-						<option>NPC3</option>
-					</select>
-					<textarea id="txt_talk" rows="5" cols="70"></textarea>
-					<button id="btn_talk_continue">대화 추가</button>
+				<div id="div_map_change">
+					<span>맵 선택</span>
+					<select id="options_map"></select>
+					<button id="btn_submit_map" class="btn">맵 이동 완료</button>
 				</div>
-				
-				<div id="div_if">
-					<h3>선택지 추가</h3>
-					<span>선택지1: </span>
-					<input id="txt_if1" type="text"/>
-					<select id="nextScene1">
-						<option>11</option>
-						<option>22</option>
-					</select>
+		    </div>
+
+		    <div id="div_event_ctx" class="tab-pane fade">
+		      	<ul class="nav nav-tabs">
+		        	<li class="active"><a data-toggle="tab" href="#div_explanation">설명</a></li>
+		        	<li><a data-toggle="tab" href="#div_basictalk">기본대화</a></li>
+		        	<li><a data-toggle="tab" href="#div_selecttalk">분기점</a></li>
+		      	</ul>
+
+		      	<div class="tab-content">
+		      		<div id="div_explanation" class="tab-pane fade in active">
+						<h3>설명 입력</h3>
+						<textarea id="txt_explanation" rows="5"></textarea>
+						<button id="btn_submit_explain" class="btn">입력 완료</button>
+					</div>
+
+					<div id="div_basictalk" class="tab-pane fade">
+						<h3>기본 대화 입력</h3>
+						<span>캐릭터 선택</span>
+						<select id="select_talker">
+							<option>NPC1</option>
+							<option>NPC2</option>
+							<option>NPC3</option>
+						</select>
+						
+						<br>
+
+						<textarea id="txt_basictalk" rows="5"></textarea><br>
+						<button id="btn_basictalk_cont" class="btn">대화 추가</button>
+
+						<h3>입력한 대본</h3>
+						<table id="table_basictalk" class="table table-striped"></table>
+						<br>
+						<button id="btn_submit_basictalk" class="btn">입력 완료</button>
+					</div>
+
+					<div id="div_selecttalk" class="tab-pane fade">
+						<h3>기본 대화 입력</h3>
+						<span>캐릭터 선택</span>
+						<select id="select_talker2">
+							<option>NPC1</option>
+							<option>NPC2</option>
+							<option>NPC3</option>
+						</select>
+						
+						<br>
+
+						<textarea id="txt_selecttalk" rows="5"></textarea><br>
+						<button id="btn_seltalk_cont" class="btn">대화 추가</button>
+
+						<h3>선택지 추가</h3>
+						<span>선택지1: </span>
+						<input id="txt_if1" type="text"/>
+						<span>맵 이동</span><select id="nextScene1"></select>
+						<br>
+						<span>선택지2: </span>
+						<input id="txt_if2" type="text"/>
+						<span>맵 이동</span><select id="nextScene2"></select>
+						
+						<button id="btn_add_if" class="btn">선택지 추가 완료</button>
+						
+						<h3>입력한 대본</h3>
+						<table id="table_selecttalk" class="table table-striped"></table>
+						<br>
+						<button id="btn_submit_selecttalk" class="btn">입력 완료</button>
+					</div>
 					
-					<br>
-					
-					<span>선택지2: </span>
-					<input id="txt_if2" type="text"/>
-					<select id="nextScene2">
-						<option>99</option>
-						<option>88</option>
-					</select>
-					
-					<button id="btn_add_if">선택지 추가 완료</button>
-				</div>
-			</div>
-			
-			<div id="div_script">
-				<h3>입력한 대본</h3>
-				<table id="table_scripts">
-					
-				</table>
-			</div>
-			<button id="btn_add">완료</button>
-		</div>	
-		
-		<div id="div_map_change">
-			<span>맵 선택</span>
-			<select id="ch_map">
-				
-			</select>
-			<button id="btn_map_select">선택</button>
-		</div>
-		
-		<script type="text/javascript" src="resources/js/eventEdit.js"></script>
-	</body>
-</html>
+					<!-- <div>
+						<button id="btn_add" class="btn">모든 대화 추가 완료</button>
+					</div> -->
+		      	</div>
+		    </div>
+  		</div>
+
+	</div> <!-- end of modal-content -->
+</div> <!-- end of modal -->

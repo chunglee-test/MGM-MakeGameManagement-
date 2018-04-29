@@ -14,7 +14,7 @@
 	<script>
 		$(document).ready(function(){
 			$("#playBtn").click(function(){
-				alert("play");
+				location.href="loadGame?gameid=2";
 			});
 			$("#editBtn").click(function(){
 				$("#editGameAccountDiv").css("display","block");
@@ -45,64 +45,66 @@
 				<button type="button" class="btn btn-danger" id="sceneBtn">Scene</button>
 			</p>
 		</div>
-		<div class="game_image_area">
-			<div class="game_screenshot">
-				<div class="game_screenshot_view" id="screenshotMain">
-					<img src="./resources/img/game/screenshot_1.jpg">
-				</div>
-				<div class="game_screenshot_wait">
-					<div class="wait_screenshot" id="screenshot_1">
+		<div class="right-account-area">
+			<div class="game_image_area">
+				<div class="game_screenshot">
+					<div class="game_screenshot_view" id="screenshotMain">
 						<img src="./resources/img/game/screenshot_1.jpg">
 					</div>
-					<div class="wait_screenshot" id="screenshot_2">
-						<img src="./resources/img/game/screenshot_2.jpg">
-					</div>
-					<div class="wait_screenshot" id="screenshot_3">
-						<img src="./resources/img/game/screenshot_3.jpg">
-					</div>
-					<div class="wait_screenshot" id="screenshot_4">
-						<img src="./resources/img/game/screenshot_4.jpg">
-					</div>
-					<div class="wait_screenshot" id="screenshot_5">
-						<img src="./resources/img/game/screenshot_5.jpg">
+					<div class="game_screenshot_wait">
+						<div class="wait_screenshot" id="screenshot_1">
+							<img src="./resources/img/game/screenshot_1.jpg">
+						</div>
+						<div class="wait_screenshot" id="screenshot_2">
+							<img src="./resources/img/game/screenshot_2.jpg">
+						</div>
+						<div class="wait_screenshot" id="screenshot_3">
+							<img src="./resources/img/game/screenshot_3.jpg">
+						</div>
+						<div class="wait_screenshot" id="screenshot_4">
+							<img src="./resources/img/game/screenshot_4.jpg">
+						</div>
+						<div class="wait_screenshot" id="screenshot_5">
+							<img src="./resources/img/game/screenshot_5.jpg">
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="game_account">
-				<img class="game_title_view" src="./resources/img/game/${param.gameid}_maintitle.jpg" 
-					onerror="javascript:this.src='./resources/img/game/NoImage.png'">
-				
-				<table class="account_table">
-					<tr class="producer">
-						<td class="left_td">
-							제작자
-						</td>
-						<td>
-							${nick}
-						</td>
-					</tr>
-					<tr class="opendate">
-						<td class="left_td">
-							공개일
-						</td>
-						<td>
-							${opendate }
-						</td>
-					</tr>
-					<tr class="game_point">
-						<td class="left_td">
-							점수
-						</td>
-						<td>
-							7.5
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="account_area">
-							${game.gamecontent }		
-						</td>
-					</tr>
-				</table>
+				<div class="game_account">
+					<img class="game_title_view" src="./resources/img/game/${param.gameid}_maintitle.jpg" 
+						onerror="javascript:this.src='./resources/img/game/NoImage.png'">
+					
+					<table class="account_table">
+						<tr class="producer">
+							<td class="left_td">
+								제작자
+							</td>
+							<td>
+								${nick}
+							</td>
+						</tr>
+						<tr class="opendate">
+							<td class="left_td">
+								공개일
+							</td>
+							<td>
+								${opendate }
+							</td>
+						</tr>
+						<tr class="game_point">
+							<td class="left_td">
+								점수
+							</td>
+							<td>
+								7.5
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="account_area">
+								${game.gamecontent }		
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
