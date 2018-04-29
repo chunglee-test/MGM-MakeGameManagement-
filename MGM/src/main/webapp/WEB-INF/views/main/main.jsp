@@ -29,6 +29,11 @@
 		    </div>
 		</div>	
 	</article>
+	<a href="produceScene?gameid=2"> Go to Node Editor Page</a>
+	/
+	<a href="loadGame?gameid=2"> Go to Game Play Page</a>
+	/
 	<a href="mapEdit"> Go to Map Editor Page </a>
+	/
 	<a href="playGame"> Go to Game Play Page </a>
 </body>    

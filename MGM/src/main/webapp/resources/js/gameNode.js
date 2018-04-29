@@ -1,7 +1,36 @@
+
+
+
+
+$('.nodeDiv').click(function(e) {
+	var sWidth = window.innerWidth;
+	var sHeight = window.innerHeight;
+
+	var oWidth = $('.popupLayer').width();
+	var oHeight = $('.popupLayer').height();
+
+	// 레이어가 나타날 위치를 셋팅한다.
+	var divLeft = e.clientX + 10;
+	var divTop = e.clientY + 5;
+
+	// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+	if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+	if( divTop + oHeight > sHeight ) divTop -= oHeight;
+
+	// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+	if( divLeft < 0 ) divLeft = 0;
+	if( divTop < 0 ) divTop = 0;
+
+	$('#informationDiv').css({
+		"top" : divTop,
+		"left" : divLeft
+	}).show();
+});	
+
 function getNode(gameid) {
 	$.ajax({
 		type : "GET",
-		url : "sceneLoad?gameid=" + gameid,
+		url : "gameScenes?gameid=" + gameid,
 		dataType : "json",
 		success : function(data) {
 			if (data.length == 0) {
@@ -49,14 +78,62 @@ function makeUL(node){
 
 function makeLI(node){
 	var inHTML = "";
-	inHTML += "<li id='li" + node.nodeid + "'>";
-	inHTML += "<div class='nodeDiv'>";
-	inHTML += "id : " + node.nodeid + "<br>";
-	inHTML += "parentid : " + node.parentid + "<br>";
-	inHTML += "nodename : " + node.nodename + "<br>";
+	inHTML += "<li id='li" + node.nodeid + "' nodeid='" + node.nodeid + "'>";
+	inHTML += "<span class='nodeDiv'>";
+	inHTML += "<img src='./resources/img/nodeImages/SceneIcon.png' class='scene_icon'>";
+	inHTML += "<br><div class='nodeText'>" + node.nodename + "</div>";
 	/*inHTML += "nodecontent: " + node.nodecontent + "<br>";*/
-	inHTML += "</div>";
+	inHTML += "</span>";
 	inHTML += "</li>";
 	
 	return inHTML;
+}
+
+
+$(window).click(function(e) {
+	var parentObject = $(e.target);
+	var parentNodeid;
+	
+	var cnt = 0;
+	while(true){
+		if(parentObject.attr("class") == 'nodeDiv'){
+			parentObject = parentObject.parent();
+			break;
+		}
+		else{
+			parentObject = parentObject.parent();
+			cnt++;
+		}
+		
+		if(cnt > 5){
+			closeInformation();
+			return;
+		}
+	}
+	
+	parentNodeid = parentObject.attr("nodeid");
+	
+	console.log("x : " + e.pageX + " , y : " + e.pageY);
+	
+	displayInformation(e.pageX, e.pageY, parentNodeid);
+	
+});
+
+
+function addChildScene(gameid, nodeid){
+	$.ajax({
+		type : "GET",
+		url : "addChildScene?gameid=" + gameid + "&nodeid=" + nodeid,
+		success : function(data) {
+			if (data.length == 0) {
+				alert("fail");
+			} 
+			else if(data == "false"){
+				alert("insert fail");
+			}			
+			else {
+				location.reload();
+			}
+		}
+	});
 }

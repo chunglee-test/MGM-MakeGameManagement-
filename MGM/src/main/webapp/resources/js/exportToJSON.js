@@ -1,6 +1,8 @@
-function exportJSON (layersData, eventsData) {
+function exportJSON (nodeid, nodename, layersData, eventsData) {
 	var mapData = new Object();
 
+	console.log('exportJSON');
+	console.log(eventsData);
 	/*
 		Map
 		Field			Type	Description
@@ -75,7 +77,7 @@ function exportJSON (layersData, eventsData) {
 		if (eventData.type === 'posCharacter') {
 			
 		} else if (eventData.type === 'changeMap') {
-			
+			eventData.nextScene = eventsData[eventNum].nextScene;
 		} else if (eventData.type === 'playScript') {
 			eventData.scripttype = eventsData[eventNum].scripttype;
 			
@@ -154,12 +156,13 @@ function exportJSON (layersData, eventsData) {
 	 */
 	mapData.tilesets = new Array();
 
+	addTilesetBlank(mapData);
 	addTilesetGround(mapData);
 	addTilesetGround2(mapData);
 	addTilesetGround3(mapData);
 	addTilesetTileset1(mapData);
 	addTilesetForest(mapData);
-
+	
 	mapData.tilewidth = 32;
 	mapData.type = "map";
 	mapData.version = 1;
@@ -169,33 +172,22 @@ function exportJSON (layersData, eventsData) {
 
 	//download(jsonData, 'autoTilemapJSON.json', 'text/plain');
 	
-	var scene = {
-		gameid: 1
-		, nodeid: 99
-		, parentid: 15
-		, nodename: "testSaveScene"
-		, nodecontent: jsonData
-		, childnode: [1, 2, 3]
-	};
-	
-	saveScene(jsonData);
+	saveScene(nodeid, nodename, jsonData);
 }
 
-function saveScene(jsonData) {
+function saveScene(nodeid, nodename, jsonData) {
 	$.ajax({
-		url: 'saveScene'
+		url: 'updateGameScene'
 		, type: 'POST'
 		, dataType: "text"
 		, data: {
-			gameid: 1
-			, nodeid: 99
-			, parentid: 15
-			, nodename: "testSaveScene"
+			nodeid: nodeid
+			, nodename: nodename
 			, nodecontent: jsonData
-			, childnode: [1, 2, 3]
 		}
 		, success: function (data) {
-			location.href = data;
+			//location.href = data;
+			alert('맵 수정 완료');
 		}
 		, error: function (data) {
 			console.log('error');
@@ -203,18 +195,35 @@ function saveScene(jsonData) {
 	});	
 }
 
-/*function download(content, fileName, contentType) {
+function download(content, fileName, contentType) {
     var a = document.createElement("a");
     var file = new Blob([content], {type: contentType});
     a.href = URL.createObjectURL(file);
     a.download = fileName;
     a.click();
-}*/
+}
+
+function addTilesetBlank(mapData) {
+	var tilesetData = new Object();
+
+	tilesetData.firstgid = 1;
+	tilesetData.image = "..\/tiles\/blank.png";
+	tilesetData.imageheight = 32;
+	tilesetData.imagewidth = 32;
+	tilesetData.margin = 0;
+	tilesetData.name = "Blank";
+	tilesetData.properties = new Object();
+	tilesetData.spacing = 0;
+	tilesetData.tileheight = 32;
+	tilesetData.tilewidth = 32;
+
+	mapData.tilesets.push(tilesetData);
+}
 
 function addTilesetGround(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 1;
+	tilesetData.firstgid = 2;
 	tilesetData.image = "..\/tiles\/Ground.png";
 	tilesetData.imageheight = 256;
 	tilesetData.imagewidth = 416;
@@ -231,7 +240,7 @@ function addTilesetGround(mapData) {
 function addTilesetGround2(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 105;
+	tilesetData.firstgid = 106;
 	tilesetData.image = "..\/tiles\/Ground2.png";
 	tilesetData.imageheight = 384;
 	tilesetData.imagewidth = 512;
@@ -248,7 +257,7 @@ function addTilesetGround2(mapData) {
 function addTilesetGround3(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 297;
+	tilesetData.firstgid = 298;
 	tilesetData.image = "..\/tiles\/Ground3.png";
 	tilesetData.imageheight = 384;
 	tilesetData.imagewidth = 512;
@@ -265,7 +274,7 @@ function addTilesetGround3(mapData) {
 function addTilesetTileset1(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 489;
+	tilesetData.firstgid = 490;
 	tilesetData.image = "..\/tiles\/Tileset1.png";
 	tilesetData.imageheight = 320;
 	tilesetData.imagewidth = 512;
@@ -282,7 +291,7 @@ function addTilesetTileset1(mapData) {
 function addTilesetForest(mapData) {
 	var tilesetData = new Object();
 
-	tilesetData.firstgid = 649;
+	tilesetData.firstgid = 650;
 	tilesetData.image = "..\/tiles\/Forest.png";
 	tilesetData.imageheight = 512;
 	tilesetData.imagewidth = 512;

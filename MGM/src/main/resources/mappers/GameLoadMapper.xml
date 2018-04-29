@@ -34,17 +34,6 @@
 		<result property="nodecontent" column="nodecontent" jdbcType="CLOB" javaType="string" />
 	</resultMap>
 	
-	<select id="getChildnode" parameterType="int" resultType="int">
-		SELECT
-			nodeid
-		FROM
-			game_node
-		WHERE
-			parentid = ${parentid}
-		ORDER BY
-			nodeid
-	</select>
-	
 	<insert id="saveGameScene" parameterType="gnode">
 		INSERT INTO 
 			game_node(
@@ -63,15 +52,55 @@
 		)
 	</insert>
 	
+	<!-- 특정 노드에 연결된 자식 노드들의 정보를 가져오는 쿼리문 -->
+	<select id="getChildnode" parameterType="int" resultType="gnode">
+		SELECT
+			nodeid, nodename
+		FROM
+			game_node
+		WHERE
+			parentid = #{parentid}
+		ORDER BY
+			nodeid
+	</select>
+	
+	<!-- 맵 에디터에서 노드 정보를 수정하기 위해 노드의 정보를 가져오는 쿼리문 -->
+	<select id="loadGameScene" parameterType="int" resultMap="selectGameScene">
+		SELECT
+			*
+		FROM
+			game_node
+		WHERE
+			nodeid = #{nodeid}
+	</select>
+	<resultMap id="selectGameScene" type="hashmap">
+		<result property="gameid" column="gameid" javaType="string"/>
+		<result property="nodeid" column="nodeid" javaType="string"/>
+		<result property="parentid" column="parentid" javaType="string"/>
+		<result property="nodename" column="nodename" javaType="string"/>
+		<result property="nodecontent" column="nodecontent" jdbcType="CLOB" javaType="string" />
+	</resultMap>
+	
+	<!-- 노드의 정보를 수정, 즉 맵 정보 수정하기 위한 쿼리문 -->
 	<update id="updateNodeContent" parameterType="gnode">
 		UPDATE 
 			game_node
 		SET
-			nodename = ${nodename},
-			nodecontent=${nodecontent}
+			nodename = #{nodename},
+			nodecontent = #{nodecontent}
 		WHERE
-			nodeid=${nodeid}
+			nodeid = #{nodeid}
 	</update>
+	
+	<!-- 게임을 시작하기 위해 첫 노드의 정보를 가져오기 위한 쿼리문 -->
+	<select id="loadGame" parameterType="int" resultMap="selectGameScene">
+		SELECT
+			*
+		FROM
+			game_node
+		WHERE
+			gameid = #{gameid} AND parentid IS NULL
+	</select>
 	
 	<delete id="deleteNode" parameterType="int">
 		DELETE FROM
@@ -79,4 +108,20 @@
 		WHERE
 			nodeid = ${nodeid}
 	</delete>
+
+	<insert id="addChildScene" parameterType="gnode">
+      INSERT INTO
+         game_node(
+            gameid, 
+            nodeid, 
+            parentid, 
+            nodename
+         )
+      VALUES(
+         #{gameid},
+         seq_nodeid.nextval,
+         #{parentid},
+         'Scene'
+      )
+   </insert>
 </mapper>
