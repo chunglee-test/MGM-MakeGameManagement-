@@ -37,6 +37,9 @@
 
 .logout-button{
 	float:right;
+	width:5%;
+	margin-right: 65px;
+	margin-top: 35px;
 }
 /* sideBar End */
 
@@ -334,7 +337,6 @@ a {
     transform: rotate(360deg);
   }
 }
-
 @-webkit-keyframes hide {
   100% {
     visibility: hidden;

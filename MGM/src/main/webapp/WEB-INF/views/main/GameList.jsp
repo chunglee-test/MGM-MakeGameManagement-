@@ -21,24 +21,46 @@
 			box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
 		}
 		.maker-name{
-			text-align:right;
+			text-align:left;
 		}
-</style>
+		.gamelist {
+			clear: both;
+			padding-top: 20px;
+			color: white;
+			padding-left: 30px;
+		}
+		.card {
+			float: left;
+			width: 300px;
+			height: 150px;
+			margin-right: 30px;
+		}
+		.list_thumbnail {
+			max-width: 100%;
+			height: auto;
+		}
+		.gamelist:hover {
+			background-color: rgb(58,58,58);
+			height: 165px;
+		}
+	</style>
 </head>
-<body>
+<body style="background-color: #333333;">
 <!-- https://getbootstrap.com/docs/4.1/components/card/ -->
-	<c:forEach items="${gList}" var="gList">
-		<div class="col-md-3 col-sm-4 col-xs-6" onclick="location.href='gameBoard?gameid=${gList.gameid}'">
-			<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-				<div class="card-header">${gList.gamename}</div>
-				<div class="card-body">
-					<p class="card-text">
-						<img class="card-img img-thumbnail" src="./resources/img/game/${gList.gameprofile }">
-					</p>
-					<h5 class="card-title maker-name">${gList.nick}</h5>
+	<div class="container">
+		<c:forEach items="${gList}" var="gList">
+			<div class="gamelist" onclick="location.href='gameBoard?gameid=${gList.gameid}'">
+				<%-- ${gList.gameid}_maintitle --%>
+				<div class="card text-white bg-primary mb-3" style= "max-width: 18vw; max-height: 16vh;"><img src="resources/img/game/maintitle.jpg" class="list_thumbnail"></div>
+				<div class="gamereference">
+					<div class="card-header" style="font-size: 18px;">${gList.gamename}</div>
+					<div class="card-body">
+						<h5 class="card-title maker-name">${gList.nick}</h5>
+						<p class="card-text" style="color: white;">${gList.gamecontent}안녕하세요.</p>
+					</div>
 				</div>
 			</div>
-		</div>
-	</c:forEach>
+		</c:forEach>
+	</div>
 </body>
 </html>
