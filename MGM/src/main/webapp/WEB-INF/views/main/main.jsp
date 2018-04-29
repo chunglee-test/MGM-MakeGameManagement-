@@ -68,7 +68,6 @@
 	</div>
 	<!-- <a href="mapEdit"> Go to Map Editor Page </a>
 	<a href="playGame"> Go to Game Play Page </a> -->
-<body>
 	<article class="container">
 		<div class="content">
 		    <div class="col-md-12">

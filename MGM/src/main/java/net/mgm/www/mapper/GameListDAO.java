@@ -30,5 +30,9 @@ public class GameListDAO implements GameListMapper{
 	public ArrayList<GameComment> gameComment(int gameid) {
 		return session.getMapper(GameListMapper.class).gameComment(gameid);
 	}
-	
+
+	@Override
+	public void updateGameAccount(Game game) {
+		session.getMapper(GameListMapper.class).updateGameAccount(game);
+	}
 }

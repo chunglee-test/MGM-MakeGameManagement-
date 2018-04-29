@@ -1,0 +1,165 @@
+@charset "UTF-8";
+	
+	body{
+		background-color:#333333;
+		padding-top:2vw;
+		color:white;
+	}
+	
+	.gameboard-container{
+		height:70%;
+	}
+	
+	.title_area p{
+	    display:inline-block;
+	}
+	
+	.title_button{
+		float:right;
+	}
+	.title_button button{
+		width:70px;
+	}
+	
+	.game_title{
+		border:none;
+		font-family:"Times New Roman", Times, serif;
+		font-size:30px;
+		background-color:#333333;
+	}
+	
+	.game_image_area{
+		width:100%;
+		height:60%;
+	}
+	.game_image_area > div{
+	    display:inline-block;
+	}
+	.game_screenshot{
+		width:60%;
+		height:80%;
+	}
+	.game_screenshot img{
+		width:98%;
+	}
+	.game_screenshot_wait{
+		margin:2%
+	}
+	.wait_screenshot{
+		width:19%;
+	    display:inline-block;
+	}
+	.wait_screenshot:hover{
+		border:white 2px solid;		
+	}
+	.wait_screenshot img{
+		width:100%;
+	}
+	.wait_screenshot > img:hover{
+		outline:white 1px solid;
+	}
+	
+	.game_account{
+		width:35%;
+		vertical-align:top;
+		color:#66C0F4;
+	}
+	.game_title_view{
+		width:100%;
+	}
+	
+	.game_account > table{
+		margin-top:2vh;
+		width:100%;
+	}
+	.left_td{
+		font-weight:bold;
+		color:#82807c;
+		width:30%;
+	}
+	.account-area{
+		padding-top:10px;
+		color:#ffffff;
+	}
+	.account-area > textarea{
+		background-color:#333333;
+		width:100%;
+		height:100%;
+		border:none;
+	}	
+	
+	.edit-game-account-div{
+		display:none;
+		height :50%;
+	}
+	.modal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: hidden; /* Enable scroll if needed */
+		background-color: rgb(0, 0, 0); /* Fallback color */
+		background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+		padding-top: 60px;
+		color:#000;
+	}
+	.modal-content {
+		background-color: #fefefe;
+		margin: 5% auto 15% auto;
+		border: 1px solid #888;
+		width: 30vw;
+	}
+	.animate {
+		-webkit-animation: animatezoom 0.6s;
+		animation: animatezoom 0.6s
+	}	
+	@-webkit-keyframes animatezoom {
+		from {-webkit-transform: scale(0)}
+		to { -webkit-transform: scale(1)}
+	}
+	@keyframes animatezoom {
+		from {transform: scale(0)}
+		to {transform: scale(1)}
+	}
+	input[type=text]{
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+		color:black;
+		font-family: Arial, Helvetica, sans-serif;
+		padding:10px;
+	}
+	
+	.edit-container{
+		padding:20px;
+		width:100%;
+	}
+	.edit-container p{
+		margin:5px;
+	}
+	.edit-container label{
+		margin-top:5px;
+	}
+	.title-area{
+		width:100%;
+	}
+	.content-area > textarea{
+		padding:10px;
+		width:100%;
+		height:10vw;
+	}
+	.savebtn-area{
+		margin-top:15px;
+	}
+	.savebtn{
+		width:100%;
+	}
+	.screenshot-area{
+		margin:0px;
+	}

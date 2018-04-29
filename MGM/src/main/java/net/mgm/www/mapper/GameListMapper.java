@@ -9,4 +9,5 @@ public interface GameListMapper {
 	public ArrayList<Game> getGamelist(String search);
 	public Game gameSelect(int gameid);
 	public ArrayList<GameComment> gameComment(int gameid);
+	public void updateGameAccount(Game game);
 }
