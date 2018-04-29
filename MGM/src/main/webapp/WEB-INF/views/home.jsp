@@ -27,6 +27,22 @@
 		    $("#loginBtn").click(function(){
 		        loginChk();
 		    });
+		    
+		    $("#popular_list").click(function(){
+		    	$("#mainFrame").attr("src", "gameList");
+		    });
+		    
+		    $("#recently_list").click(function(){
+		    	$("#mainFrame").attr("src", "gameList");
+		    });
+		    
+		    $("#played_list").click(function(){
+		    	$("#mainFrame").attr("src", "gameList");
+		    });
+		    
+		    $("#made_list").click(function(){
+		    	$("#mainFrame").attr("src", "gameList");
+		    });
 		});
 		
 		function loginPage(){
