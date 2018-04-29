@@ -195,9 +195,10 @@ div.gallery ul li, div.gallery li img {
 div.gallery ul li {
 	position: relative;
 	float: left;
-	width: 300px;
-	height: 200px;
-	margin: 5px;
+	width: 250px;
+	height: 150px;
+	margin: 20px;
+	margin-left: 40px;
 	padding: 5px;
 	z-index: 0;
 }
@@ -214,8 +215,8 @@ div.gallery ul li img {
 	top: 0;
 	border: 1px solid #dddddd;
 	padding: 5px;
-	width: 300px;
-	height: 180px;
+	width: 250px;
+	height: 150px;
 	background: #f0f0f0;
 }
 
@@ -307,16 +308,26 @@ div.gallery ul li img:hover {
 }
 
 .inner_gamename {
-	height: 35px;
+	height: 25px;
 	float: left;
 }
 
-.gamename_one {
+.gamename_1 {
 	padding-left: 120px;
 	color: white;
 }
 
-.gamename_others {
-	padding-left: 240px;
+.gamename_2 {
+	padding-left: 245px;
+	color: white;
+}
+
+.gamename_3 {
+	padding-left: 243px;
+	color: white;
+}
+
+.gamename_4 {
+	padding-left: 247px;
 	color: white;
 }
