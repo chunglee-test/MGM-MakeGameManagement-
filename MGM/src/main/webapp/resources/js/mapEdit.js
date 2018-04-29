@@ -1,8 +1,18 @@
-var tileNumWidth = 40, tileNumHeight = 30, sceneName = 'map name';
+var tileNumWidth = 40, tileNumHeight = 30;
+var onMaking = false;
 (function () {
-	tileNumWidth = prompt('맵의 너비를 지정해주세요', '타일수 입력');
-	tileNumHeight = prompt('맵의 높이를 지정해주세요', '타일수 입력');
-	sceneName = prompt('맵 이름을 지정해주세요', 'map name');
+    if (nodecontent !== null) {
+        alert('이미 제작중인 맵이 있습니다');
+        onMaking = true;
+        tileNumWidth = nodecontent.layers[0].width;
+        tileNumHeight = nodecontent.layers[0].height;
+    } else {
+        tileNumWidth = prompt('맵의 너비를 지정해주세요(단위 타일 수)', '30');
+        tileNumHeight = prompt('맵의 높이를 지정해주세요(단위 타일 수)', '30');
+        nodename = prompt('맵 이름을 지정해주세요', '기본 맵');
+    }
+
+    $('#txt_nodename').val(nodename);
 })();
 
 /* 타일셋 부분 */
@@ -12,7 +22,7 @@ const arrTilesetName = ['Ground', 'Ground2', 'Ground3', 'Tileset1', 'Forest'];
 const cvsTileset = document.getElementById("tileset");
 const ctxTileset = cvsTileset.getContext('2d');
 
-var tilesetImg, currTileset = 0, currTile = 0;
+var tilesetImg, currTileset = 0, currTile = 2;
 var drawTileType = 1;
 
 Promise.all([
@@ -57,7 +67,8 @@ function addEventListeners() {
     });
     
     document.getElementById('btn_save').addEventListener("click", function (e) {
-        exportJSON(nodeid, layersData, eventsList);
+        nodename = $('#txt_nodename').val();
+        exportJSON(nodeid, nodename, layersData, eventsList);
     });
     
     document.getElementById('btn_tileset').addEventListener("click", function (e) {
@@ -120,14 +131,14 @@ function create() {
 
     //  Creates a new blank layer and sets the map dimensions.
     //  40x30 tiles in size and the tiles are 32x32 pixels in size.
-    layer1 = map.create('바닥', tileNumWidth, tileNumHeight, 32, 32);
+    layer1 = map.create('배경 레이어', tileNumWidth, tileNumHeight, 32, 32);
     layer1.scrollFactorX = 1;
     layer1.scrollFactorY = 1;
 
     //  Resize the world
     layer1.resizeWorld();
 
-    layer2 = map.createBlankLayer('장애물', tileNumWidth, tileNumHeight, 32, 32);
+    layer2 = map.createBlankLayer('이벤트 레이어', tileNumWidth, tileNumHeight, 32, 32);
     layer2.scrollFactorX = 1;
     layer2.scrollFactorY = 1;
 
@@ -168,9 +179,35 @@ function create() {
             }
         }
     }
-    
-    // 이벤트 정보를 저장하기 위한 배열
-    eventsData = new Array();
+
+    if (onMaking) {
+        for (let i = 0; i < nodecontent.events.length; i++) {
+            eventsList.push(nodecontent.events[i]);
+        }
+        
+        let tileID, tileX, tileY, layerIndex;
+        for (let i = 0; i < nodecontent.layers.length; i++) {
+            layerIndex = (i === 0) ? layer1.index : layer2.index;
+            
+            for (let j = 0; j < nodecontent.layers[i].data.length; j++) {
+                tileID = nodecontent.layers[i].data[j];
+                tileY = j % nodecontent.layers[i].width;
+                tileX = Math.floor(j / nodecontent.layers[i].width);
+
+                layersData[i][tileX][tileY] = tileID;
+                if (tileID !== 0 && tileID !== 1) {
+                    map.putTile(tileID, tileY, tileX, layerIndex);
+                }
+            }
+        }
+
+        // 캐릭터 초기 위치 설정
+        for (let i = 0; i < eventsList.length; i++) {
+            if (eventsList[i].type === 'posCharacter') {
+                sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 48);
+            }
+        }
+    }
 }
 
 // 이벤트 추가 자식창으로부터 정보를 받아 처리하는 메소드
@@ -218,7 +255,7 @@ function updateMarker() {
         let x = game.math.snapToFloor(game.input.mousePointer.worldX, 32) / 32;
         let y = game.math.snapToFloor(game.input.mousePointer.worldY, 32) / 32;
 
-        let layerNum = (currentLayer.name === '바닥') ? 0 : 1;
+        let layerNum = (currentLayer.name === layer1.name) ? 0 : 1;
         
         if (drawTileType === 1) {
             map.putTile(currTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentLayer);
