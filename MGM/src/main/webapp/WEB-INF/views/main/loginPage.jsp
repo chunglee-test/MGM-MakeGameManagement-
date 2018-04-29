@@ -24,20 +24,20 @@
 </div>
 <div id="signup-container" class="modal">
 	<div class="modal-content animate">
-		<form class="container form-container">
+		<form class="container form-container" id="formContainer" method="post" enctype="multipart/form-data">
 			<h1>회원가입</h1>
 			<label>계정명</label>
-			<input type="text" placeholder="Enter ID" name="signup-id" id="signup-id" required>
-			<label class="requireId">중복된 ID입니다</label>
+			<input type="text" placeholder="Enter ID" name="userid" id="signup-id" required>
+			<label class="requireId" id="requireId">중복된 ID입니다</label>
 			<input type="hidden" id="signup-idchk" value="N">
 			<label>비밀번호</label>
-			<input type="password" placeholder="Enter PW" name="signup-pw" id="signup-pw" required>
+			<input type="password" placeholder="Enter PW" name="userpw" id="signup-pw" required>
 			<label>닉네임</label>
-			<input type="text" placeholder="Enter NickName" name="signup-nick" id="signup-nick" required>
+			<input type="text" placeholder="Enter NickName" name="nick" id="signup-nick" required>
 			<label>이메일</label>
-			<input type="text" placeholder="Enter E-mail" name="signup-email" id="signup-email" required>
+			<input type="text" placeholder="Enter E-mail" name="email" id="signup-email" required>
 			<label>프로필 사진</label>
-			<input type="file" name="signup-profile" id="signup-profile" required>
+			<input type="file" name="signup-profile" id="userprofile" required>
 			<button type="button" onclick="signUp();">회원가입</button>
 		</form>
 	</div>
@@ -58,12 +58,18 @@
 	
 	$("#signup-id").blur(function(){
 		$.ajax({
-			url:'idChk',
+			url:'idCheck',
 			type:'post',
-			data:$("#signup-id"),
+			data:{
+				joinId:$("#signup-id").val()
+			},
 			success:function(result){
 				if(result != "true"){
-					
+					$("#requireId").css("display", "block");
+					$("#signup-id").focus();	
+				}
+				else{
+					$("#requireId").css("display", "none");
 				}
 			},
 			error:function(){
@@ -75,8 +81,6 @@
 	function loginChk(){
 		var userid = $("#userid").val();
 		var userpw = $("#userpw").val();
-		
-		alert(userid + "/" + userpw);
 		
 		$.ajax({
 			url:'login',
@@ -99,46 +103,24 @@
 		});
 	}
 	
-	
-	
 	function signUp(){
-		var userid = $('#signup-id');
-		var userpw = $('#signup-pw');
-		var nick = $('#signup-nick');
-		var email = $('#signup-email');
+        var formData = new FormData($("#formContainer")[0]);
+        
 		$.ajax({
-			url:'signup',
-			type:'post',
-			data:{
-				userid:userid,
-				userpw:userpw,
-				nick:nick,
-				email:email
-			},
-			success:function(){
-				if($('#signup-profile' != '')){
-					alert("here1");
-					signUp_profile();
-				}
-				else{
-					alert("회원가입이 되었습니다.");
-					signUp_complete();					
-				}
-			}
-		});
-	}
-	
-	function signUp_profile(){
-		$.ajax({
-			url: 'signupProfile',
-		    data: $('#signup-profile').attr('files'),
-		    cache: false,
-		    contentType: 'multipart/form-data',
-		    processData: false,
-		    type: 'post',
-		    success: function(data){
-		        alert(data);
-		    }
+			type : 'post',
+            url : 'signup',
+            data : formData,
+            processData : false,
+            contentType : false,
+            success : function(html) {
+                alert("가입 완료");
+                signUp_complete();
+            },
+            error : function(error) {
+                alert("fail");
+                console.log(error);
+                console.log(error.status);
+            }
 		});
 	}
 	
@@ -151,6 +133,10 @@
 		$("#login-container").css("display", "none");
 	}
 	function closeSignup(){
+		$("#signup-id").val("");
+		$("#signup-pw").val("");
+		$("#signup-nick").val("");
+		$("#signup-email").val("");
 		$("#signup-container").css("display", "none");
 	}
 
