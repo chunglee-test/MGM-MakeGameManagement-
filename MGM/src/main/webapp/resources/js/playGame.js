@@ -5,7 +5,7 @@ var game = new Phaser.Game(
 var eventsData;
 
 function preload() {
-	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONwithEvent.json', 
+	$.getJSON(getContextPath() + '/resources/tilemaps/maps/autoTilemapJSONcomplete1.json', 
 		function(jsonData) {
 			eventsData = jsonData.events;
 			game.load.tilemap('eventMap', null, jsonData, Phaser.Tilemap.TILED_JSON);
@@ -97,10 +97,7 @@ function create() {
     
     // tile에 충돌효과 주기
     //map.getTile(eventsData[0].x, eventsData[0].y).setCollision(true,true,true,true);
-    
-    /*script = game.add.sprite(32, 500, 'script');
-	script.inputEnable = true;
-	script.input.enableDrag();*/
+
 }
 
 function update() {
@@ -153,31 +150,48 @@ function playScript(event) {
 	return function() {
 		if (spacebar.justPressed() && !onScript) {
 			if (event.scripttype === 'explanation') {
-				//console.log(event.script.text);
+				console.log(event.script.text);
 				var textEx = event.script.text;
 				textEx = game.add.text(event.x * 28, event.y * 28, event.script.text, {font: "10px Arial", fill: "#ffffff"} );
 				
-				onScript = true;
+			    //game.time.events.add(Phaser.Timer.SECOND * 4, textEx, this);
+			    game.add.tween(textEx).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
+
+				//onScript = true;
 			} else if (event.scripttype === 'talk') {
 				script = game.add.sprite(32, 500, 'script');
 				script.inputEnabled = true;
 				script.events.onInputDown.add(scriptHandler, this);
+
+				script.fixedToCamera = true;
+			    script.cameraOffset.setTo(0, 450);
 				
 				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
-				textT = game.add.text(35, 500, event.script[0].text, style1);
+				textT = game.add.text(35, 600, event.script[0].text, style1);
+
+				textT.fixedToCamera = true;
+			    textT.cameraOffset.setTo(30, 500);
 				
 				scriptListInEvent = event.script;
 				onScript = true;
+				cursors.inputEnabled = false;
 			} else if (event.scripttype === 'if') {
 				script = game.add.sprite(32, 500, 'script');
 				script.inputEnabled = true;
 				script.events.onInputDown.add(ifHandler, this);
 				
+				script.fixedToCamera = true;
+			    script.cameraOffset.setTo(0, 450);
+				
 				style1 = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
 				textIf = game.add.text(35, 500, event.script[0].text, style1);
 				
+				textIf.fixedToCamera = true;
+			    textIf.cameraOffset.setTo(30, 500);
+				
 				scriptListInEvent = event.script;
 				onScript = true;
+				cursors.inputEnabled = false;
 
 			}
 			
@@ -209,6 +223,13 @@ function ifHandler() {
 		selection1.inputEnabled = true;
 		selection2.inputEnabled = true;
 		textIf.destroy();
+		
+		selection1.fixedToCamera = true;
+	    selection1.cameraOffset.setTo(30, 500);
+	    
+	    selection2.fixedToCamera = true;
+	    selection2.cameraOffset.setTo(30, 500);
+		
 		selection1.events.onInputDown.add(selection1Handler, this);
 		selection2.events.onInputDown.add(selection2Handler, this);
 		i++;
