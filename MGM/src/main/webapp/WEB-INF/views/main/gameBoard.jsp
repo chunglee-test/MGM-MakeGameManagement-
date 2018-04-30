@@ -67,7 +67,6 @@
 					<button type="button" class="btn btn-warning" id="editBtn">Edit</button>
 					<button type="button" class="btn btn-danger" id="sceneBtn">Scene</button>
 				</c:if>
-					<button type="button" class="btn btn-danger" id="commentBtn">댓글</button>
 			</p>
 		</div>
 		<div class="game_image_area">
@@ -138,7 +137,7 @@
 						</tr>
 						<tr>
 							<td class="comment-bt-td">
-								<button class="btn btn-primary" id="comment-bt">댓글보기</button>
+								<button class="btn btn-danger" id="commentBtn">댓글보기</button>
 							</td>
 						</tr>
 					</table>
@@ -185,23 +184,26 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal comment-div" id="commentDiv">
 		<div class="commentArea modal-content animate" id="loginForm">
 			<div class="container comment-container">
 				<c:if test="${!empty userid}">
 					<div class="input-comment">
-						<input type="text" class="comment-text" id="commentText">
-						<button type="button" class="write-comment-btn" id="writeCommentBtn">평가 남기기</button>
-					</div>					
-				</c:if>
-				<c:forEach items="${cList}" var="comment">
-					<div class="view-comment">
-						userid : ${comment.userid }
-						nick : ${comment.nick }
-						gcomment : ${comment.gcomment }
+						<input type="text" class="comment-text" id="commentText" style="width: 750px;">
+						<button type="button" class="write-comment-btn"
+							id="writeCommentBtn">평가 남기기</button>
 					</div>
-				</c:forEach>
+				</c:if>
+				<div class="commentInnerDiv">
+					<c:forEach items="${cList}" var="comment">
+						<div class="view-comment"> <img src="${comment.userid}.jpg" class="user-profile"> 
+							<span class="comment-span">${comment.gcomment }</span>
+							<div>${comment.nick }</div>
+							</div>
+						
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -197,15 +197,42 @@
 	}
 	
 	.comment-div{
-		display:none;
+		width: 100%;
+		height: 100%;
+		padding-top: 1px;
+		padding-left: 30px;
 	}
-	.comment-area{
-		margin-top:5vw;
-		width:60vw;
-		height:50vw;
+	.commentArea{
+		width: 60vw;
+		height:70%;
 	}
-	.comment-container{
+	.commentInnerDiv{
+		width: 860px;
+		overflow-y: scroll;
 	}
 	.comment-bt-td {
 		padding-top: 31px;
+	}	
+	.input-comment {
+		width: 850px;
+		margin-bottom: 15px;
+	}
+	.view-comment {
+		padding: 10px;
+		max-width: 840px;
+		border-bottom: 2px solid black; 
+	}
+	.view-comment:hover {
+		background: #D3D3D3;
+	}
+	.user-profile {
+		border: 2px solid #ADD8E6;
+		max-height: 32px;
+		max-width: 32px;
+	}	
+	.comment-span {
+		padding-left: 60px;
+	}
+	.write-comment-btn{
+		height: 42px;
 	}
