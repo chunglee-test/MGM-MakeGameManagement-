@@ -75,9 +75,11 @@ function exportJSON (nodeid, nodename, layersData, eventsData) {
 		
 		// type에 따른 이벤트 구조가 다르다
 		if (eventData.type === 'posCharacter') {
-			
+			eventData.charType = eventsData[eventNum].charType;
+
 		} else if (eventData.type === 'changeMap') {
 			eventData.nextScene = eventsData[eventNum].nextScene;
+			
 		} else if (eventData.type === 'playScript') {
 			eventData.scripttype = eventsData[eventNum].scripttype;
 			

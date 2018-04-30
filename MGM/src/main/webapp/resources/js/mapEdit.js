@@ -66,21 +66,21 @@ function addEventListeners() {
 
         currTile = arrGID[currTileset] + x + y * (tilesetImg.width / 32);
     });
+
+    let btnList = document.getElementsByClassName('btn_tileset');
+    for (let i = 0; i < btnList.length; i++) {
+        btnList[i].addEventListener("click", function (e) {
+            console.log(this);
+            
+            loadTilesets(this.name);
+        });
+    }
     
     document.getElementById('btn_save').addEventListener("click", function (e) {
         nodename = $('#txt_nodename').val();
         exportJSON(nodeid, nodename, layersData, eventsList);
     });
     
-    document.getElementById('btn_tileset').addEventListener("click", function (e) {
-        if (currTileset < arrTilesetName.length - 1) {
-            currTileset++;
-        } else {
-            currTileset = 0;
-        }
-        loadTilesets(currTileset);
-    });
-
     document.getElementById('btn_tile_1x1').addEventListener("click", function (e) {
         drawTileType = 1;
     });
@@ -209,7 +209,16 @@ function create() {
         // 캐릭터 초기 위치 설정
         for (let i = 0; i < eventsList.length; i++) {
             if (eventsList[i].type === 'posCharacter') {
-                sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 48);
+                if (eventsList[i].charType === './resources/img/character/character2.png') {
+                    // 이누야샤
+                    sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 48);
+                } else if (eventsList[i].charType === './resources/img/character/character1.png') {
+                    // 여자 캐릭터
+                    sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 16);
+                } else {
+                    alert('캐릭터 타입 미지정');
+                    sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 48);
+                }
             }
         }
     }
@@ -227,12 +236,25 @@ function getReturnValue(returnValue) {
 				findPosChar = true;
 				eventsList[i] = returnValue;
 				sprite.destroy();
-				sprite = game.add.sprite(eventPosX*32, eventPosY*32, 'dude', 48);
+
+                if (returnValue.charType === './resources/img/character/character2.png') {
+                    // 이누야샤
+                    sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 48);
+                } else if (returnValue.charType === './resources/img/character/character1.png') {
+                    // 여자 캐릭터
+                    sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 16);
+                }
 			}
 		}
 		
 		if (!findPosChar) {
-			sprite = game.add.sprite(eventPosX*32, eventPosY*32, 'dude', 48);
+			if (returnValue.charType === './resources/img/character/character2.png') {
+                // 이누야샤
+                sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 48);
+            } else if (returnValue.charType === './resources/img/character/character1.png') {
+                // 여자 캐릭터
+                sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 16);
+            }
 		}
 	} 
 	

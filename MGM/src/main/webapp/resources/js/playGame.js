@@ -71,21 +71,13 @@ function create() {
     
     // 캐릭터 맵에 추가
     // game.add.sprite(posX, posY, key, frame#)
-    sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 48);
-    game.physics.arcade.enable(sprite);
+    // game.physics.arcade.enable(sprite);
 
-    // 캐릭터 움직임 선언
-    // sprite.animations.add(유니크한 애니메이션 이름, 반복할 타일 번호, 프레임수, true)
-    sprite.animations.add('left', [32, 33, 34, 35, 36, 37, 32], 60, false);
-    sprite.animations.add('right', [40, 41, 42, 43, 44, 45, 40], 60, false);
-    sprite.animations.add('down', [48, 49, 50, 51, 52, 53, 48], 60, false);
-    sprite.animations.add('up', [56, 57, 58, 59, 60, 61, 56], 60, false);
-
-    // 캐릭터의 충돌 사이즈 조절
+    /*// 캐릭터의 충돌 사이즈 조절
     sprite.body.setSize(32, 32, 0, 0);
     sprite.body.collideWorldBounds = true;
     sprite.anchor.set(0.5);
-    //sprite.tint = 0x000000;
+    //sprite.tint = 0x000000;*/
 
     // 카메라 캐릭터 이동에 고정
     game.camera.follow(sprite);
@@ -130,6 +122,45 @@ function setEventTile() {
 		if (event.type === 'posCharacter') {
 			spritePosX = event.x * 32;
 			spritePosY = event.y * 32;
+			if (event.charType === './resources/img/character/character2.png') {
+				// 이누야샤
+				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 48);
+				
+				// 캐릭터 움직임 선언
+    			// sprite.animations.add(유니크한 애니메이션 이름, 반복할 타일 번호, 프레임수, true)
+				sprite.animations.add('left', [32, 33, 34, 35, 36, 37, 32], 60, false);
+			    sprite.animations.add('right', [40, 41, 42, 43, 44, 45, 40], 60, false);
+			    sprite.animations.add('down', [48, 49, 50, 51, 52, 53, 48], 60, false);
+			    sprite.animations.add('up', [56, 57, 58, 59, 60, 61, 56], 60, false);
+			    
+			    game.physics.arcade.enable(sprite);
+
+			} else if (event.charType === './resources/img/character/character1.png') {
+				// 여자 캐릭터
+				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 16);
+				sprite.animations.add('left', [0, 1, 2, 3, 4, 5, 0], 60, false);
+			    sprite.animations.add('right', [8, 9, 10, 11, 12, 13, 8], 60, false);
+			    sprite.animations.add('down', [16, 17, 18, 19, 20, 21, 16], 60, false);
+			    sprite.animations.add('up', [24, 25, 26, 27, 28, 29, 24], 60, false);
+
+			    game.physics.arcade.enable(sprite);
+
+			} else {
+				alert('캐릭터 타입 미지정');
+				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 48);
+				sprite.animations.add('left', [32, 33, 34, 35, 36, 37, 32], 60, false);
+			    sprite.animations.add('right', [40, 41, 42, 43, 44, 45, 40], 60, false);
+			    sprite.animations.add('down', [48, 49, 50, 51, 52, 53, 48], 60, false);
+			    sprite.animations.add('up', [56, 57, 58, 59, 60, 61, 56], 60, false);
+
+			    game.physics.arcade.enable(sprite);		
+			}
+
+		    // 캐릭터의 충돌 사이즈 조절
+		    sprite.body.setSize(30, 30, 0, 0);
+		    sprite.body.collideWorldBounds = true;
+		    sprite.anchor.set(1);
+		    
 		} else if (event.type === 'changeMap') {
 			map.setTileLocationCallback(event.x, event.y, 1, 1, changeMapHandler(event), this);
 		} else if (event.type === 'playScript') {
@@ -316,11 +347,12 @@ function changeMap(nodecontent) {
 	    layer2 = map.createLayer('Tile Layer 2');
 	    layer2.resizeWorld();
 		
+		sprite.destroy();
 	    setEventTile();
 	    
 	    sprite.bringToTop();
-	    sprite.x = spritePosX;
-	    sprite.y = spritePosY;
+	    // sprite.x = spritePosX;
+	    // sprite.y = spritePosY;
 		
 	    map.setCollisionBetween(625, 625, true, layer);
 }

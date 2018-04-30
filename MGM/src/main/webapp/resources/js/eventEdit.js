@@ -16,10 +16,12 @@ $(document).ready(function(){
 
     // 캐릭터 초기 위치 셋팅 완료 버튼 클릭시    
     $('#btn_submit_char').on('click', function() {
+        let charType = $('#select_char option:selected').val();
         let event = {
             type: 'posCharacter',
             x : eventPosX,
-            y : eventPosY
+            y : eventPosY,
+            charType: charType
         };
 
         getReturnValue(event);
