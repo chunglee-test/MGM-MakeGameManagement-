@@ -5,12 +5,11 @@ var modal = document.getElementById("editGameAccountDiv");
 
 window.onclick = function(event) {
     if ($(event.target).attr("class") == $("#editGameAccountDiv").attr("class")) {
-    	closeEditDiv();
+    	$("#editGameAccountDiv").css("display", "none");
 	}
-}
-
-function closeEditDiv(){	
-	$("#editGameAccountDiv").css("display", "none");	
+    else if($(event.target).attr("class") == $("#commentDiv").attr("class")) {
+    	$("#commentDiv").css("display", "none");
+	}
 }
 
 function saveEditData(){

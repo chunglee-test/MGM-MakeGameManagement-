@@ -34,6 +34,9 @@
 			$("#saveBtn").click(function(){
 				saveEditData();
 			});
+			$("#commentBtn").click(function(){
+				$("#commentDiv").css("display","block");
+			});
 			$(".wait_screenshot").click(function(event){
 				var getImgDiv = $(event.target).parent().attr("id");
 				var imgHTML = $("#"+getImgDiv).html();
@@ -64,6 +67,7 @@
 					<button type="button" class="btn btn-warning" id="editBtn">Edit</button>
 					<button type="button" class="btn btn-danger" id="sceneBtn">Scene</button>
 				</c:if>
+					<button type="button" class="btn btn-danger" id="commentBtn">댓글</button>
 			</p>
 		</div>
 		<div class="game_image_area">
@@ -173,6 +177,26 @@
 						<button type="button" class="btn btn-primary savebtn" id="saveBtn">SAVE</button>
 					</p>
 				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal comment-div" id="commentDiv">
+		<div class="commentArea modal-content animate" id="loginForm">
+			<div class="container comment-container">
+				<c:if test="${!empty userid}">
+					<div class="input-comment">
+						<input type="text" class="comment-text" id="commentText">
+						<button type="button" class="write-comment-btn" id="writeCommentBtn">평가 남기기</button>
+					</div>					
+				</c:if>
+				<c:forEach items="${cList}" var="comment">
+					<div class="view-comment">
+						userid : ${comment.userid }
+						nick : ${comment.nick }
+						gcomment : ${comment.gcomment }
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

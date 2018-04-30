@@ -69,8 +69,8 @@
     	margin:0 auto;
 	}
 	.wait_screenshot{
-		width:19%;
 		max-height:20%;
+		width:19%;
 	    display:inline-block;
 	}
 	.wait_screenshot:hover{
@@ -184,4 +184,15 @@
 	}
 	.screenshot-area{
 		margin:0px;
+	}
+	
+	.comment-div{
+		display:none;
+	}
+	.comment-area{
+		margin-top:5vw;
+		width:60vw;
+		height:50vw;
+	}
+	.comment-container{
 	}

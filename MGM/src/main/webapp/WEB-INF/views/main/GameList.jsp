@@ -51,7 +51,7 @@
 		<c:forEach items="${gList}" var="gList">
 			<div class="gamelist" onclick="location.href='gameBoard?gameid=${gList.gameid}'">
 				<%-- ${gList.gameid}_maintitle --%>
-				<div class="card text-white bg-primary mb-3" style= "max-width: 18vw; max-height: 16vh;"><img src="resources/img/game/maintitle.jpg" class="list_thumbnail"></div>
+				<div class="card text-white bg-primary mb-3" style= "max-width: 18vw; max-height: 16vh;"><img src="resources/img/game/${gList.gameid}_maintitle.jpg" class="list_thumbnail"></div>
 				<div class="gamereference">
 					<div class="card-header" style="font-size: 18px;">${gList.gamename}</div>
 					<div class="card-body">

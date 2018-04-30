@@ -2,6 +2,7 @@ package net.mgm.www.vo;
 
 public class GameComment {
 	private int gameid;
+	private String userid;
 	private String nick;
 	private String gcomment;
 	private int point;
@@ -21,6 +22,12 @@ public class GameComment {
 	}
 	public void setGameid(int gameid) {
 		this.gameid = gameid;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	public String getNick() {
 		return nick;

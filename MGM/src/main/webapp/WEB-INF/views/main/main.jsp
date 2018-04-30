@@ -31,12 +31,12 @@
 <body class="mainpage_body">
 	<!--images from http://haryarti.deviahntart.com/gallery/-->
 	<div class="container">
-		<header><h2 style="color: white;">인기게임 순위</h2></header>
+		<header><h2 style="color: white;">인기게임 Top 4</h2></header>
 		<ul class="gallery">
 			<c:forEach items="${pList }" var="game">
 				<li>
 					<div class="flip">
-						<div class="front-side" style="background-image:url('./resources/img/user/${game.gameid}'_maintitle.jpg)"></div>
+						<div class="front-side" style="background-image:url('./resources/img/game/${game.gameid}_maintitle.jpg')"></div>
 						<div class="back-side">
 							<a href="#">
 								<div class="content">
@@ -52,12 +52,12 @@
 				</li>
 			</c:forEach>
 		</ul>
-		<header><h2 style="color: white;">신작게임 순위</h2></header>
+		<header><h2 style="color: white;">신작게임 Top 4</h2></header>
 		<ul class="gallery">
 			<c:forEach items="${rList }" var="game">
 				<li>
 					<div class="flip">
-						<div class="front-side" style="background-image:url('./resources/img/user/${game.gameid}'_maintitle.jpg)"></div>
+						<div class="front-side" style="background-image:url('./resources/img/game/${game.gameid}_maintitle.jpg')"></div>
 						<div class="back-side">
 							<a href="#">
 								<div class="content">
