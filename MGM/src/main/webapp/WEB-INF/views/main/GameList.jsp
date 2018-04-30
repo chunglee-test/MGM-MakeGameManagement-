@@ -61,6 +61,11 @@
 				</div>
 			</div>
 		</c:forEach>
+		<c:if test="${empty gList}">
+			<div class="none-list">
+				해당하는 리스트가 없습니다.
+			</div>
+		</c:if>
 	</div>
 </body>
 </html>

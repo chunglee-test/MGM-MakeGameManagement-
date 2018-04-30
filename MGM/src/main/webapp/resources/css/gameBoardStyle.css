@@ -17,12 +17,15 @@
 		width:60%;
 	}
 	.right-account-area{
+		padding-top:4px;
 		width:40%;
 		float:right;
 	}
 	
 	.game_screenshot_view{
 		width:100%;
+	}
+	.game_screenshot_view > img{
 		max-height: 75%;
 	}
 	.title_area{
@@ -56,7 +59,14 @@
 		width:98%;
 	}
 	.game_screenshot_wait{
-		margin:2%
+		padding : 5px;
+		background-color:#191970;
+		margin-top:2%;
+		margin-right:2%;
+		float:center;
+    	vertical-align:middle;
+    	float:center;
+    	margin:0 auto;
 	}
 	.wait_screenshot{
 		width:19%;
@@ -64,13 +74,10 @@
 	    display:inline-block;
 	}
 	.wait_screenshot:hover{
-		border:white 2px solid;		
+		outline:black 2px solid;
 	}
-	.wait_screenshot img{
+	.wait_screenshot > img{
 		width:100%;
-	}
-	.wait_screenshot > img:hover{
-		outline:white 1px solid;
 	}
 	
 	.game_account{
@@ -103,6 +110,7 @@
 	}	
 	
 	.edit-game-account-div{
+		margin-top:-7%;
 		display:none;
 		height :50%;
 	}

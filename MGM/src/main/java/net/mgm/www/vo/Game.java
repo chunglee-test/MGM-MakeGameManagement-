@@ -2,6 +2,7 @@ package net.mgm.www.vo;
 
 public class Game {
 	private int gameid;
+	private String userid;
 	private String nick;
 	private String gamename;
 	private String gamecontent;
@@ -27,6 +28,12 @@ public class Game {
 	}
 	public void setGameid(int gameid) {
 		this.gameid = gameid;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	public String getNick() {
 		return nick;

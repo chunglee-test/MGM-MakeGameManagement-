@@ -12,12 +12,14 @@
 			users u
 		ON
 			g.userid = u.userid
+		WHERE
+			g.isopen = 'Y'
 		ORDER BY
 			g.gameid DESC
 	</select>
 	<select id="gameSelect" parameterType="int" resultType="game">
 		SELECT
-			u.nick, g.gamename, g.gamecontent, g.gameprofile
+			u.userid, u.nick, g.gamename, g.gamecontent, g.gameprofile, g.isopen
 		FROM
 			games g
 		LEFT JOIN
@@ -50,4 +52,66 @@
 		WHERE
 			gameid = #{gameid}
 	</update>
+	<update id="isOpenGame" parameterType="game">
+		UPDATE
+			games
+		SET
+			isopen = #{isopen},
+			opendate = SYSDATE
+		WHERE
+			gameid = #{gameid}
+	</update>
+	<select id="getPopularGame" resultType="game">
+		SELECT
+            g.gameid, g.gamename, g.gamecontent, p.point
+        FROM
+            games g
+        LEFT JOIN
+            (SELECT
+                gameid, AVG(point) AS point
+            FROM
+                game_comment
+            GROUP BY
+                gameid) p    
+        ON
+            g.gameid = p.gameid
+        WHERE
+            g.isopen = 'Y'
+        ORDER BY
+            p.point
+	</select>
+	<select id="getRecentGame" resultType="game">
+		SELECT
+		    gameid, gamename, gamecontent, opendate
+		FROM
+		    games
+		WHERE
+		    isopen = 'Y'
+		ORDER BY
+			opendate DESC
+	</select>
+	<select id="getPlayedGame" parameterType="string" resultType="game">
+		SELECT
+		    g.gamename, g.gamecontent, g.gameid, u.nodeid, u.lastdate
+		FROM
+		    user_gameplay u
+		LEFT JOIN
+		    games g
+		ON
+		    g.gameid = u.gameid
+		WHERE
+		    u.userid = #{userid}
+		ORDER BY
+		    u.lastdate
+	</select>
+	<select id="getMadeGame" parameterType="string" resultType="game">
+		SELECT
+			*
+		FROM
+			games
+		WHERE
+			userid = #{userid}
+		ORDER BY
+			opendate, gamename
+	</select>
 </mapper>

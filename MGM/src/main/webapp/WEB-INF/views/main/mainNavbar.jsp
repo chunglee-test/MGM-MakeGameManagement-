@@ -5,7 +5,7 @@
 <nav class="navbar navbar-inverse" style="margin: 0px; padding-bottom: 10px;">
 	<div class="container-fluid">
 		<div class="navbar-header" style="width: 300px;">
-			<a class="navbar-brand" href="#">WebSiteName</a>
+			<a class="navbar-brand" href="./">WebSiteName</a>
 		</div>
 		<form class="navbar-form navbar-left" action="/action_page.php" style="width: 940px">
 			<div class="form-group">

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +26,45 @@ public class GameListController {
 	GameListDAO glDAO;
 	
 	@RequestMapping(value="gameList", method=RequestMethod.GET)
-	public String gameList(Model model, String search) {
+	public String gameList(Model model, String search, String page, HttpSession session) {
 		if(search == null) {
-			search = "";
+			search = "popular";
 		}
 		
-		ArrayList<Game> gList = glDAO.getGamelist(search); 
+		int iPage = 0;
+		try {
+			iPage = Integer.parseInt(page);
+		}
+		catch(Exception e) {}
+		
+		RowBounds rb = new RowBounds(iPage*4, 4);		
+		ArrayList<Game> gList = null;
+		
+		switch(search) {
+			case "popular":
+				gList = glDAO.getPopularGame(rb);
+				break;
+				
+			case "recently":
+				gList = glDAO.getRecentGame(rb);
+				break;
+				
+			case "played":
+				if(session.getAttribute("userid") == null) {
+					return "redirect:./";
+				}
+				
+				gList = glDAO.getPlayedGame(rb, (String)session.getAttribute("userid"));
+				break;
+				
+			case "made":
+				if(session.getAttribute("userid") == null) {
+					return "redirect:./";
+				}
+				
+				gList = glDAO.getMadeGame(rb, (String)session.getAttribute("userid"));
+				break;
+		}		
 		
 		model.addAttribute("gList", gList);
 		
@@ -60,8 +95,6 @@ public class GameListController {
 	@ResponseBody
 	@RequestMapping(value="/saveGameAccount", method=RequestMethod.POST)
     public String saveGameAccount(MultipartHttpServletRequest multi, Game updateGameAccount) {
-        System.out.println(updateGameAccount);
-         
         String root = multi.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/img/game/";
          
@@ -104,4 +137,81 @@ public class GameListController {
          
         return "true";
     }
+	
+	@ResponseBody
+	@RequestMapping(value="/saveGameScreenshot", method=RequestMethod.POST)
+    public String saveGameScreenshot(MultipartHttpServletRequest multi, int gameid) {         
+        String root = multi.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/img/game/";
+         
+        String newFileName = ""; // 업로드 되는 파일명     
+         
+        Iterator<String> files = multi.getFileNames();
+        int imgCnt=1;
+        while(files.hasNext()){
+            String uploadFile = files.next();
+            
+            MultipartFile mFile = multi.getFile(uploadFile);
+            String fileName = mFile.getOriginalFilename();
+            String fileExtention = fileName.substring(fileName.lastIndexOf(".")+1,fileName.length());
+    		
+            /*파일 확장자 검증*/
+    		String[] imgExt = {"jpg", "png"};
+    		boolean isImg = false;
+    		
+    		for(String ext : imgExt) {
+    			if(fileExtention.equals(ext)) {
+    				isImg = true;
+    				break;
+    			}
+    		}    		
+    		if(!isImg) {
+    			break;
+    		}
+    		
+            newFileName = gameid + "_screenshot_"+ imgCnt +"." + fileName.substring(fileName.lastIndexOf(".")+1);
+            try {
+            	File saveImg = new File(path + newFileName);
+            	if(saveImg.isFile()) {
+            		saveImg.delete();
+            	}
+            	
+            	System.out.println(path + newFileName);
+                mFile.transferTo(saveImg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            imgCnt++;
+        }
+        
+        return "true";
+    }
+	
+	@ResponseBody
+	@RequestMapping(value="openGame", method=RequestMethod.GET)
+	public String openGame(String gameid, String isopen, HttpSession session) {
+		int getGameid = 0;
+		try {
+			getGameid = Integer.parseInt(gameid);
+		}
+		catch(Exception e) {
+			return "false";
+		}
+		
+		Game game = new Game();
+		game.setGameid(getGameid);
+		game.setIsopen(isopen);
+		
+		Game targetGame = glDAO.gameSelect(game.getGameid());
+		
+		if(session.getAttribute("userid").equals(targetGame.getUserid())) {
+			glDAO.isOpenGame(game);
+			
+			return "true";
+		}
+		else {
+			return "false";
+		}
+	}
 }

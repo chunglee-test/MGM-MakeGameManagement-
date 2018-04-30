@@ -13,7 +13,17 @@
 	<script>
 		$(document).ready(function(){
 			$("#playBtn").click(function(){
-				location.href="loadGame?gameid=2";
+				<c:choose>
+					<c:when test="${empty userid}">
+						alert("로그인을 해주세요");
+					</c:when>
+					<c:otherwise>
+						location.href="loadGame?gameid=${param.gameid}";
+					</c:otherwise>
+				</c:choose>
+			});
+			$("#openBtn").click(function(){
+				openGame();
 			});
 			$("#editBtn").click(function(){
 				$("#editGameAccountDiv").css("display","block");
@@ -33,6 +43,8 @@
 	</script>
 </head>
 <body>
+	<input type="hidden" value="${param.gameid}" id="gameId">
+	<input type="hidden" value="${game.isopen}" id="isOpen">
 	<div class="container gameboard-container">
 		<div class="title_area">
 			<p class="game_title">
@@ -40,9 +52,18 @@
 			</p>
 			<p class="title_button">
 				<button type="button" class="btn btn-primary" id="playBtn">Play&nbsp;!</button>
-				<button type="button" class="btn btn-success" id="openBtn">Open&nbsp;</button>
-				<button type="button" class="btn btn-warning" id="editBtn">Edit</button>
-				<button type="button" class="btn btn-danger" id="sceneBtn">Scene</button>
+				<c:set var="open" value="Y" />
+				<c:set var="close" value="N" />
+				<c:if test="${game.userid == userid}">
+					<c:if test="${game.isopen == open}">
+						<button type="button" class="btn btn-basic" id="openBtn">Close</button>
+					</c:if>
+					<c:if test="${game.isopen == close}">
+						<button type="button" class="btn btn-success" id="openBtn">Open</button>
+					</c:if>
+					<button type="button" class="btn btn-warning" id="editBtn">Edit</button>
+					<button type="button" class="btn btn-danger" id="sceneBtn">Scene</button>
+				</c:if>
 			</p>
 		</div>
 		<div class="game_image_area">
@@ -54,23 +75,23 @@
 					</div>
 					<div class="game_screenshot_wait">
 						<div class="wait_screenshot" id="screenshot_1">
-							<img src="./resources/img/game/screenshot_1.jpg"
+							<img src="./resources/img/game/${param.gameid}_screenshot_1.jpg"
 								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_2">
-							<img src="./resources/img/game/screenshot_2.jpg"
+							<img src="./resources/img/game/${param.gameid}_screenshot_2.jpg"
 								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_3">
-							<img src="./resources/img/game/screenshot_3.jpg"
+							<img src="./resources/img/game/${param.gameid}_screenshot_3.jpg"
 								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_4">
-							<img src="./resources/img/game/screenshot_4.jpg"
+							<img src="./resources/img/game/${param.gameid}_screenshot_4.jpg"
 								onerror="javascript:this.style.display='none'">
 						</div>
 						<div class="wait_screenshot" id="screenshot_5">
-							<img src="./resources/img/game/screenshot_5.jpg"
+							<img src="./resources/img/game/${param.gameid}_screenshot_5.jpg"
 								onerror="javascript:this.style.display='none'">
 						</div>
 					</div>
@@ -117,7 +138,7 @@
 		</div>
 	</div>
 	
-	<div class="edit-game-account-div modal" id="editGameAccountDiv">
+	<div class="modal edit-game-account-div" id="editGameAccountDiv">
 		<div class="modal-content animate" id="loginForm">
 			<div class="container edit-container">
 				<form id="editGameAccountForm" method="post" enctype="multipart/form-data">
@@ -138,7 +159,7 @@
 						<input type="hidden" name="gameid" id="hiddenGameId" value="${param.gameid}">				
 					</p>
 				</form>
-				<form id="editScreenShotForm" method="post" enctype="multipart/form-data" style="padding-bottom:10px;">
+				<form id="saveGameScreenshot" method="post" enctype="multipart/form-data" style="padding-bottom:10px;">
 					<p class="screenshot-area">
 						<label>인게임 스크린샷</label>
 						<input type="file" name="screenshot_1" id="screenshot_1">	
@@ -146,6 +167,7 @@
 						<input type="file" name="screenshot_3" id="screenshot_3">
 						<input type="file" name="screenshot_4" id="screenshot_4">
 						<input type="file" name="screenshot_5" id="screenshot_5">
+						<input type="hidden" name="gameid" id="hiddenGameId" value="${param.gameid}">
 					</p>
 					<p class="savebtn-area">
 						<button type="button" class="btn btn-primary savebtn" id="saveBtn">SAVE</button>

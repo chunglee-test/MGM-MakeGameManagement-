@@ -6,8 +6,15 @@ public class User {
 	private String nick;
 	private String email;
 	private String signup;
+	private String userprofile;
 	
 	public User() {}
+	public User(String userid, String userpw, String nick, String email) {
+		this.userid = userid;
+		this.userpw = userpw;
+		this.nick = nick;
+		this.email = email;
+	}
 	public User(String userid, String userpw, String nick, String email, String signup) {
 		this.userid = userid;
 		this.userpw = userpw;
@@ -45,6 +52,12 @@ public class User {
 	}
 	public void setSignup(String signup) {
 		this.signup = signup;
+	}
+	public String getUserprofile() {
+		return userprofile;
+	}
+	public void setUserprofile(String userprofile) {
+		this.userprofile = userprofile;
 	}
 	
 	@Override

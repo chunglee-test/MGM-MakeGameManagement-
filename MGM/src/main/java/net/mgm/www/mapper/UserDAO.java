@@ -17,6 +17,11 @@ public class UserDAO implements UserMapper{
 	public User loginUser(User loginUser) {
 		return session.getMapper(UserMapper.class).loginUser(loginUser);
 	}
+	
+	@Override
+	public String idCheck(String joinId) {
+		return session.getMapper(UserMapper.class).idCheck(joinId);
+	}
 
 	@Override
 	public void signupUser(User signupUser) {

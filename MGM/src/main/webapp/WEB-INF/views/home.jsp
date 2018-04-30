@@ -29,19 +29,33 @@
 		    });
 		    
 		    $("#popular_list").click(function(){
-		    	$("#mainFrame").attr("src", "gameList");
+		    	$("#mainFrame").attr("src", "gameList?search=popular");
 		    });
 		    
 		    $("#recently_list").click(function(){
-		    	$("#mainFrame").attr("src", "gameList");
+		    	$("#mainFrame").attr("src", "gameList?search=recently");
 		    });
 		    
 		    $("#played_list").click(function(){
-		    	$("#mainFrame").attr("src", "gameList");
+		    	<c:choose>
+		    		<c:when test="${empty userid}">
+		    			alert("로그인을 해주세요");
+		    		</c:when>
+		    		<c:otherwise>
+			    		$("#mainFrame").attr("src", "gameList?search=played");
+		    		</c:otherwise>
+		    	</c:choose>
 		    });
 		    
 		    $("#made_list").click(function(){
-		    	$("#mainFrame").attr("src", "gameList");
+		    	<c:choose>
+	    		<c:when test="${empty userid}">
+	    			alert("로그인을 해주세요");
+	    		</c:when>
+	    		<c:otherwise>
+		    		$("#mainFrame").attr("src", "gameList?search=made");
+	    		</c:otherwise>
+	    	</c:choose>
 		    });
 		});
 		
