@@ -136,6 +136,11 @@
 								${game.gamecontent }		
 							</td>
 						</tr>
+						<tr>
+							<td class="comment-bt-td">
+								<button class="btn btn-primary" id="comment-bt">댓글보기</button>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>

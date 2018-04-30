@@ -24,10 +24,15 @@
 	
 	.game_screenshot_view{
 		width:100%;
+		max-height: 376.63px;
 	}
+	
 	.game_screenshot_view > img{
-		max-height: 75%;
+		width: 100%;
+		max-height: 376.63px;
+		height: 376.63px;
 	}
+	
 	.title_area{
 		height:10%;
 	}
@@ -60,24 +65,27 @@
 	}
 	.game_screenshot_wait{
 		padding : 5px;
-		background-color:#191970;
+		background-color:#333333;
 		margin-top:2%;
 		margin-right:2%;
 		float:center;
     	vertical-align:middle;
     	float:center;
     	margin:0 auto;
+    	padding-top: 22px;
 	}
 	.wait_screenshot{
 		max-height:20%;
 		width:19%;
+		width:19.1%;
 	    display:inline-block;
 	}
 	.wait_screenshot:hover{
-		outline:black 2px solid;
+		outline:black 4px solid;
 	}
 	.wait_screenshot > img{
 		width:100%;
+		max-height: 72px;
 	}
 	
 	.game_account{
@@ -86,12 +94,14 @@
 	}
 	.game_title_view{
 		width:100%;
-		max-height:50%;
+		max-height:253.61px;
+		height: 253.61px;
 	}
 	
 	.game_account > table{
 		margin-top:2vh;
 		width:100%;
+		padding-top: -5px;
 	}
 	.left_td{
 		font-weight:bold;
@@ -195,4 +205,7 @@
 		height:50vw;
 	}
 	.comment-container{
+	}
+	.comment-bt-td {
+		padding-top: 31px;
 	}
