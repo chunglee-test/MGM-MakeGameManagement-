@@ -151,14 +151,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>LINA</h3>
-									<p>The sibling rivalries between Lina the Slayer, and her
-										younger sister Rylai, the Crystal Maiden, were the stuff of
-										legend in the temperate region where they spent their
-										quarrelsome childhoods together. Lina always had the
-										advantage, however, for while Crystal was guileless and naive,
-										Lina's fiery ardor was tempered by cleverness and conniving.
-										The exasperated parents of these incompatible offspring went
-										through half a dozen homesteads.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
@@ -174,13 +167,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>CRYSTAL MAIDEN</h3>
-									<p>Born in a temperate realm, raised with her fiery older
-										sister Lina, Rylai the Crystal Maiden soon found that her
-										innate elemental affinity to ice created trouble for all those
-										around her. Wellsprings and mountain rivers froze in moments
-										if she stopped to rest nearby; ripening crops were bitten by
-										frost, and fruiting orchards turned to mazes of ice and came
-										crashing down, spoiled.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
@@ -196,13 +183,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>DROW RANGER</h3>
-									<p>Drow Ranger's given name is Traxex--a name well suited
-										to the short, trollish, rather repulsive Drow people. But
-										Traxex herself is not a Drow. Her parents were travelers in a
-										caravan set upon by bandits, whose noisy slaughter of
-										innocents roused the ire of the quiet Drow people. After the
-										battle settled, the Drow discovered a small girl-child hiding
-										in the ruined wagons, and agreed she could not be abandoned.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
@@ -218,13 +199,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>WINDRANGER</h3>
-									<p>The western forests guard their secrets well. One of
-										these is Lyralei, master archer of the wood, and favored
-										godchild of the wind. Known now as Windranger, Lyralei's
-										family was killed in a storm on the night of her birth--their
-										house blown down by the gale, contents scattered to the winds.
-										Only the newborn survived among the debris field of death and
-										destruction.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
@@ -243,14 +218,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>LINA</h3>
-									<p>The sibling rivalries between Lina the Slayer, and her
-										younger sister Rylai, the Crystal Maiden, were the stuff of
-										legend in the temperate region where they spent their
-										quarrelsome childhoods together. Lina always had the
-										advantage, however, for while Crystal was guileless and naive,
-										Lina's fiery ardor was tempered by cleverness and conniving.
-										The exasperated parents of these incompatible offspring went
-										through half a dozen homesteads.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
@@ -266,13 +234,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>CRYSTAL MAIDEN</h3>
-									<p>Born in a temperate realm, raised with her fiery older
-										sister Lina, Rylai the Crystal Maiden soon found that her
-										innate elemental affinity to ice created trouble for all those
-										around her. Wellsprings and mountain rivers froze in moments
-										if she stopped to rest nearby; ripening crops were bitten by
-										frost, and fruiting orchards turned to mazes of ice and came
-										crashing down, spoiled.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
@@ -288,13 +250,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>DROW RANGER</h3>
-									<p>Drow Ranger's given name is Traxex--a name well suited
-										to the short, trollish, rather repulsive Drow people. But
-										Traxex herself is not a Drow. Her parents were travelers in a
-										caravan set upon by bandits, whose noisy slaughter of
-										innocents roused the ire of the quiet Drow people. After the
-										battle settled, the Drow discovered a small girl-child hiding
-										in the ruined wagons, and agreed she could not be abandoned.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
@@ -310,13 +266,7 @@
 								<div class="loader"></div>
 								<div class="text">
 									<h3>WINDRANGER</h3>
-									<p>The western forests guard their secrets well. One of
-										these is Lyralei, master archer of the wood, and favored
-										godchild of the wind. Known now as Windranger, Lyralei's
-										family was killed in a storm on the night of her birth--their
-										house blown down by the gale, contents scattered to the winds.
-										Only the newborn survived among the debris field of death and
-										destruction.</p>
+									<p></p>
 								</div>
 							</div>
 						</a>
