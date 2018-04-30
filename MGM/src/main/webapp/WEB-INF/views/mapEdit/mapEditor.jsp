@@ -32,20 +32,60 @@
 				childrenList.push({nodeid:'${child.nodeid}', nodename:'${child.nodename}'});
 			</c:forEach>
 		</script>
+
+		<style>
+		.btn-group button {
+		    background-color: #f7f7f7; /* Green background */
+		    border: 1px solid #ddd; /* Green border */
+		    color: black; /* White text */
+		    padding: 10px 20px; /* Some padding */
+		    cursor: pointer; /* Pointer/hand icon */
+		    width: 100%; /* Set a width if needed */
+		    display: block; /* Make the buttons appear below each other */
+		}
+
+		.btn-group button:not(:last-child) {
+		    border-bottom: none; /* Prevent double borders */
+		}
+
+		/* Add a background color on hover */
+		.btn-group button:hover {
+		    background-color: #e6e6e6;
+		}
+		</style>
+
 	</head>
 	<body>
-		<div class="search_div">
-			<input type="text" id="txt_nodename">
-			<button><img src="resources/img/Icon/searchbt.png"></button>
-			<button id="btn_save">저장</button>
-			<button id="btn_uppermenu">상위메뉴로</button>
+		<div style="float: left; width: 40%">
+			<div style="float: left;">
+				<div class="btn-group">
+					<button class="btn_tileset" name="0">바닥타일1</button>
+					<button class="btn_tileset" name="1">바닥타일2</button>
+				  	<button class="btn_tileset" name="2">바닥타일3</button>
+				  	<button class="btn_tileset" name="3">바닥타일4</button>
+					<button class="btn_tileset" name="4">바닥타일5</button>
+				  	<button class="btn_tileset" name="5">물건타일1</button>
+				  	<button class="btn_tileset" name="6">물건타일2</button>
+					<button class="btn_tileset" name="7">물건타일3</button>
+				  	<button class="btn_tileset" name="8">물건타일4</button>
+				  	<button class="btn_tileset" name="9">물건타일5</button>
+				</div>
+			</div>
+			<div style="float: left;">				
+				<canvas id="tileset"></canvas>
+			</div>
 		</div>
-		<div style="float: left;">
-			<div class="inner_div">
-				<canvas id="tileset"></canvas><br>
-				<button id="btn_tileset">타일셋 변경</button>
-				<button id="btn_tile_1x1">1x1타일</button>
-				<button id="btn_tile_4x4">4x4타일</button>
+
+		<div style="float: left; width: 60%;">
+			<div>
+				<input type="text" id="txt_nodename" style="font-size:20pt; font-weight:bold;">
+				<button class="btn btn-primary" id="btn_save">저장</button>
+				<button class="btn btn-danger" id="btn_uppermenu">상위메뉴로</button>
+
+				<button id="btn_tile_1x1" class="btn btn-default active">1x1 그리기</button>
+				<button id="btn_tile_4x4" class="btn btn-default">4x4 그리기</button>
+			</div>
+			<div id="editingmap" style="width: 100%">
 			</div>
 		</div>
 		
