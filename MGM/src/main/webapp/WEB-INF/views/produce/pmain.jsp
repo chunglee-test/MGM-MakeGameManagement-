@@ -17,7 +17,7 @@
 		function displayInformation(x, y, nodeid){	
 			$("#informationDiv").css("left", x + 20);
 			$("#informationDiv").css("top", y - 12);
-			$("#modifyDiv").attr("onclick", "location.href='mapEdit?gameid=" + nodeid + "'");
+			$("#modifyDiv").attr("onclick", "location.href='loadGameScene?nodeid=" + nodeid + "'");
 			$("#addSceneDiv").attr("onclick", "addChildScene(${param.gameid}," + nodeid + ")");
 			$("#informationDiv").css("display", "block");
 		}
