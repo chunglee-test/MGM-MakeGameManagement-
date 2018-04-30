@@ -102,6 +102,35 @@ iframe {
 	border-bottom: 2px solid white;
 }
 
+.profile_picture_div {
+	width: 60px;
+	height: 40px;
+	position:fixed;
+	margin-left: 84%;
+	margin-top: 16px;
+	padding-top: 20px;
+	color: white;
+}
+
+.profile_picture_img {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+
+.profile_div {
+	width: 80px;
+	height: 40px;
+	position: fixed;
+	margin-left: 84%; 
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.profile_span {
+	color: white;
+}
+
 @import "https://fonts.googleapis.com/css?family=Open+Sans";
 
 html {
@@ -125,22 +154,16 @@ a {
 }
 .container {
   height: 100%;
-  width:100%;
-  -webkit-overflow-scrolling: touch;
 }
 .gallery {
   list-style-type: none;
-  height: 30%;
+  height: 35%;
   overflow: hidden;
-  width:52%;
-  padding-left: -100px;
-  padding-top: 20px;
-  
 }
 .gallery li {
   float: left;
   height: 100%;
-  width: 25%;
+  width: 400px;
   background: #2E4053;
 }
 .gallery .flip {
@@ -206,7 +229,7 @@ a {
 }
 
 .gallery li:nth-child(1) .front-side {
-  background-image:url('http://pre12.deviantart.net/f04f/th/pre/i/2015/281/c/e/virtus_pro_tribute_by_haryarti-d9cdvwy.jpg');
+
 }
 .gallery li:nth-child(1) .loader {
   border-top-color: #F39C12;
@@ -251,6 +274,62 @@ a {
   background: #F7DC6F;
 }
 
+.gallery li:nth-child(5) .front-side {
+  background-image: url('http://pre04.deviantart.net/5815/th/pre/f/2014/149/7/7/death_prophet_from_dota_2_by_o_l_i_v_i-d7k2ekl.jpg');
+}
+.gallery li:nth-child(5) .loader {
+  border-top-color: #1ABC9C;
+  border-left-color: #1ABC9C;
+}
+.gallery li:nth-child(5) .text h3 {
+  color: #1ABC9C;
+}
+.gallery li:nth-child(5) .text h3:after {
+  background: #48C9B0;
+}
+
+.gallery li:nth-child(6) .front-side {
+  background-image: url('http://pre02.deviantart.net/ce96/th/pre/i/2015/177/7/7/katarina_by_haryarti-d8ytd5o.jpg');
+}
+.gallery li:nth-child(6) .loader {
+  border-top-color: #E74C3C;
+  border-left-color: #E74C3C;
+}
+.gallery li:nth-child(6) .text h3 {
+  color: #E74C3C;
+}
+.gallery li:nth-child(6) .text h3:after {
+  background: #EC7063;
+}
+
+.gallery li:nth-child(7) .front-side {
+  background-image: url('http://pre10.deviantart.net/cbaf/th/pre/i/2015/047/0/2/vengeful_spirit_by_haryarti-d8iau4i.png');
+}
+.gallery li:nth-child(7) .loader {
+  border-top-color: #8E44AD;
+  border-left-color: #8E44AD;
+}
+.gallery li:nth-child(7) .text h3 {
+  color: #8E44AD;
+}
+.gallery li:nth-child(7) .text h3:after {
+  background: #A569BD;
+}
+
+.gallery li:nth-child(8) .front-side {
+  background-image: url('http://pre06.deviantart.net/73a2/th/pre/i/2014/080/5/7/lina_by_haryarti-d7b48eu.jpg');
+}
+.gallery li:nth-child(8) .loader {
+  border-top-color: #F39C12;
+  border-left-color: #F39C12;
+}
+.gallery li:nth-child(8) .text h3 {
+  color: #F39C12;
+}
+.gallery li:nth-child(8) .text h3:after {
+  background: #F5B041;
+}
+
 .gallery .content {
   text-align: center;
   position: relative;
@@ -265,16 +344,16 @@ a {
   opacity: 1;
   visibility: visible;
   max-height: 2000px;
-  -webkit-transition: opacity .3s ease-in .5s, max-height .1s ease .5s;
-  -moz-transition: opacity .3s ease-in .5s, max-height .1s ease .5s;
-  transition: opacity .3s ease-in .5s, max-height .1s ease .5s;
+  -webkit-transition: opacity .3s ease-in 1.5s, max-height .1s ease 1.5s;
+  -moz-transition: opacity .3s ease-in 1.5s, max-height .1s ease 1.5s;
+  transition: opacity .3s ease-in 1.5s, max-height .1s ease 1.5s;
 }
 .gallery li:hover .loader {
   opacity: 1;
   visibility: visible;
-  -webkit-animation: hide .1s ease-in-out .4s forwards, load .75s infinite;
-  -moz-animation: hide .1s ease-in-out .4s forwards, load .75s infinite;
-  animation: hide .1s ease-in-out .4s forwards, load .75s infinite;
+  -webkit-animation: hide .1s ease-in-out 1.4s forwards, load .75s infinite;
+  -moz-animation: hide .1s ease-in-out 1.4s forwards, load .75s infinite;
+  animation: hide .1s ease-in-out 1.4s forwards, load .75s infinite;
 }
 .gallery .text {
   opacity: 0;
@@ -338,12 +417,13 @@ a {
     transform: rotate(360deg);
   }
 }
+
 @-webkit-keyframes hide {
   100% {
     visibility: hidden;
     opacity: 0;
   }
-}
+}	
 @-moz-keyframes hide {
   100% {
     visibility: hidden;
@@ -355,33 +435,4 @@ a {
     visibility: hidden;
     opacity: 0;
   }
-}
-
-.profile_picture_div {
-	width: 60px;
-	height: 40px;
-	position:fixed;
-	margin-left: 84%;
-	margin-top: 16px;
-	padding-top: 20px;
-	color: white;
-}
-
-.profile_picture_img {
-	width: 32px;
-	height: 32px;
-	border-radius: 50%;
-}
-
-.profile_div {
-	width: 80px;
-	height: 40px;
-	position: fixed;
-	margin-left: 84%; 
-	margin-top: 5px;
-	margin-bottom: 10px;
-}
-
-.profile_span {
-	color: white;
 }
