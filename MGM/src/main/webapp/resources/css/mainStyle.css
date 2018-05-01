@@ -96,6 +96,7 @@ iframe {
 	color: #D3D3D3;
 	font-size: 18px;
 	text-align: center;
+	cursor:pointer;
 }
 
 .nav_list_span:hover {
@@ -156,9 +157,14 @@ a {
   height: 100%;
 }
 .gallery {
-  list-style-type: none;
-  height: 35%;
-  overflow: hidden;
+    list-style-type: none;
+	height: 30%;
+	  overflow: hidden;
+	  width:52%;
+	  padding-left: -100px;
+	  padding-top: 20px;
+	  
+
 }
 .gallery li {
   float: left;
@@ -435,4 +441,90 @@ a {
     visibility: hidden;
     opacity: 0;
   }
+}
+
+.made-select{
+	display:none;
+}
+.made-select-container > div{
+}
+.select-option{
+	width:48%;
+	height:90%;
+	margin:2%;
+	border:gray 2px solid;
+  	border-radius: 2%;
+	color:gray;
+	margin-left:auto;
+	margin-right:auto;
+	padding: 5px;
+	text-align: center;
+	vertical-align:middle;
+	font-size:20px;
+	font-weight: bold;
+}
+.select-option:hover{
+	border:#8A2908 2px solid;
+	color:#8A2908;
+	background-color:#F5D0A9;
+}
+
+.new-game-icon-img{
+	width:60%;
+	margin:auto;
+	margin-top:10%;
+	margin-bottom:2%;
+}
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+	padding-top: 60px;
+	color:#000;
+}
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto;
+	/* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid #888;
+	width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+	position: absolute;
+	right: 25px;
+	top: 0;
+	color: #000;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: red;
+	cursor: pointer;
+}
+
+.animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+	from {-webkit-transform: scale(0)}
+	to { -webkit-transform: scale(1)}
+}
+@keyframes animatezoom {
+	from {transform: scale(0)}
+	to {transform: scale(1)}
 }

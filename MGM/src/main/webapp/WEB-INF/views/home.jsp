@@ -19,7 +19,10 @@
 	<script>
 		$(document).ready(function(){
 			//$("#loginForm").css("display", "none");
-			
+			$("#searchBtn").click(function(){
+				var query = $("#searchText").val();
+		    	$("#mainFrame").attr("src", "gameList?search=name&page=1&query="+query);				
+			});
 		    $(".push-menu").click(function(){
 		         $(".wrapper").toggleClass("active");
 		    });
@@ -29,11 +32,11 @@
 		    });
 		    
 		    $("#popular_list").click(function(){
-		    	$("#mainFrame").attr("src", "gameList?search=popular");
+		    	$("#mainFrame").attr("src", "gameList?search=popular&page=1");
 		    });
 		    
 		    $("#recently_list").click(function(){
-		    	$("#mainFrame").attr("src", "gameList?search=recently");
+		    	$("#mainFrame").attr("src", "gameList?search=recently&page=1");
 		    });
 		    
 		    $("#played_list").click(function(){
@@ -42,7 +45,7 @@
 		    			alert("로그인을 해주세요");
 		    		</c:when>
 		    		<c:otherwise>
-			    		$("#mainFrame").attr("src", "gameList?search=played");
+			    		$("#mainFrame").attr("src", "gameList?search=played&page=1");
 		    		</c:otherwise>
 		    	</c:choose>
 		    });
@@ -53,9 +56,18 @@
 	    			alert("로그인을 해주세요");
 	    		</c:when>
 	    		<c:otherwise>
-		    		$("#mainFrame").attr("src", "gameList?search=made");
+		    		$("#madeSelectDiv").css("display", "block");
 	    		</c:otherwise>
 	    	</c:choose>
+		    });
+		    
+		    $("#viewMyList").click(function(){
+		    	$("#mainFrame").attr("src", "gameList?search=made&page=1");
+		    	$("#madeSelectDiv").css("display", "none");
+		    });
+		    $("#makeNewGame").click(function(){
+		    	$("#mainFrame").attr("src", "newGame");
+		    	$("#madeSelectDiv").css("display", "none");
 		    });
 		});
 		
@@ -69,6 +81,12 @@
 		
 		function gotoPage(page){
 			$("#mainFrame").attr("src", page);
+		}
+		
+		window.onclick = function(event) {
+		    if ($(event.target).attr("class") == $("#madeSelectDiv").attr("class")) {
+		    	$("#madeSelectDiv").css("display", "none");
+			}
 		}
 	</script> 
 </head>

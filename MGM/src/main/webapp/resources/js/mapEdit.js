@@ -10,9 +10,11 @@ var onMaking = false;
         tileNumWidth = prompt('맵의 너비를 지정해주세요(단위 타일 수)', '30');
         tileNumHeight = prompt('맵의 높이를 지정해주세요(단위 타일 수)', '30');
         nodename = prompt('맵 이름을 지정해주세요', '기본 맵');
+        $('#txt_nodename').val(nodename);
     }
 
-    $('#txt_nodename').val(nodename);
+    // 마우스 오른쪽 버튼 기본 창 띄우기 방지
+    document.addEventListener('contextmenu', function(e) {e.preventDefault();}, false);
 })();
 
 /* 타일셋 부분 */
@@ -65,13 +67,14 @@ function addEventListeners() {
         ctxTileset.strokeRect(x * 32, y * 32, 32, 32);
 
         currTile = arrGID[currTileset] + x + y * (tilesetImg.width / 32);
+        console.log("tile clicked: " + currTile);
     });
 
     let btnList = document.getElementsByClassName('btn_tileset');
     for (let i = 0; i < btnList.length; i++) {
         btnList[i].addEventListener("click", function (e) {
-            console.log(this);
             
+            currTileset = this.name;
             loadTilesets(this.name);
         });
     }
@@ -88,11 +91,15 @@ function addEventListeners() {
     document.getElementById('btn_tile_4x4').addEventListener("click", function (e) {
         drawTileType = 2;
     })
+
+    document.getElementById('btn_tile_full').addEventListener("click", function (e) {
+        drawTileType = 0;
+    })
 }
 
 /* 실제 맵 부분 */
 var game = new Phaser.Game(
-    800, 600, Phaser.AUTO, 'phaser-example', 
+    800, 600, Phaser.CANVAS, 'editingmap', 
     { preload: preload, create: create, update: update, render: render });
 
 var map, layer1, layer2;
@@ -103,9 +110,6 @@ var currentLayer;
 
 var cursors;
 var layer1Key, layer2Key, showLayersKey;
-
-// 맵 수정 태그에서 마우스 오른쪽 버튼 기본 창 띄우기 방지
-$('body').on('contextmenu', 'canvas', function(e){ return false; });
 
 function preload() {
     game.load.image('tilea1', getContextPath() + '/resources/tilemaps/tiles/tilea1.png');
@@ -120,6 +124,10 @@ function preload() {
     game.load.image('tileb5', getContextPath() + '/resources/tilemaps/tiles/tileb5.png');
 
     game.load.spritesheet('dude', getContextPath() + '/resources/sprites/CharacterTileset.png', 32, 32);
+
+    game.load.spritesheet('npc1', getContextPath() + '/resources/sprites/NPC1.png', 48, 48);
+    game.load.spritesheet('npc2', getContextPath() + '/resources/sprites/NPC2.png', 48, 48);
+    game.load.spritesheet('npc3', getContextPath() + '/resources/sprites/NPC3.png', 48, 48);
 }
 
 function create() {
@@ -209,16 +217,27 @@ function create() {
         // 캐릭터 초기 위치 설정
         for (let i = 0; i < eventsList.length; i++) {
             if (eventsList[i].type === 'posCharacter') {
-                if (eventsList[i].charType === './resources/img/character/character2.png') {
+                if (eventsList[i].charType === './resources/img/character/character1.png') {
                     // 이누야샤
                     sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 48);
-                } else if (eventsList[i].charType === './resources/img/character/character1.png') {
+                } else if (eventsList[i].charType === './resources/img/character/character2.png') {
                     // 여자 캐릭터
                     sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 16);
                 } else {
                     alert('캐릭터 타입 미지정');
                     sprite = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'dude', 48);
                 }
+            } else if (eventsList[i].type === 'posNPC') {
+                if (eventsList[i].charType === './resources/img/character/NPC1img.png') {
+                    npc = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'npc1', 1);
+                } else if (eventsList[i].charType === './resources/img/character/NPC2img.png') {
+                    npc = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'npc2', 1);
+                } else if (eventsList[i].charType === './resources/img/character/NPC3img.png') {
+                    npc = game.add.sprite(eventsList[i].x*32, eventsList[i].y*32, 'npc3', 1);
+                }
+
+                npc.width = 32;
+                npc.height = 32;
             }
         }
     }
@@ -226,7 +245,7 @@ function create() {
 
 // 이벤트 추가 자식창으로부터 정보를 받아 처리하는 메소드
 var eventsList = new Array();
-var eventPosX, eventPosY, sprite;
+var eventPosX, eventPosY, sprite, npc;
 function getReturnValue(returnValue) {
 	let findPosChar = false;
 	
@@ -237,10 +256,10 @@ function getReturnValue(returnValue) {
 				eventsList[i] = returnValue;
 				sprite.destroy();
 
-                if (returnValue.charType === './resources/img/character/character2.png') {
+                if (returnValue.charType === './resources/img/character/character1.png') {
                     // 이누야샤
                     sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 48);
-                } else if (returnValue.charType === './resources/img/character/character1.png') {
+                } else if (returnValue.charType === './resources/img/character/character2.png') {
                     // 여자 캐릭터
                     sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 16);
                 }
@@ -248,15 +267,27 @@ function getReturnValue(returnValue) {
 		}
 		
 		if (!findPosChar) {
-			if (returnValue.charType === './resources/img/character/character2.png') {
+			if (returnValue.charType === './resources/img/character/character1.png') {
                 // 이누야샤
                 sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 48);
-            } else if (returnValue.charType === './resources/img/character/character1.png') {
+            } else if (returnValue.charType === './resources/img/character/character2.png') {
                 // 여자 캐릭터
                 sprite = game.add.sprite(returnValue.x*32, returnValue.y*32, 'dude', 16);
             }
 		}
-	} 
+
+	} else if (returnValue.type === 'posNPC') {
+        if (returnValue.charType === './resources/img/character/NPC1img.png') {
+            npc = game.add.sprite(returnValue.x*32, returnValue.y*32, 'npc1', 1);
+        } else if (returnValue.charType === './resources/img/character/NPC2img.png') {
+            npc = game.add.sprite(returnValue.x*32, returnValue.y*32, 'npc2', 1);
+        } else if (returnValue.charType === './resources/img/character/NPC3img.png') {
+            npc = game.add.sprite(returnValue.x*32, returnValue.y*32, 'npc3', 1);
+        }
+        
+        npc.width = 32;
+        npc.height = 32;
+    }
 	
 	if (!findPosChar) {
 		eventsList.push(returnValue);
@@ -288,7 +319,7 @@ function updateMarker() {
             map.putTile(currTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), currentLayer);
            
             layersData[layerNum][y][x] = currTile;
-        } else {
+        } else if (drawTileType === 2) {
             map.fill(currTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), 4, 4, currentLayer);
 
             for (let i = 0; i < 4; i++) {
@@ -296,7 +327,16 @@ function updateMarker() {
                     layersData[layerNum][y + i][x + j] = currTile;
                 }
             }
+        } else if (drawTileType === 0) {
+            map.fill(currTile, currentLayer.getTileX(0), currentLayer.getTileY(0), tileNumWidth, tileNumHeight, currentLayer);
+
+            for (let i = 0; i < tileNumWidth; i++) {
+                for (let j = 0; j < tileNumHeight; j++) {
+                    layersData[layerNum][j][i] = currTile;
+                }
+            }
         }
+
     } else if (game.input.mousePointer.rightButton.justPressed()) {
     	eventPosX = game.math.snapToFloor(game.input.mousePointer.worldX, 32) / 32;
     	eventPosY = game.math.snapToFloor(game.input.mousePointer.worldY, 32) / 32;
@@ -343,7 +383,7 @@ function update() {
 
 function render() {
     game.debug.text('현재 레이어: ' + currentLayer.name, 16, 550);
-    game.debug.text('F1 & F2 = 레이어 전환. F3 = 모든 레이어 한 번에 표시. 화살표 = 맵 이동', 16, 570);
+    game.debug.text('F1 & F2 = 레이어 전환. ESC = 모든 레이어 한 번에 표시. 화살표 = 맵 이동', 16, 570);
 }
 
 document.getElementById('btn_uppermenu').addEventListener("click", function (e) {

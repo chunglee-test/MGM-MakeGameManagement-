@@ -26,18 +26,22 @@ public class GameListController {
 	GameListDAO glDAO;
 	
 	@RequestMapping(value="gameList", method=RequestMethod.GET)
-	public String gameList(Model model, String search, String page, HttpSession session) {
+	public String gameList(Model model, String search, String query, String page, HttpSession session) {
 		if(search == null) {
 			search = "popular";
 		}
 		
-		int iPage = 0;
+		int iPage = 1;
 		try {
 			iPage = Integer.parseInt(page);
+			
+			if(iPage < 1) {
+				iPage = 1;
+			}
 		}
 		catch(Exception e) {}
 		
-		RowBounds rb = new RowBounds(iPage*4, 4);		
+		RowBounds rb = new RowBounds((iPage-1)*4, 4);		
 		ArrayList<Game> gList = null;
 		
 		switch(search) {
@@ -64,6 +68,12 @@ public class GameListController {
 				
 				gList = glDAO.getMadeGame(rb, (String)session.getAttribute("userid"));
 				break;
+			case "name":
+				if(query == null) {
+					return "./";
+				}
+				gList = glDAO.searchGame(query);
+				break;
 		}		
 		
 		model.addAttribute("gList", gList);
@@ -79,8 +89,7 @@ public class GameListController {
 		}
 		catch(Exception e) {
 			return "main/GameList";
-		}		
-		
+		}				
 		
 		Game game = glDAO.gameSelect(iGameId);
 		ArrayList<GameComment> cList = glDAO.gameComment(iGameId);
@@ -213,5 +222,22 @@ public class GameListController {
 		else {
 			return "false";
 		}
+	}
+	
+	@RequestMapping(value="newGame")
+	public String newGame(HttpSession session) {
+		String userid = (String)session.getAttribute("userid");
+		Game newGame = glDAO.newGameSelect(userid);
+		
+		if(newGame == null) {
+			glDAO.newGame(userid);
+			newGame = glDAO.newGameSelect(userid);
+			glDAO.newGameNode(newGame.getGameid());
+		}
+		else {
+			newGame = glDAO.newGameSelect(userid);			
+		}
+		
+		return "redirect:./gameBoard?gameid=" + newGame.getGameid();
 	}
 }

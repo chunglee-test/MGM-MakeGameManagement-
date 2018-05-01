@@ -17,4 +17,8 @@ public interface GameListMapper {
 	public ArrayList<Game> getRecentGame(RowBounds rb);
 	public ArrayList<Game> getPlayedGame(RowBounds rb, String userid);
 	public ArrayList<Game> getMadeGame(RowBounds rb, String userid);
+	public void newGame(String userid);
+	public Game newGameSelect(String userid);
+	public void newGameNode(int gameid);
+	public ArrayList<Game> searchGame(String query);
 }

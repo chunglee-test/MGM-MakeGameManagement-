@@ -114,4 +114,74 @@
 		ORDER BY
 			opendate, gamename
 	</select>
+	<insert id="newGame" parameterType="string">
+		INSERT INTO
+			games(
+				gameid, 
+				userid, 
+				gamename, 
+				gamecontent
+			)
+		VALUES(
+			seq_gameid.nextval, 
+			#{userid}, 
+			'Default Title', 
+			'Default Account'
+		)
+	</insert>
+	<insert id="newGameNode" parameterType="int">
+		INSERT INTO
+			game_node(
+				gameid, 
+				nodeid, 
+				nodename
+			)
+		VALUES(
+			#{gameid}, 
+			seq_nodeid.nextval, 
+			'SceneName'
+		)
+	</insert>
+	<select id="newGameSelect" parameterType="string" resultType="game">
+		SELECT
+			g.gameid, u.userid, u.nick, g.gamename, g.gamecontent, g.gameprofile, g.isopen
+		FROM
+			games g
+		LEFT JOIN
+			users u
+		ON
+			g.userid = u.userid
+		WHERE
+			u.userid = #{userid}
+		AND
+			g.gamename = 'Default Title'
+		AND
+			g.gamecontent = 'Default Account'
+	</select>
+	<select id="searchGame" parameterType="string" resultType="game">
+		SELECT
+		    g.gameid, u.nick, g.gamename, g.gamecontent
+		FROM
+		    games g,
+		    users u
+		WHERE
+		    g.userid = u.userid
+		AND
+		    g.gamename LIKE '%${value}%'
+		AND
+		    g.isopen = 'Y'
+	</select>
+	<select id="searchGameCnt" parameterType="string" resultType="game">
+		SELECT
+		    CNT(*)
+		FROM
+		    games g,
+		    users u
+		WHERE
+		    g.userid = u.userid
+		AND
+		    g.gamename LIKE '%${value}%'
+		AND
+		    g.isopen = 'Y'
+	</select>
 </mapper>

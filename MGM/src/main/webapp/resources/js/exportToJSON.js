@@ -77,6 +77,9 @@ function exportJSON (nodeid, nodename, layersData, eventsData) {
 		if (eventData.type === 'posCharacter') {
 			eventData.charType = eventsData[eventNum].charType;
 
+		} else if (eventData.type === 'posNPC') {
+			eventData.charType = eventsData[eventNum].charType;
+			
 		} else if (eventData.type === 'changeMap') {
 			eventData.nextScene = eventsData[eventNum].nextScene;
 			

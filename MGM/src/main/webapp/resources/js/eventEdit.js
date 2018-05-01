@@ -28,6 +28,21 @@ $(document).ready(function(){
         closeEventPopup();
     });
 
+    // NPC 위치 완료 버튼 클릭시
+    $('#btn_submit_npc').on('click', function() {
+        alert("npc 추가 완료");
+        let charType = $('#select_npc option:selected').val();
+        let event = {
+            type: 'posNPC',
+            x : eventPosX,
+            y : eventPosY,
+            charType: charType
+        };
+
+        getReturnValue(event);
+        closeEventPopup();
+    });
+
     // 맵 이동 완료 버튼 클릭시
     $('#btn_submit_map').on('click', function() {
         let nextScene = $('#options_map option:selected').val();
@@ -62,7 +77,8 @@ $(document).ready(function(){
     // 기본 대화 추가하기 버튼 클릭시
     var basicScripts = new Array();
     $('#btn_basictalk_cont').on('click', function() {
-        let charName = $('#select_talker').val();
+        let charCode = $('#select_talker option:selected').text();
+        let charName = $('#select_talker option:selected').val();
         let text = $('#txt_basictalk').val();
         
         let script = {
@@ -75,7 +91,7 @@ $(document).ready(function(){
         $('#txt_basictalk').val('');
         
         let row = "<tr>";
-        row += "<th>" + charName + "</th>";
+        row += "<th>" + charCode + "</th>";
         row += "<td>" + text + "</td>";
         row += "<tr>";
         $('#table_basictalk').append(row);
@@ -97,7 +113,8 @@ $(document).ready(function(){
     // 분기 대화 추가하기 버튼 클릭시
     var selectScripts = new Array();
     $('#btn_seltalk_cont').on('click', function() {
-        let charName = $('#select_talker2').val();
+        let charCode = $('#select_talker2 option:selected').text();
+        let charName = $('#select_talker2 option:selected').val();
         let text = $('#txt_selecttalk').val();
         
         let script = {
@@ -110,7 +127,7 @@ $(document).ready(function(){
         $('#txt_selecttalk').val('');
         
         let row = "<tr>";
-        row += "<th>" + charName + "</th>";
+        row += "<th>" + charCode + "</th>";
         row += "<td>" + text + "</td>";
         row += "<tr>";
         $('#table_selecttalk').append(row);
@@ -145,17 +162,19 @@ $(document).ready(function(){
     	selectScripts.push(selection2);
     	
     	let row = "<tr>";
-    	row += "<td>" + "\t1. " + selection1.text;
-    	row += "/ 2. "+ selection2.text + "</td>";
+        row += "<th>분기점</th>";
+    	row += "<td>" + "1. " + selection1.text + " / 2. " + selection2.text + "</td>";
     	row += "<tr>";
-    	$('#table_scripts').append(row);
+    	$('#table_selecttalk').append(row);
     });
     
 })
 
 /* 이미지 불러오기 */
-function previewImg(value) {
-	var preview = document.querySelector('#img');
-	preview.src = value;
+function previewImgChar(value) {
+    $('#img_char').attr('src', value);
 }
 
+function previewImgNPC(value) {
+    $('#img_npc').attr('src', value);
+}

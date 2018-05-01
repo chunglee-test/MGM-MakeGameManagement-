@@ -4,15 +4,15 @@ public class UserGamePlay {
 	private String userid;
 	private int gameid;
 	private String lastdate;
-	private int gamenodeid;
+	private int nodeid;
 	
 	public UserGamePlay() {};
-	public UserGamePlay(String userid, int gameid, String lastdate, int gamenodeid) {
+	public UserGamePlay(String userid, int gameid, String lastdate, int nodeid) {
 		super();
 		this.userid = userid;
 		this.gameid = gameid;
 		this.lastdate = lastdate;
-		this.gamenodeid = gamenodeid;
+		this.nodeid = nodeid;
 	}
 	
 	public String getUserid() {
@@ -33,16 +33,16 @@ public class UserGamePlay {
 	public void setLastdate(String lastdate) {
 		this.lastdate = lastdate;
 	}
-	public int getGamenodeid() {
-		return gamenodeid;
+	public int getNodeid() {
+		return nodeid;
 	}
-	public void setGamenodeid(int gamenodeid) {
-		this.gamenodeid = gamenodeid;
+	public void setNodeid(int nodeid) {
+		this.nodeid = nodeid;
 	}
 	
 	@Override
 	public String toString() {
-		return "UserGamePlay [userid=" + userid + ", gameid=" + gameid + ", lastdate=" + lastdate + ", gamenodeid="
-				+ gamenodeid + "]";
+		return "UserGamePlay [userid=" + userid + ", gameid=" + gameid + ", lastdate=" + lastdate + ", nodeid="
+				+ nodeid + "]";
 	}
 }

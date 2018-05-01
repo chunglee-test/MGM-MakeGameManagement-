@@ -60,5 +60,25 @@ public class GameListDAO implements GameListMapper{
 	@Override
 	public ArrayList<Game> getMadeGame(RowBounds rb, String userid) {
 		return session.getMapper(GameListMapper.class).getMadeGame(rb, userid);
+	}
+
+	@Override
+	public void newGame(String userid) {
+		session.getMapper(GameListMapper.class).newGame(userid);		
+	}
+
+	@Override
+	public Game newGameSelect(String userid) {
+		return session.getMapper(GameListMapper.class).newGameSelect(userid);
 	}	
+	
+	@Override
+	public void newGameNode(int gameid) {
+		session.getMapper(GameListMapper.class).newGameNode(gameid);
+	}
+
+	@Override
+	public ArrayList<Game> searchGame(String query) {
+		return session.getMapper(GameListMapper.class).searchGame(query);
+	}
 }

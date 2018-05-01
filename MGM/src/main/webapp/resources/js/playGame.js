@@ -1,5 +1,30 @@
+$(document).ready(function(){
+	$('#btn_savegame').on('click', function() {
+		$.ajax({
+			url: 'saveGame',
+			type: 'GET',
+			dataType: 'text',
+			data: {
+				userid: 'cjlee',
+				gameid: gameid,
+				nodeid: nodeid
+			}
+		})
+		.done(function() {
+			alert('저장 완료');
+		})
+		.fail(function() {
+			alert('저장 실패');
+		});
+	});
+
+	$('#btn_loadgame').on('click', function() {
+		location.href="loadGameFromHis?userid=cjlee&gameid=" + gameid;
+	});
+});
+
 var game = new Phaser.Game(
-		800, 600, Phaser.CANVAS, 'phaser-example', 
+		800, 600, Phaser.CANVAS, 'playingmap', 
 		{ preload: preload, create: create, update: update, render: render });
 
 var eventsData;
@@ -20,13 +45,14 @@ function preload() {
     game.load.image('tileb5', getContextPath() + '/resources/tilemaps/tiles/tileb5.png');
     
     game.load.image('script', getContextPath() + '/resources/tilemaps/tiles/script.png');
-    
+    game.load.image('NPC1', getContextPath() + '/resources/img/character/inuyasha.png');
+    game.load.image('NPC2', getContextPath() + '/resources/img/character/weda.jpg');
+
+
+
     // 캐릭터 스프라이트시트 불러오기
     // game.load.spritesheet(유니크한 이름, 경로, 타일 한 개당 너비, 타일 한 개당 높이)
     game.load.spritesheet('dude', getContextPath() + '/resources/sprites/CharacterTileset.png', 32, 32);
-    
-    // 이미지 불러오기
-    //game.load.image('phaser', getContextPath() + '/resources/sprites/mushroom2.png');
 }
 
 // 맵 정보, 레이어 1 & 2 정보
@@ -62,23 +88,14 @@ function create() {
     layer2.resizeWorld();
     
     // 통행 불가 타일들 지정하기
-    map.setCollisionBetween(625, 625, true, layer);
+    map.setCollisionBetween(625, 625, true, layer, true);
+    map.setCollisionBetween(881, 2160, true, layer2, true);
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
     
     // 맵 이벤트 발생하는 타일 지정
     setEventTile();
     
-    // 캐릭터 맵에 추가
-    // game.add.sprite(posX, posY, key, frame#)
-    // game.physics.arcade.enable(sprite);
-
-    /*// 캐릭터의 충돌 사이즈 조절
-    sprite.body.setSize(32, 32, 0, 0);
-    sprite.body.collideWorldBounds = true;
-    sprite.anchor.set(0.5);
-    //sprite.tint = 0x000000;*/
-
     // 카메라 캐릭터 이동에 고정
     game.camera.follow(sprite);
     
@@ -99,16 +116,20 @@ function update() {
     sprite.body.velocity.y = 0;
 
     if (cursors.left.isDown) {
-    	sprite.body.velocity.x = -300;
+    	sprite.body.velocity.x = -200;
+    	// sprite.body.x = sprite.body.x - 4;
     	sprite.animations.play('left');
     } else if (cursors.right.isDown) {
-    	sprite.body.velocity.x = 300;
+    	sprite.body.velocity.x = 200;
+    	// sprite.body.x = sprite.body.x + 4;
     	sprite.animations.play('right');
     } else if (cursors.up.isDown) {
-    	sprite.body.velocity.y = -300;
+    	sprite.body.velocity.y = -200;
+    	// sprite.body.y = sprite.body.y - 4;
         sprite.animations.play('up');        
     } else if (cursors.down.isDown) {
-    	sprite.body.velocity.y = 300;
+    	sprite.body.velocity.y = 200;
+    	// sprite.body.y = sprite.body.y + 4;
         sprite.animations.play('down');
     }
 }
@@ -122,7 +143,7 @@ function setEventTile() {
 		if (event.type === 'posCharacter') {
 			spritePosX = event.x * 32;
 			spritePosY = event.y * 32;
-			if (event.charType === './resources/img/character/character2.png') {
+			if (event.charType === './resources/img/character/character1.png') {
 				// 이누야샤
 				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 48);
 				
@@ -133,17 +154,13 @@ function setEventTile() {
 			    sprite.animations.add('down', [48, 49, 50, 51, 52, 53, 48], 60, false);
 			    sprite.animations.add('up', [56, 57, 58, 59, 60, 61, 56], 60, false);
 			    
-			    game.physics.arcade.enable(sprite);
-
-			} else if (event.charType === './resources/img/character/character1.png') {
+			} else if (event.charType === './resources/img/character/character2.png') {
 				// 여자 캐릭터
 				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 16);
 				sprite.animations.add('left', [0, 1, 2, 3, 4, 5, 0], 60, false);
 			    sprite.animations.add('right', [8, 9, 10, 11, 12, 13, 8], 60, false);
 			    sprite.animations.add('down', [16, 17, 18, 19, 20, 21, 16], 60, false);
 			    sprite.animations.add('up', [24, 25, 26, 27, 28, 29, 24], 60, false);
-
-			    game.physics.arcade.enable(sprite);
 
 			} else {
 				alert('캐릭터 타입 미지정');
@@ -152,9 +169,31 @@ function setEventTile() {
 			    sprite.animations.add('right', [40, 41, 42, 43, 44, 45, 40], 60, false);
 			    sprite.animations.add('down', [48, 49, 50, 51, 52, 53, 48], 60, false);
 			    sprite.animations.add('up', [56, 57, 58, 59, 60, 61, 56], 60, false);
-
-			    game.physics.arcade.enable(sprite);		
 			}
+
+			game.physics.arcade.enable(sprite);
+
+		    // 캐릭터의 충돌 사이즈 조절
+		    sprite.body.setSize(30, 30, 0, 0);
+		    sprite.body.collideWorldBounds = true;
+		    sprite.anchor.set(1);
+		    
+		} else if (event.type === 'posNPC') {
+			map.getTile(event.x, event.y).setCollision(true,true,true,true);
+			spritePosX = event.x * 32;
+			spritePosY = event.y * 32;
+			if (event.charType === './resources/img/character/character1.png') {
+				// 이누야샤
+				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 48);
+			} else if (event.charType === './resources/img/character/character2.png') {
+				// 여자 캐릭터
+				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 16);
+			} else {
+				alert('캐릭터 타입 미지정');
+				sprite = game.add.sprite(spritePosX, spritePosY, 'dude', 48);
+			}
+
+			game.physics.arcade.enable(sprite);
 
 		    // 캐릭터의 충돌 사이즈 조절
 		    sprite.body.setSize(30, 30, 0, 0);
@@ -163,8 +202,21 @@ function setEventTile() {
 		    
 		} else if (event.type === 'changeMap') {
 			map.setTileLocationCallback(event.x, event.y, 1, 1, changeMapHandler(event), this);
+
 		} else if (event.type === 'playScript') {
-			map.setTileLocationCallback(event.x, event.y, 1, 1, playScript(event), this);
+
+			//map.setTileLocationCallback(event.x, event.y, 1, 1, playScript(event), this, layer2);
+
+			// 이벤트 발생 타일의 상하좌우 
+			aboveTile = map.getTileAbove(layer, event.x, event.y);
+			belowTile = map.getTileBelow(layer, event.x, event.y);
+			leftTile = map.getTileLeft(layer, event.x, event.y);
+			rightTile = map.getTileRight(layer, event.x, event.y);
+			
+			aboveTile.setCollisionCallback(playScript(event), this);
+			belowTile.setCollisionCallback(playScript(event), this);
+			leftTile.setCollisionCallback(playScript(event), this);
+			rightTile.setCollisionCallback(playScript(event), this);
 		}
 	}
 }
@@ -174,8 +226,11 @@ var textT, textIf;
 var selection1, selection2;
 var scriptListInEvent;
 var styleForScript;
+var NPC1image, NPC2image;
 var onScript = false;
 function playScript(event) {
+	//map.setCollisionBetween(, 2160, true, layer2, true);
+	map.getTile(event.x, event.y).setCollision(true,true,true,true);
 	/**
 	 * @param  sprite 충돌을 일으킨 캐릭터
 	 * @param  tile   충돌이 일어난 타일
@@ -199,9 +254,6 @@ function playScript(event) {
 				script.fixedToCamera = true;
 			    script.cameraOffset.setTo(0, 450);
 				
-				script.fixedToCamera = true;
-			    script.cameraOffset.setTo(0, 450);
-				
 			    styleForScript = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
 				textT = game.add.text(35, 500, event.script[0].text, styleForScript);
 				
@@ -222,10 +274,19 @@ function playScript(event) {
 			    script.cameraOffset.setTo(0, 450);
 
 			    styleForScript = {font: "32px 30 Arial", fill:"#ffffff", wordWrap: true, wordWrapWidth: script.width, align:"center"};
-				textIf = game.add.text(35, 500, event.script[0].text, styleForScript);
-				
+				textIf = game.add.text(35, 470, event.script[0].text, styleForScript);
+				textNPC = game.add.text(35, 470, event.script[0].charname, styleForScript);
+
+				if(textNPC === 'NPC1'){
+					NPC1image = game.add.sprite(50, 500, 'NPC1');
+				} else if(textNPC === 'NPC2' ) {
+					NPC2image = game.add.sprite(50, 500, 'NPC2');
+				}
+
 				textIf.fixedToCamera = true;
-			    textIf.cameraOffset.setTo(30, 500);
+				textNPC.fixedToCameara = true;
+			    textIf.cameraOffset.setTo(50, 500);
+			    textNPC.cameraOffset.setTo(50, 470);
 
 				scriptListInEvent = event.script;
 				onScript = true;
@@ -254,9 +315,22 @@ function scriptHandler() {
 function ifHandler() {
 	if (i < scriptListInEvent.length - 2) {
 		textIf.text = scriptListInEvent[i].text;
+		textNPC.text = scriptListInEvent[i].charname;
 		i++;
+		
+		if(textNPC == 'NPC1'){
+			NPC1image = game.add.sprite(50, 500, 'NPC1');
+		} else if(textNPC == 'NPC2' ) {
+			NPC2image = game.add.sprite(50, 500, 'NPC2');
+		}
 	} else if (i === scriptListInEvent.length - 2) {
 		textIf.destroy();
+		textNPC.destory();
+		if (NPC1image !== undefined) {
+			NPC1image.destory();
+		} else if(NPC2image !== undefined) {
+			NPC2image.destory();
+		}
 
 		selection1 = game.add.text(32, 500, scriptListInEvent[i].text,  {font: "30px Arial", fill: "#ffffff"})
 		selection2 = game.add.text(32, 550, scriptListInEvent[i+1].text,  {font: "30px Arial", fill: "#ffffff"})
@@ -309,6 +383,7 @@ function changeMapHandler(event) {
 	    		}
 	    		, dataType: "json"
 	    		, success : function(data) {
+	    			nodeid = event.nextScene;
 					changeMap(JSON.parse(data.nodecontent));
 					changeMapFlag = true;
 	    		}
@@ -321,40 +396,43 @@ function changeMapHandler(event) {
 }
 
 function changeMap(nodecontent) {
-		eventsData = nodecontent.events;
+	eventsData = nodecontent.events;
 
-		game.load.tilemap('Map', null, nodecontent, Phaser.Tilemap.TILED_JSON);
-		layer.destroy();
-		layer2.destroy();
-		map.destroy();
-		
-		map = game.add.tilemap('Map');
+	game.load.tilemap('Map', null, nodecontent, Phaser.Tilemap.TILED_JSON);
+	layer.destroy();
+	layer2.destroy();
+	map.destroy();
+	
+	map = game.add.tilemap('Map');
 
-		map.addTilesetImage('tilea1', 'tilea1', 32, 32, 0, 0, 1);
-		map.addTilesetImage('tilea2', 'tilea2', 32, 32, 0, 0, 193);
-		map.addTilesetImage('tilea3', 'tilea3', 32, 32, 0, 0, 385);
-		map.addTilesetImage('tilea4', 'tilea4', 32, 32, 0, 0, 625);
-		map.addTilesetImage('tilea5', 'tilea5', 32, 32, 0, 0, 753);
-		map.addTilesetImage('tileb1', 'tileb1', 32, 32, 0, 0, 881);
-		map.addTilesetImage('tileb2', 'tileb2', 32, 32, 0, 0, 1137);
-		map.addTilesetImage('tileb3', 'tileb3', 32, 32, 0, 0, 1393);
-		map.addTilesetImage('tileb4', 'tileb4', 32, 32, 0, 0, 1649);
-		map.addTilesetImage('tileb5', 'tileb5', 32, 32, 0, 0, 1905);
-		
-		layer = map.createLayer('Tile Layer 1');
-	    layer.resizeWorld();
+	map.addTilesetImage('tilea1', 'tilea1', 32, 32, 0, 0, 1);
+	map.addTilesetImage('tilea2', 'tilea2', 32, 32, 0, 0, 193);
+	map.addTilesetImage('tilea3', 'tilea3', 32, 32, 0, 0, 385);
+	map.addTilesetImage('tilea4', 'tilea4', 32, 32, 0, 0, 625);
+	map.addTilesetImage('tilea5', 'tilea5', 32, 32, 0, 0, 753);
+	map.addTilesetImage('tileb1', 'tileb1', 32, 32, 0, 0, 881);
+	map.addTilesetImage('tileb2', 'tileb2', 32, 32, 0, 0, 1137);
+	map.addTilesetImage('tileb3', 'tileb3', 32, 32, 0, 0, 1393);
+	map.addTilesetImage('tileb4', 'tileb4', 32, 32, 0, 0, 1649);
+	map.addTilesetImage('tileb5', 'tileb5', 32, 32, 0, 0, 1905);
+	
+	layer = map.createLayer('Tile Layer 1');
+    layer.resizeWorld();
 
-	    layer2 = map.createLayer('Tile Layer 2');
-	    layer2.resizeWorld();
-		
-		sprite.destroy();
-	    setEventTile();
-	    
-	    sprite.bringToTop();
-	    // sprite.x = spritePosX;
-	    // sprite.y = spritePosY;
-		
-	    map.setCollisionBetween(625, 625, true, layer);
+    layer2 = map.createLayer('Tile Layer 2');
+    layer2.resizeWorld();
+	
+    // 통행 불가 타일들 지정하기
+    map.setCollisionBetween(625, 625, true, layer);
+    map.setCollisionBetween(881, 2160, true, layer2);
+
+	sprite.destroy();
+    setEventTile();
+    
+    sprite.bringToTop();
+
+    // 카메라 캐릭터 이동에 고정
+	game.camera.follow(sprite);
 }
 
 function collectCoin(player, coin) {
@@ -366,3 +444,4 @@ function render() {
 	//game.debug.bodyInfo(sprite, 16, 24);
 	//game.debug.text('x: ' + sprite.x + ', y: ' + sprite.y, 32, 32);
 }
+

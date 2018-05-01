@@ -5,14 +5,16 @@
 <nav class="navbar navbar-inverse" style="margin: 0px; padding-bottom: 10px;">
 	<div class="container-fluid">
 		<div class="navbar-header" style="width: 300px;">
-			<a class="navbar-brand" href="./">WebSiteName</a>
+			<a class="navbar-brand" href="./">
+				<img src="./resources/img/game/MGM_Logo.png">
+			</a>
 		</div>
-		<form class="navbar-form navbar-left" action="/action_page.php" style="width: 940px">
+		<form class="navbar-form navbar-left" style="width: 940px">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search"
-					name="search" style="width: 650px; height: 30px;">
+					name="search" style="width: 650px; height: 30px;" id="searchText">
 			</div>
-			<button type="submit" class="btn btn-default" style="width: 100px; height:30px; margin-bottom: 4px">Submit</button>
+			<button type="button" class="btn btn-default" style="width: 100px; height:30px; margin-bottom: 4px" id="searchBtn">Search</button>
 		</form>
 		<c:choose>
 			<c:when test="${userid == null }">		
@@ -36,6 +38,21 @@
 		</div>
 		<div class="nav_list_list">
 			<span class="nav_list_span" id="made_list">Made</span>
+		</div>
+	</div>
+	
+	<div class="modal made-select" id="madeSelectDiv">
+		<div class="modal-content animate made-select-content" id="madeSelectContent">
+			<div class="made-select-container container" style="width:100%;height:30vh;">
+				<div class="select-option" style="float:left;" id="viewMyList">
+					<img src="./resources/img/game/myListView.png" class="new-game-icon-img">
+					<div>리스트 확인</div>
+				</div>
+				<div class="select-option" style="float:right;" id="makeNewGame">
+					<img src="./resources/img/game/myListPlus.png" class="new-game-icon-img">
+					<div>새로 만들기</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </nav>
