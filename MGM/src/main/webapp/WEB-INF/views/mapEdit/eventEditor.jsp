@@ -99,6 +99,8 @@
 						<span style="text-align: center;">캐릭터 선택</span>
 						
 						<select id="select_talker">
+							<option value="./resources/img/character/character1.png">이누야샤</option>
+							<option value="./resources/img/character/character2.png">웨다</option>
 							<option value="./resources/img/character/NPC1img.png">NPC1</option>
 							<option value="./resources/img/character/NPC2img.png">NPC2</option>
 							<option value="./resources/img/character/NPC3img.png">NPC3</option>
@@ -119,6 +121,9 @@
 						<br>
 						<span>캐릭터 선택</span>
 						<select id="select_talker2">
+							
+							<option value="./resources/img/character/character1.png">이누야샤</option>
+							<option value="./resources/img/character/character2.png">웨다</option>
 							<option value="./resources/img/character/NPC1img.png">NPC1</option>
 							<option value="./resources/img/character/NPC2img.png">NPC2</option>
 							<option value="./resources/img/character/NPC3img.png">NPC3</option>
