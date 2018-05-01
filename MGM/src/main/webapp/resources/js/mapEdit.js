@@ -57,6 +57,8 @@ function loadImage(url) {
 
 function addEventListeners() {
     cvsTileset.addEventListener("click", function (e) {
+        alert("e.layerX: " + e.layerX + ", e.layerY: " + e.layerY);
+        
         let x = Math.floor(e.layerX / 32);
         let y = Math.floor(e.layerY / 32);
 
