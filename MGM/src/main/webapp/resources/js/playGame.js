@@ -353,7 +353,7 @@ function ifHandler() {
 		textIf = game.add.text(35, 470, scriptListInEvent[i].text, styleForScript);
 	    textIf.cameraOffset.setTo(150, 500);
 		
-		if(event.script[i].charname === './resources/img/character/NPC1img.png'){
+		if(scriptListInEvent[i].charname === './resources/img/character/NPC1img.png'){
 			NPC1img = game.add.sprite(0, 0, 'NPC1img');
 			NPC1img.fixedToCamera = true;
 			NPC1img.cameraOffset.setTo(10, 455);
@@ -361,7 +361,7 @@ function ifHandler() {
 			textNPC.fixedToCamera = true;
 			textNPC.cameraOffset.setTo(150, 470);
 
-		} else if(event.script[i].charname === './resources/img/character/NPC2img.png' ) {
+		} else if(scriptListInEvent[i].charname === './resources/img/character/NPC2img.png' ) {
 			NPC2img = game.add.sprite(0, 0, 'NPC2img');
 			NPC2img.fixedToCamera = true;
 			NPC2img.cameraOffset.setTo(10, 455);
@@ -369,7 +369,7 @@ function ifHandler() {
 			textNPC.fixedToCamera = true;
 			textNPC.cameraOffset.setTo(150, 470);
 
-		} else if(event.script[i].charname === './resources/img/character/NPC3img.png' ) {
+		} else if(scriptListInEvent[i].charname === './resources/img/character/NPC3img.png' ) {
 			NPC3img = game.add.sprite(0, 0, 'NPC3img');
 			NPC3img.fixedToCamera = true;
 			NPC3img.cameraOffset.setTo(10, 455);
@@ -377,7 +377,7 @@ function ifHandler() {
 			textNPC.fixedToCamera = true;
 			textNPC.cameraOffset.setTo(150, 470);
 
-		} else if(event.script[i].charname === './resources/img/character/character1.png' ) {
+		} else if(scriptListInEvent[i].charname === './resources/img/character/character1.png' ) {
 			char1img = game.add.sprite(0, 0, 'char1img');
 			char1img.fixedToCamera = true;
 			char1img.cameraOffset.setTo(10, 455);
@@ -385,7 +385,7 @@ function ifHandler() {
 			textNPC.fixedToCamera = true;
 			textNPC.cameraOffset.setTo(150, 470);
 
-		} else if(event.script[i].charname === './resources/img/character/character2.png' ) {
+		} else if(scriptListInEvent[i].charname === './resources/img/character/character2.png' ) {
 			char2img = game.add.sprite(0, 0, 'char2img');
 			char2img.fixedToCamera = true;
 			char2img.cameraOffset.setTo(10, 455);
