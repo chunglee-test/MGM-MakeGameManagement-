@@ -56,8 +56,8 @@
 
 	</head>
 	<body>
-		<div>
-			<div style="float: left; width: 42%; border-right: 2px solid #151515; margin-left: 30px; margin-right: 30px; margin-top: 10px; ">
+		<div style="margin: auto;">
+			<div style="float: left; width: 42%; margin-top: 10px; margin-left: 20px;">
 				<div style="float: left;">
 					<div class="btn-group">
 						<button class="btn_tileset" name="0">바닥타일1</button>
@@ -76,21 +76,22 @@
 					<canvas id="tileset"></canvas>
 				</div>
 			</div>
-		</div>
-		<div style="float: left; margin-right: 50px; margin-top: 10px;">
-			<div>
-				<input type="text" id="txt_nodename" value="${scene.nodename}" style="font-size:20pt; font-weight:bold;">
-				<button class="btn btn-primary" id="btn_save">저장</button>
-				<button class="btn btn-danger" id="btn_uppermenu">상위메뉴로</button>
-
-				<button id="btn_tile_1x1" class="btn btn-default">1x1 그리기</button>
-				<button id="btn_tile_4x4" class="btn btn-default">4x4 그리기</button>
-				<button id="btn_tile_full" class="btn btn-default">전체 그리기</button>
-			</div>
-			<div id="editingmap" style="width: 100%; float: right; ">
-			</div>
-		</div>
 		
+			<div style="float: left; width: 53%; margin-top: 10px; border-left: 5px solid white; padding-left: 25px;">
+				<div>
+					<input type="text" id="txt_nodename" value="${scene.nodename}" style="font-size:20pt; font-weight:bold;">
+					<button class="btn btn-primary" id="btn_save">저장</button>
+					<button class="btn btn-danger" id="btn_uppermenu">상위메뉴로</button>
+	
+					<button id="btn_tile_1x1" class="btn btn-default">1x1 그리기</button>
+					<button id="btn_tile_4x4" class="btn btn-default">4x4 그리기</button>
+					<button id="btn_tile_full" class="btn btn-default">전체 그리기</button>
+				</div>
+				<div id="editingmap" style="width: 100%; float: right; ">
+				</div>
+			</div>
+		
+		</div>
 		<%@ include file="eventEditor.jsp" %>
 		
 		<script type="text/javascript" src="resources/js/mapEdit.js"></script>
