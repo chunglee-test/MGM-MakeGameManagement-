@@ -350,7 +350,7 @@ function ifHandler() {
 		textIf.text = scriptListInEvent[i].text;
 		textNPC.text = scriptListInEvent[i].charname;
 		
-		textIf = game.add.text(35, 470, event.script[i].text, styleForScript);
+		textIf = game.add.text(35, 470, scriptListInEvent[i].text, styleForScript);
 	    textIf.cameraOffset.setTo(150, 500);
 		
 		if(event.script[i].charname === './resources/img/character/NPC1img.png'){
