@@ -103,7 +103,7 @@ function create() {
     setEventTile();
     
     // 카메라 캐릭터 이동에 고정
-    game.physics.arcade.enable(npcList);
+    //game.physics.arcade.enable(npcList);
     game.camera.follow(sprite);
     
     // 키보드 입력 처리하기
@@ -202,7 +202,8 @@ function setEventTile() {
 			npc.width = 32;
 			npc.height = 32;
 			npcList.add(npc);
-		    
+		    game.physics.arcade.enable(npcList);
+
 		} else if (event.type === 'changeMap') {
 			map.setTileLocationCallback(event.x, event.y, 1, 1, changeMapHandler(event), this);
 
@@ -287,28 +288,28 @@ function playScript(event) {
 					textNPC.fixedToCamera = true;
 					textNPC.cameraOffset.setTo(150, 470);
 				} else if(event.script[0].charname === './resources/img/character/NPC2img.png' ) {
-					NPC2img = game.add.sprite(0, 0, 'NPC2img');
+					NPC2img = game.add.sprite(1, 1, 'NPC2img');
 					NPC2img.fixedToCamera = true;
 			    	NPC2img.cameraOffset.setTo(10, 455);
 					textNPC = game.add.text(35, 470, 'NPC2', styleForScript);
 					textNPC.fixedToCamera = true;
 					textNPC.cameraOffset.setTo(150, 470);
 				} else if(event.script[0].charname === './resources/img/character/NPC3img.png' ) {
-					NPC3img = game.add.sprite(0, 0, 'NPC3img');
+					NPC3img = game.add.sprite(1, 1, 'NPC3img');
 					NPC3img.fixedToCamera = true;
 			    	NPC4img.cameraOffset.setTo(10, 455);
 					textNPC = game.add.text(35, 470, 'NPC3', styleForScript);
 					textNPC.fixedToCamera = true;
 					textNPC.cameraOffset.setTo(150, 470);
 				} else if(event.script[0].charname === './resources/img/character/character1.png' ) {
-					char1img = game.add.sprite(0, 0, 'char1img');
+					char1img = game.add.sprite(1, 1, 'char1img');
 					char1img.fixedToCamera = true;
 			    	char1img.cameraOffset.setTo(10, 455);
 					textNPC = game.add.text(35, 470, '이누야샤', styleForScript);
 					textNPC.fixedToCamera = true;
 					textNPC.cameraOffset.setTo(150, 470);
 				} else if(event.script[0].charname === './resources/img/character/character2.png' ) {
-					char2img = game.add.sprite(0, 0, 'char2img');
+					char2img = game.add.sprite(1, 1, 'char2img');
 					char2img.fixedToCamera = true;
 			    	char2img.cameraOffset.setTo(10, 455);
 					textNPC = game.add.text(35, 470, '구루', styleForScript);
@@ -347,14 +348,32 @@ function scriptHandler() {
 
 function ifHandler() {
 	if (i < scriptListInEvent.length - 2) {
+		if(NPC1img !== undefined) {
+			NPC1img.destroy();
+		} 
+		if (NPC2img !== undefined) {
+			NPC2img.destroy();
+		}
+		if (NPC3img !== undefined) {
+			NPC3img.destroy();
+		}
+		if (char1img !== undefined) {
+			char1img.destroy();
+		}
+		if (char2img !== undefined) {
+			char2img.destroy();
+		}
+		textIf.destroy();
+		textNPC.destroy();
+
 		textIf.text = scriptListInEvent[i].text;
-		textNPC.text = scriptListInEvent[i].charname;
 		
 		textIf = game.add.text(35, 470, scriptListInEvent[i].text, styleForScript);
+	    textIf.fixedToCamera = true;
 	    textIf.cameraOffset.setTo(150, 500);
 		
 		if(scriptListInEvent[i].charname === './resources/img/character/NPC1img.png'){
-			NPC1img = game.add.sprite(0, 0, 'NPC1img');
+			NPC1img = game.add.sprite(1, 1, 'NPC1img');
 			NPC1img.fixedToCamera = true;
 			NPC1img.cameraOffset.setTo(10, 455);
 			textNPC = game.add.text(35, 470, 'NPC1', styleForScript);
@@ -362,7 +381,7 @@ function ifHandler() {
 			textNPC.cameraOffset.setTo(150, 470);
 
 		} else if(scriptListInEvent[i].charname === './resources/img/character/NPC2img.png' ) {
-			NPC2img = game.add.sprite(0, 0, 'NPC2img');
+			NPC2img = game.add.sprite(1, 1, 'NPC2img');
 			NPC2img.fixedToCamera = true;
 			NPC2img.cameraOffset.setTo(10, 455);
 			textNPC = game.add.text(35, 470, 'NPC2', styleForScript);
@@ -370,7 +389,7 @@ function ifHandler() {
 			textNPC.cameraOffset.setTo(150, 470);
 
 		} else if(scriptListInEvent[i].charname === './resources/img/character/NPC3img.png' ) {
-			NPC3img = game.add.sprite(0, 0, 'NPC3img');
+			NPC3img = game.add.sprite(1, 1, 'NPC3img');
 			NPC3img.fixedToCamera = true;
 			NPC3img.cameraOffset.setTo(10, 455);
 			textNPC = game.add.text(35, 470, 'NPC3', styleForScript);
@@ -378,7 +397,7 @@ function ifHandler() {
 			textNPC.cameraOffset.setTo(150, 470);
 
 		} else if(scriptListInEvent[i].charname === './resources/img/character/character1.png' ) {
-			char1img = game.add.sprite(0, 0, 'char1img');
+			char1img = game.add.sprite(1, 1, 'char1img');
 			char1img.fixedToCamera = true;
 			char1img.cameraOffset.setTo(10, 455);
 			textNPC = game.add.text(35, 470, '이누야샤', styleForScript);
@@ -386,7 +405,7 @@ function ifHandler() {
 			textNPC.cameraOffset.setTo(150, 470);
 
 		} else if(scriptListInEvent[i].charname === './resources/img/character/character2.png' ) {
-			char2img = game.add.sprite(0, 0, 'char2img');
+			char2img = game.add.sprite(1, 1, 'char2img');
 			char2img.fixedToCamera = true;
 			char2img.cameraOffset.setTo(10, 455);
 			textNPC = game.add.text(35, 470, '구루', styleForScript);
@@ -397,20 +416,23 @@ function ifHandler() {
 		i++;
 
 	} else if (i === scriptListInEvent.length - 2) {
-		textIf.destroy();
-		textNPC.destroy();
-		
-		if (NPC1img !== undefined) {
+		if(NPC1img !== undefined) {
 			NPC1img.destroy();
-		} else if(NPC2img !== undefined) {
+		} 
+		if (NPC2img !== undefined) {
 			NPC2img.destroy();
-		} else if(NPC3img !== undefined) {
+		}
+		if (NPC3img !== undefined) {
 			NPC3img.destroy();
-		} else if(char1img !== undefined) {
+		}
+		if (char1img !== undefined) {
 			char1img.destroy();
-		} else if(char2img !== undefined) {
+		}
+		if (char2img !== undefined) {
 			char2img.destroy();
 		}
+		textIf.destroy();
+		textNPC.destroy();
 
 		selection1 = game.add.text(32, 500, scriptListInEvent[i].text,  {font: "30px Arial", fill: "#ffffff"})
 		selection2 = game.add.text(32, 550, scriptListInEvent[i+1].text,  {font: "30px Arial", fill: "#ffffff"})
@@ -513,6 +535,8 @@ function changeMap(nodecontent) {
     
     sprite.bringToTop();
 
+    npcList.destroy();
+    
     // 카메라 캐릭터 이동에 고정
 	game.camera.follow(sprite);
 }
