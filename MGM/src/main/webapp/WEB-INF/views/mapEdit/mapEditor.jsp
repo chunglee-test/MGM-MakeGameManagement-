@@ -56,7 +56,7 @@
 
 	</head>
 	<body>
-		<div style="margin: auto;">
+		<div style="margin: auto; width: fit-content">
 			<div style="float: left; width: 42%; margin-top: 10px; margin-left: 20px;">
 				<div style="float: left;">
 					<div class="btn-group">
