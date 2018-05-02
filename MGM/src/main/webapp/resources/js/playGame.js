@@ -64,7 +64,7 @@ var map, layer, layer2;
 // 캐릭터 정보
 var sprite, spritePosX = 0, spritePosY = 0;
 // 키보드 입력 변수
-var cursors, spacebar;
+var cursors, spacebar, fullscreen;
 // npc 리스트
 var npcList;
 var script;
@@ -114,7 +114,10 @@ function create() {
     // 키보드 입력 처리하기
     cursors = game.input.keyboard.createCursorKeys();
     spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    fullscreen = game.input.keyboard.addKey(Phaser.Keyboard.F11);
     
+    fullscreen.onDown.add(makeFullScreen, this);
+
     // tile에 충돌효과 주기
     //map.getTile(eventsData[0].x, eventsData[0].y).setCollision(true,true,true,true);
 }
@@ -205,6 +208,17 @@ function update() {
     	sprite.body.velocity.y = 200;
     	// sprite.body.y = sprite.body.y + 4;
         sprite.animations.play('down');
+    }
+}
+
+function makeFullScreen() {
+	if (game.scale.isFullScreen)
+    {
+        game.scale.stopFullScreen();
+    }
+    else
+    {
+        game.scale.startFullScreen(false);
     }
 }
 
