@@ -76,7 +76,7 @@ public class UserController {
     			return "false";
     		}
     		
-            newFileName = multi.getParameter("userid") + "." + fileName.substring(fileName.lastIndexOf(".")+1);
+            newFileName = multi.getParameter("userid") + ".jpg";/* + fileName.substring(fileName.lastIndexOf(".")+1);*/
             
             try {
                 mFile.transferTo(new File(path + newFileName));

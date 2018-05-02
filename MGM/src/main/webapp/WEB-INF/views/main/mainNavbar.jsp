@@ -9,13 +9,13 @@
 				<img src="./resources/img/game/MGM_Logo.png">
 			</a>
 		</div>
-		<form class="navbar-form navbar-left" style="width: 940px">
+		<div class="navbar-form navbar-left" style="width: 940px">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search"
 					name="search" style="width: 650px; height: 30px;" id="searchText">
 			</div>
 			<button type="button" class="btn btn-default" style="width: 100px; height:30px; margin-bottom: 4px" id="searchBtn">Search</button>
-		</form>
+		</div>
 		<c:choose>
 			<c:when test="${userid == null }">		
 				<button onclick="loginPage();" class="btn btn-primary" style="width:5%; margin-left: 70px; margin-top: 35px">Login</button>

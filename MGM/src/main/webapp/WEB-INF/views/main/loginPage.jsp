@@ -18,7 +18,9 @@
 			</label> 
 			<input type="password" placeholder="Enter Password" name="userpw" id="userpw" required>
 			<input type="button" class="btn btn-primary" style="width:100%" value="Login" onclick="loginChk();">
-			<label><a href="javascript:signup();">회원가입</a></label>
+			<div style="margin-left:80%;margin-top:2vh;">
+				<label><a href="javascript:signup();">회원가입</a></label>
+			</div>
 		</div>
 	</div>
 </div>
@@ -38,7 +40,7 @@
 			<input type="text" placeholder="Enter E-mail" name="email" id="signup-email" required>
 			<label>프로필 사진</label>
 			<input type="file" name="signup-profile" id="userprofile" required>
-			<button type="button" onclick="signUp();">회원가입</button>
+			<button type="button" onclick="signUp();" >회원가입</button>
 		</form>
 	</div>
 </div>

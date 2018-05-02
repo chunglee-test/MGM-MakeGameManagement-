@@ -10,16 +10,26 @@ import net.mgm.www.vo.GameNode;
 
 @Repository
 public class GamePlayDAO implements GamePlayMapper{
-   @Inject
-   private SqlSession session;
-   
-   @Override
-   public void saveGame(UserGamePlay userGamePlay) {
-      session.getMapper(GamePlayMapper.class).saveGame(userGamePlay);
-   }
-
-   @Override
-   public GameNode loadGame(UserGamePlay userGamePlay) {
-      return session.getMapper(GamePlayMapper.class).loadGame(userGamePlay);
-   }
+	@Inject
+	private SqlSession session;
+	   
+	@Override
+	public void saveGame(UserGamePlay userGamePlay) {
+		session.getMapper(GamePlayMapper.class).saveGame(userGamePlay);
+	}
+	
+	@Override
+	public void updateGame(UserGamePlay userGamePlay) {
+		session.getMapper(GamePlayMapper.class).updateGame(userGamePlay);
+	}
+	
+	@Override
+	public GameNode loadGame(UserGamePlay userGamePlay) {
+		return session.getMapper(GamePlayMapper.class).loadGame(userGamePlay);
+	}
+	
+	@Override
+	public UserGamePlay checkSaveData(UserGamePlay userGamePlay) {
+		return session.getMapper(GamePlayMapper.class).checkSaveData(userGamePlay);
+	}
 }

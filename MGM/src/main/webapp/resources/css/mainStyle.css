@@ -157,19 +157,14 @@ a {
   height: 100%;
 }
 .gallery {
-    list-style-type: none;
-	height: 30%;
-	  overflow: hidden;
-	  width:52%;
-	  padding-left: -100px;
-	  padding-top: 20px;
-	  
-
+  list-style-type: none;
+  height: 30%;
+  overflow: hidden;
 }
 .gallery li {
   float: left;
   height: 100%;
-  width: 400px;
+  width: 18vw;
   background: #2E4053;
 }
 .gallery .flip {

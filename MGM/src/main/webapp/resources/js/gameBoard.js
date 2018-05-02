@@ -10,6 +10,9 @@ window.onclick = function(event) {
     else if($(event.target).attr("class") == $("#commentDiv").attr("class")) {
     	$("#commentDiv").css("display", "none");
 	}
+    else if($(event.target).attr("class") == $("#gameSelectDiv").attr("class")) {
+    	$("#gameSelectDiv").css("display", "none");
+	}
 }
 
 function saveEditData(){
@@ -90,6 +93,35 @@ function openGame(){
         	}
         	else{
         		alert("성공적으로 처리하였습니다");        		
+        	}
+        	
+        	location.reload();
+        },
+        error : function(error) {
+            console.log(error);
+            console.log(error.status);
+        }
+	});
+}
+
+function writeComment(gameid){
+	var comment = $("#commentText").val();
+	var point = $("#commentPoint").val();
+	
+	$.ajax({
+		type : 'get',
+        url : 'writeComment',
+        data:{
+        	gameid : gameid,
+        	gcomment : comment,
+        	point : point
+        },
+        success : function(msg) {
+        	if(msg == "false"){
+        		alert("문제가 발생하였습니다");
+        	}
+        	else{
+        		alert("소중한 의견 감사합니다");        		
         	}
         	
         	location.reload();

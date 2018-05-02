@@ -79,14 +79,20 @@
 			body{
 				background-color: #333333;
 			}
+			.background-player{
+				display:none;
+			}
 		</style>
 	</head>
 	<body>
+		<audio controls="controls" autoplay loop class="background-player" id="bgmPlayer">		
+		    <source src="./resources/mp3/${scene.nodeid}.mp3" type="audio/mp3" />		
+		</audio>
 		<button id="btn_savegame" class="btn btn-primary">저장하기</button>
 		<button id="btn_loadgame" class="btn btn-success">불러오기</button>
 		<div style="width: fit-content; margin: auto;">
 			<div style="float: left;">
-				<img src="./resources/img/game/left.png" style="height: 600px;">
+				<img src="./resources/img/game/left.png" style="height:90%;">
 			</div>
 			<div id="playingmap" style="width: fit-content; float: left;"></div>
 			<div style="float: left;">

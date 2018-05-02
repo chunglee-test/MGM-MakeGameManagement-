@@ -79,12 +79,13 @@
 		
 			<div style="float: left; width: 53%; margin-top: 10px; border-left: 5px solid white; padding-left: 25px;">
 				<div>
-					<input type="text" id="txt_nodename" value="${scene.nodename}" style="font-size:20pt; font-weight:bold;">
+					<input type="text" id="txt_nodename" value="${scene.nodename}" style="font-size:20pt; font-weight:bold;width:30%;">
 					<button class="btn btn-primary" id="btn_save">저장</button>
-					<button class="btn btn-danger" id="btn_uppermenu">상위메뉴로</button>
+					<button class="btn btn-danger" id="btn_uppermenu">상위메뉴</button>
+					<button class="btn btn-success" id="btn_music">배경음악</button>
 	
-					<button id="btn_tile_1x1" class="btn btn-default">1x1 그리기</button>
-					<button id="btn_tile_4x4" class="btn btn-default">4x4 그리기</button>
+					<button id="btn_tile_1x1" class="btn btn-default">1칸 그리기</button>
+					<button id="btn_tile_4x4" class="btn btn-default">4칸 그리기</button>
 					<button id="btn_tile_full" class="btn btn-default">전체 그리기</button>
 				</div>
 				<div id="editingmap" style="width: 100%; float: right; ">

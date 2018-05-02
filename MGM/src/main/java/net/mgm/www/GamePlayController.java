@@ -30,13 +30,23 @@ public class GamePlayController {
     */
    @ResponseBody
    @RequestMapping(value="/saveGame", method=RequestMethod.GET)
-   public String saveGame(int gameid, int nodeid, String userid) {
+   public String saveGame(int gameid, int nodeid, HttpSession session) {
       UserGamePlay userGamePlay = new UserGamePlay();
       userGamePlay.setGameid(gameid);
       userGamePlay.setNodeid(nodeid);
-      userGamePlay.setUserid(userid);
-      System.out.println("saveGame called");
-      playDAO.saveGame(userGamePlay);
+      userGamePlay.setUserid((String)session.getAttribute("userid"));
+      
+      System.out.println(userGamePlay);
+      
+      UserGamePlay isSave = playDAO.checkSaveData(userGamePlay);
+      System.out.println(isSave);
+      
+      if(isSave != null) {
+    	  playDAO.updateGame(userGamePlay);
+      }
+      else {          
+          playDAO.saveGame(userGamePlay);    	  
+      }
 
       return "true";
    }
@@ -45,10 +55,10 @@ public class GamePlayController {
     * 지금까지 진행 하던 게임 불러오기
     */
    @RequestMapping(value="/loadGameFromHis", method=RequestMethod.GET)
-   public String loadGameFromHis(int gameid, String userid, Model model) {
+   public String loadGameFromHis(int gameid, HttpSession session, Model model) {
       UserGamePlay userGamePlay = new UserGamePlay();
       userGamePlay.setGameid(gameid);
-      userGamePlay.setUserid(userid);
+      userGamePlay.setUserid((String)session.getAttribute("userid"));
       
       GameNode scene = playDAO.loadGame(userGamePlay);
 

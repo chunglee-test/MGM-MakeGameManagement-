@@ -3,34 +3,59 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.mgm.www.mapper.GamePlayMapper">
-   <!-- 플레이 중인 게임 정보 저장하기 -->
-   <insert id="saveGame" parameterType="play">
-      INSERT INTO 
-         user_gameplay(
-            userid,
-            gameid,
-            nodeid,
-            lastdate
-         )
-      VALUES(
-         #{userid},
-         #{gameid},
-         #{nodeid},
-         SYSDATE
-      )
-   </insert>
-
-   <!-- 플레이 중이던 게임 불러오기 -->
-   <select id="loadGame" parameterType="play" resultType="gnode">
-      SELECT
-         n.gameid as gameid,
-         n.nodeid as nodeid,
-         n.parentid as parentid,
-         n.nodename as nodename,
-         n.nodecontent as nodecontent
-      FROM
-         user_gameplay p, game_node n
-      WHERE
-         n.nodeid = p.nodeid AND p.userid = #{userid} AND p.gameid = #{gameid}
-   </select>
+	<!-- 플레이 중인 게임 정보 저장하기 -->
+	<insert id="saveGame" parameterType="play">
+		INSERT INTO
+		user_gameplay(
+			userid,
+			gameid,
+			nodeid,
+			lastdate
+		)
+		VALUES(
+			#{userid},
+			#{gameid},
+			#{nodeid},
+			SYSDATE
+		)
+	</insert>
+	<update id="updateGame" parameterType="play">
+		UPDATE
+			user_gameplay
+		SET
+			nodeid = #{nodeid}
+		WHERE
+			gameid = #{gameid}
+		AND
+			userid = #{userid}
+	</update>
+	<!-- 플레이 중이던 게임 불러오기 -->
+	<select id="loadGame" parameterType="play" resultType="gnode">
+		SELECT
+			n.gameid AS gameid,
+			n.nodeid AS nodeid,
+			n.parentid AS parentid,
+			n.nodename AS nodename,
+			n.nodecontent AS nodecontent
+		FROM
+			user_gameplay p, 
+			game_node n
+		WHERE
+			n.nodeid = p.nodeid 
+		AND 
+			p.userid = #{userid} 
+		AND 
+			p.gameid = #{gameid}
+	</select>
+	
+	<select id="checkSaveData" parameterType="play" resultType="play">
+		SELECT
+			gameid, userid, nodeid
+		FROM
+			user_gameplay
+		WHERE
+			gameid = #{gameid}
+		AND
+			userid = #{userid}
+	</select>
 </mapper>
