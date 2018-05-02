@@ -9,6 +9,7 @@ public class Game {
 	private String gameprofile;
 	private String isopen;
 	private String opendate;
+	private String point;
 
 	public Game() {};
 	public Game(int gameid, String nick, String gamename, String gamecontent, String gameprofile, String isopen,
@@ -71,7 +72,12 @@ public class Game {
 	public void setOpendate(String opendate) {
 		this.opendate = opendate;
 	}
-	
+	public String getPoint() {
+		return point;
+	}
+	public void setPoint(String point) {
+		this.point = point;
+	}
 	@Override
 	public String toString() {
 		return "Game [gameid=" + gameid + ", nick=" + nick + ", gamename=" + gamename + ", gamecontent="

@@ -31,43 +31,39 @@
 <body class="mainpage_body">
 	<!--images from http://haryarti.deviahntart.com/gallery/-->
 	<div class="container">
-		<header><h2 style="color: white;">인기게임 Top 4</h2></header>
+		<header><h2 style="color: white;margin-top:5vh">인기게임 Top 4</h2></header>
 		<ul class="gallery">
 			<c:forEach items="${pList }" var="game">
 				<li>
-					<div class="flip">
+					<div class="flip" onclick="location.href='gameBoard?gameid=${game.gameid}'" style="cursor: pointer; margin-right:10px;">
 						<div class="front-side" style="background-image:url('./resources/img/game/${game.gameid}_maintitle.jpg')"></div>
 						<div class="back-side">
-							<a href="#">
-								<div class="content">
-									<div class="loader"></div>
-									<div class="text">
-										<h3>${game.gamename }</h3>
-										<p>${game.gamecontent }</p>
-									</div>
+							<div class="content">
+								<div class="loader"></div>
+								<div class="text">
+									<h3>${game.gamename }</h3>
+									<p>${game.gamecontent }</p>
 								</div>
-							</a>
+							</div>
 						</div>
 					</div>
 				</li>
 			</c:forEach>
 		</ul>
-		<header><h2 style="color: white;">신작게임 Top 4</h2></header>
+		<header><h2 style="color: white;margin-top:5vh">신작게임 Top 4</h2></header>
 		<ul class="gallery">
 			<c:forEach items="${rList }" var="game">
 				<li>
-					<div class="flip">
+					<div class="flip" onclick="location.href='gameBoard?gameid=${game.gameid}'" style="cursor: pointer;">
 						<div class="front-side" style="background-image:url('./resources/img/game/${game.gameid}_maintitle.jpg')"></div>
 						<div class="back-side">
-							<a href="#">
-								<div class="content">
-									<div class="loader"></div>
-									<div class="text">
-										<h3>${game.gamename }</h3>
-										<p>${game.gamecontent }</p>
-									</div>
+							<div class="content">
+								<div class="loader"></div>
+								<div class="text">
+									<h3>${game.gamename }</h3>
+									<p>${game.gamecontent }</p>
 								</div>
-							</a>
+							</div>
 						</div>
 					</div>
 				</li>
@@ -75,18 +71,4 @@
 		</ul>
 	</div>
 </body>
-<!-- 	<article class="container">
-		<div class="content">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">Panel heading without title</div>
-					<div class="panel-body">Panel content</div>
-				</div>
-			</div>
-		</div>
-	</article>
-	<a href="produceScene?gameid=2"> Go to Node Editor Page</a> /
-	<a href="loadGame?gameid=2"> Go to Game Play Page</a> /
-	<a href="mapEdit"> Go to Map Editor Page </a> /
-	<a href="playGame"> Go to Game Play Page </a>
- -->
+</html>

@@ -19,7 +19,7 @@
 	</select>
 	<select id="gameSelect" parameterType="int" resultType="game">
 		SELECT
-			u.userid, u.nick, g.gamename, g.gamecontent, g.gameprofile, g.isopen
+			u.userid, u.nick, g.gamename, g.gamecontent, g.gameprofile, g.isopen, TO_CHAR(g.opendate, 'YYYY . MM . DD') AS opendate
 		FROM
 			games g
 		LEFT JOIN
@@ -31,7 +31,7 @@
 	</select>
 	<select id="gameComment" parameterType="int" resultType="gcomment">
 		SELECT
-			u.nick, c.gcomment, c.point, TO_CHAR(c.writedate, 'YYYY.MM.DD') AS writedate
+			c.userid, u.nick, c.gcomment, c.point, TO_CHAR(c.writedate, 'YYYY . MM . DD') AS writedate
 		FROM
 			game_comment c
 		LEFT JOIN
@@ -41,7 +41,7 @@
 		WHERE
 			c.gameid = #{gameid}
 		ORDER BY 
-			writedate
+			c.writedate DESC
 	</select>
 	<update id="updateGameAccount" parameterType="game">
 		UPDATE
@@ -68,7 +68,7 @@
             games g
         LEFT JOIN
             (SELECT
-                gameid, AVG(point) AS point
+                gameid, SUM(point) AS point
             FROM
                 game_comment
             GROUP BY
@@ -78,17 +78,17 @@
         WHERE
             g.isopen = 'Y'
         ORDER BY
-            p.point
+            p.point DESC NULLS LAST
 	</select>
 	<select id="getRecentGame" resultType="game">
 		SELECT
-		    gameid, gamename, gamecontent, opendate
+		    g.gameid, g.gamename, g.gamecontent, TO_CHAR(g.opendate, 'YYYY . MM . DD') AS opendate
 		FROM
-		    games
+		    games g
 		WHERE
-		    isopen = 'Y'
+		    g.isopen = 'Y'
 		ORDER BY
-			opendate DESC
+			g.opendate DESC
 	</select>
 	<select id="getPlayedGame" parameterType="string" resultType="game">
 		SELECT
@@ -106,7 +106,7 @@
 	</select>
 	<select id="getMadeGame" parameterType="string" resultType="game">
 		SELECT
-			*
+			gameid, gamename, gamecontent 
 		FROM
 			games
 		WHERE
@@ -183,5 +183,49 @@
 		    g.gamename LIKE '%${value}%'
 		AND
 		    g.isopen = 'Y'
+	</select>
+	<insert id="writeComment" parameterType="gcomment">
+		INSERT INTO
+			game_comment(
+				gameid, 
+				userid, 
+				gcomment, 
+				point
+			)
+		VALUES(
+			#{gameid},
+			#{userid},
+			#{gcomment},
+			#{point}
+		)
+	</insert>
+	<select id="getGamePoint" parameterType="int" resultType="hashmap">
+		SELECT
+		    p.pp, m.mp
+		FROM
+			(
+			    SELECT
+			        COUNT(point) pp
+			    FROM
+			        game_comment
+			    WHERE
+			        gameid = #{gameid}
+			    AND
+			        point = 1
+			    GROUP BY
+			        gameid
+			) p, 
+		    (
+			    SELECT
+			        COUNT(point) mp
+			    FROM
+			        game_comment
+			    WHERE
+			        gameid = #{gameid}
+			    AND
+			        point = -1
+			    GROUP BY
+			        gameid
+		    ) m
 	</select>
 </mapper>

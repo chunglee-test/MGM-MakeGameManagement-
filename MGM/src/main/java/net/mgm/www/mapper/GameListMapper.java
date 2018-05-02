@@ -1,6 +1,7 @@
 package net.mgm.www.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 
@@ -21,4 +22,6 @@ public interface GameListMapper {
 	public Game newGameSelect(String userid);
 	public void newGameNode(int gameid);
 	public ArrayList<Game> searchGame(String query);
+	public void writeComment(GameComment comment);
+	public HashMap<String, Integer> getGamePoint(int gameid);
 }

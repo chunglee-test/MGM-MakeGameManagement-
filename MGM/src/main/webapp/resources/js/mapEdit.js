@@ -2,14 +2,22 @@ var tileNumWidth = 40, tileNumHeight = 30;
 var onMaking = false;
 (function () {
     if (nodecontent !== null) {
-        alert('이미 제작중인 맵이 있습니다');
         onMaking = true;
         tileNumWidth = nodecontent.layers[0].width;
         tileNumHeight = nodecontent.layers[0].height;
     } else {
         tileNumWidth = prompt('맵의 너비를 지정해주세요(단위 타일 수)', '30');
+        if(tileNumWidth == null || tileNumWidth < 1){
+        	tileNumWidth = 40;
+        }
         tileNumHeight = prompt('맵의 높이를 지정해주세요(단위 타일 수)', '30');
+        if(tileNumHeight == null || tileNumHeight < 1){
+        	tileNumHeight = 30;
+        }
         nodename = prompt('맵 이름을 지정해주세요', '기본 맵');
+        if(nodename == null){
+        	nodename = 'Scene Name';
+        }
         $('#txt_nodename').val(nodename);
     }
 
@@ -390,11 +398,46 @@ document.getElementById('btn_uppermenu').addEventListener("click", function (e) 
     location.href = "produceScene?gameid=" + gameid;
 });
 
+document.getElementById('btn_music').addEventListener("click", function (e) {
+    $("#musicSelectDiv").css("display", "block");
+});
+
+document.getElementById('closeMusicDiv').addEventListener("click", function(e){
+	$("#musicSelectDiv").css("display", "none");
+});
+//here
+document.getElementById('saveMusicBtn').addEventListener("click", function (e) {
+    var formData = new FormData($("#musicSelectForm")[0]);
+    
+	$.ajax({
+		type : 'post',
+        url : 'saveGameMusic',
+        data : formData,
+        processData : false,
+        contentType : false,
+        success : function(result) {
+        	if(result == 'true'){
+        		alert("저장하였습니다");   
+        		$("#musicSelectDiv").css("display", "none");
+        	}
+        	else{
+        		alert("파일을 다시 확인해주세요");
+        	}
+        },
+        error : function(error) {
+            alert("fail");
+        }
+	});
+});
+
 // 이벤트 창 열렸을 때 창 밖 누르면 자동으로 닫힘
 window.onclick = function(event) {
     if ($(event.target).attr("id") == $("#eventpopup").attr("id")) {
        closeEventPopup();
    }
+    else if($(event.target).attr("id") == $("#musicSelectDiv").attr("id")){
+    	$("#musicSelectDiv").css("display", "none");
+    }
 }
 
 // 창 닫는 함수

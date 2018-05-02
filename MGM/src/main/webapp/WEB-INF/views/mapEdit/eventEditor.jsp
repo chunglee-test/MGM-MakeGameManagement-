@@ -14,27 +14,35 @@
 	#btn_set_char {
 		background-color: darkgray !important;
 	}
-	#div_character, #div_event_ctx, #div_map{
+	#div_character, #div_event_ctx, #div_map, #div_mp3{
 		margin: 20px;
 	}
 	#table_scripts{
 		font: white;
 	}
+	.event-controller{
+		margin-top:-2vw;
+		width:35vw;
+		overflow:hidden;
+	}
+	.music-select{
+		display:none;
+	}
 </style>
-		
+
 <div id="eventpopup" class="modal">
-	<div class="modal-content animate container">	
+	<div class="modal-content animate container event-controller">	
 		<span onclick="closeEventPopup()" class="close" title="Close Modal">
 			&times;
 		</span>
 		
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#div_character" data-toggle="tab">
-				<span class="glyphicon glyphicon-user"></span>  캐릭터  </a></li>
+				<span class="glyphicon glyphicon-user"></span>&nbsp;캐릭터&nbsp;</a></li>
 			<li><a href="#div_map" data-toggle="tab">
-				<span class="glyphicon glyphicon-picture"></span>  맵  </a></li>
+				<span class="glyphicon glyphicon-picture"></span>&nbsp;맵&nbsp;</a></li>
    			<li><a href="#div_event_ctx" data-toggle="tab">
-   			 	<span class="glyphicon glyphicon-comment"></span>  대화  </a></li>
+   			 	<span class="glyphicon glyphicon-comment"></span>&nbsp;대화&nbsp;</a></li>
 		</ul>
 		
 		<div class="tab-content">
@@ -91,7 +99,7 @@
 		      		<div id="div_explanation" class="tab-pane fade in active">
 						<h3>설명 입력</h3>
 						<textarea id="txt_explanation" rows="5"></textarea>
-						<button id="btn_submit_explain" class="btn" style="margin-bottom: 20px">입력 완료</button>
+						<button id="btn_submit_explain" class="btn btn-success" style="margin-bottom: 20px;">입력 완료</button>
 					</div>
 
 					<div id="div_basictalk" class="tab-pane fade">
@@ -114,7 +122,7 @@
 						<h3>입력한 대본</h3>
 						<table id="table_basictalk" class="table table-striped"></table>
 						<br>
-						<button id="btn_submit_basictalk" class="btn">입력 완료</button>
+						<button id="btn_submit_basictalk" class="btn btn-success">입력 완료</button>
 					</div>
 
 					<div id="div_selecttalk" class="tab-pane fade">
@@ -150,10 +158,26 @@
 						<h4>입력한 대본</h4>
 						<table id="table_selecttalk" class="table table-striped"></table>
 						<br>
-						<button id="btn_submit_selecttalk" class="btn">입력 완료</button>
+						<button id="btn_submit_selecttalk" class="btn btn-success">입력 완료</button>
 					</div>
 		      	</div>
 		    </div>
   		</div>
 	</div> <!-- end of modal-content -->
 </div> <!-- end of modal -->
+
+<div class="modal music-select" id="musicSelectDiv">
+	<div class="modal-content animate music-select-content" id="musicSelectContent">
+		<div class="music-select-container container" style="width:20vw;height:20vh;">	
+			<div id="closeMusicDiv" class="close" title="Close Modal">
+				&times;
+			</div>		
+			<form id="musicSelectForm" method="post" enctype="multipart/form-data" style="padding-bottom:10px;margin-top:30px;">
+				<label>배경음악 선택</label>
+				<input type="hidden" name="nodeid" value="${param.nodeid}">
+				<input type="file" name="bgm" id="bgm" style="margin-top:15px;">
+				<button type="button" class="btn btn-primary savebtn" id="saveMusicBtn"style="margin-top:15px;margin-left:100px;">SAVE</button>
+			</form>
+		</div>
+	</div>
+</div>

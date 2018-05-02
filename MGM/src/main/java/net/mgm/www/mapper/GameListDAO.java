@@ -1,6 +1,7 @@
 package net.mgm.www.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -80,5 +81,15 @@ public class GameListDAO implements GameListMapper{
 	@Override
 	public ArrayList<Game> searchGame(String query) {
 		return session.getMapper(GameListMapper.class).searchGame(query);
+	}
+	
+	@Override
+	public void writeComment(GameComment comment) {
+		session.getMapper(GameListMapper.class).writeComment(comment);
+	}
+
+	@Override
+	public HashMap<String, Integer> getGamePoint(int gameid) {
+		return session.getMapper(GameListMapper.class).getGamePoint(gameid);
 	}
 }

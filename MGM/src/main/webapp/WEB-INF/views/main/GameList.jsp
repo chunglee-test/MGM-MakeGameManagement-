@@ -13,16 +13,20 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<style>
 		img:hover {
-			filter:none;
+			/* filter:none;
 			-webkit-filter: grayscale(0);
+			
+			-webkit-box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
+			-moz-box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
+			box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75); */
+		}
+		img{
+			/* filter: gray; 		
+			-webkit-filter: grayscale(1); */
 			/* Google Chrome, Safari 6+ & Opera 15+ */
 			-webkit-box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
 			-moz-box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
 			box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
-		}
-		img{
-			filter: gray; /* IE6-9 */		
-			-webkit-filter: grayscale(1);
 		}
 		.maker-name{
 			text-align:left;
@@ -32,6 +36,16 @@
 			padding-top: 20px;
 			color: white;
 			padding-left: 30px;
+			filter: gray; /* IE6-9 */		
+			-webkit-filter: grayscale(1);
+		}
+		.gamelist:hover{
+			filter:none;
+			-webkit-filter: grayscale(0);
+			/* Google Chrome, Safari 6+ & Opera 15+ */
+			-webkit-box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
+			-moz-box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);
+			box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.75);		
 		}
 		.card {
 			float: left;
@@ -77,30 +91,52 @@
 			left:90%;
 		}
 		.left-page-move{
-			margin-top:40%;
-			margin-left:20%;
+			position:absolute;
+			top:40%;
+			left:30%;
 		}
 		.right-page-move{
-			margin-top:40%;
-			margin-left:20%;
+			position:absolute;
+			top:40%;
+			left:30%;
 		}
 		.gamereference{
 			height:80%;
+			max-height:80%;
+		}
+		.card-body{
+			padding-right:10px;
+		}
+		.searchRst{
+			color:#66C0F4;
+			position:relative;
+			top:110%;
+			left:60%;
 		}
 	</style>
 </head>
 <body style="background-color: #333333;">
 	<c:if test="${param.page > 1}">
 		<div class="move-page left" id="moveLastPage" onclick="location.href='gameList?page=${param.page - 1}'">
-			<span class="left-page-move">${param.page }≪</span>
+			<span class="left-page-move">≪</span>
 		</div>
 	</c:if>
-	<div class="move-page right" id="moveNextPage" onclick="location.href='gameList?page=${param.page + 1}'">
-		<span class="right-page-move">≫</span>
-	</div>
+	<c:if test="${!empty isNext}">
+		<div class="move-page right" id="moveNextPage" onclick="location.href='gameList?page=${param.page + 1}'">
+			<span class="right-page-move">≫</span>
+		</div>
+	</c:if>
 	<div class="container">
 		<c:forEach items="${gList}" var="gList">
-			<div class="gamelist" onclick="location.href='gameBoard?gameid=${gList.gameid}'" style="height:100%;">
+			<c:choose>
+				<c:when test="${!empty gList.point}">
+					<c:set var="searchRst" value="평점 : ${gList.point}"/>
+				</c:when>
+				<c:when test="${!empty gList.opendate}">
+					<c:set var="searchRst" value="게시일 : ${gList.opendate}"/>
+				</c:when>
+			</c:choose>
+			<div class="gamelist" onclick="location.href='gameBoard?gameid=${gList.gameid}'" style="height:21vh;">
 				<%-- ${gList.gameid}_maintitle --%>
 				<div class="gamereference">
 					<div class="card text-white bg-primary mb-3" style= "max-width: 18vw; max-height: 16vh;">
@@ -109,6 +145,7 @@
 								style="width:100%; height:100%;">
 					</div>
 					<div class="gamereference">
+						<span class="searchRst">${searchRst}</span>
 						<div class="card-header" style="font-size: 18px;">${gList.gamename}</div>
 						<div class="card-body">
 							<h5 class="card-title maker-name">${gList.nick}</h5>

@@ -39,7 +39,6 @@
 			<mvc:mapping path="/loadGame" />
 			<mvc:mapping path="/saveGameScreenshot" />
 			<mvc:mapping path="/saveGameAccount" />
-			<mvc:exclude-mapping path="/resources/**" />
 			<beans:bean id="commonInterceptor" class="net.mgm.www.interceptor.Interceptor" />
 		</mvc:interceptor> 
   	</mvc:interceptors>	
