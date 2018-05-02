@@ -32,7 +32,7 @@ var eventsData;
 function preload() {
 	eventsData = mapData.events;
 	game.load.tilemap('Map', null, mapData, Phaser.Tilemap.TILED_JSON);
-    
+
 	game.load.image('tilea1', getContextPath() + '/resources/tilemaps/tiles/tilea1.png');
     game.load.image('tilea2', getContextPath() + '/resources/tilemaps/tiles/tilea2.png');
     game.load.image('tilea3', getContextPath() + '/resources/tilemaps/tiles/tilea3.png');
@@ -44,7 +44,7 @@ function preload() {
     game.load.image('tileb4', getContextPath() + '/resources/tilemaps/tiles/tileb4.png');
     game.load.image('tileb5', getContextPath() + '/resources/tilemaps/tiles/tileb5.png');
     
-    game.load.image('script', getContextPath() + '/resources/tilemaps/tiles/script.png');
+    game.load.image('script', getContextPath() + '/resources/tilemaps/tiles/script.jpg');
     game.load.image('char1img', getContextPath() + '/resources/img/character/inuyasha.png');
     game.load.image('char2img', getContextPath() + '/resources/img/character/weda.jpg');
     game.load.image('NPC1img', getContextPath() + '/resources/img/character/NPC1img.png');
@@ -68,8 +68,13 @@ var cursors, spacebar;
 // npc 리스트
 var npcList;
 var script;
+
 function create() {
-	
+	//	You can listen for each of these events from Phaser.Loader
+    /*game.load.onLoadStart.add(loadStart, this);
+    game.load.onFileComplete.add(fileComplete, this);
+    game.load.onLoadComplete.add(loadComplete, this);
+*/
 	map = game.add.tilemap('Map');
 
     //map.addTilesetImage(json내 tileset name, loaded image name, 32, 32, 0, 0, 0);
@@ -96,7 +101,7 @@ function create() {
     map.setCollisionBetween(881, 2160, true, layer2, true);
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    
+
     npcList = game.add.group();
 
     // 맵 이벤트 발생하는 타일 지정
@@ -112,6 +117,68 @@ function create() {
     
     // tile에 충돌효과 주기
     //map.getTile(eventsData[0].x, eventsData[0].y).setCollision(true,true,true,true);
+}
+
+function start() {
+
+    game.load.image('tilea1', getContextPath() + '/resources/tilemaps/tiles/tilea1.png');
+    game.load.image('tilea2', getContextPath() + '/resources/tilemaps/tiles/tilea2.png');
+    game.load.image('tilea3', getContextPath() + '/resources/tilemaps/tiles/tilea3.png');
+    game.load.image('tilea4', getContextPath() + '/resources/tilemaps/tiles/tilea4.png');
+    game.load.image('tilea5', getContextPath() + '/resources/tilemaps/tiles/tilea5.png');
+    game.load.image('tileb1', getContextPath() + '/resources/tilemaps/tiles/tileb1.png');
+    game.load.image('tileb2', getContextPath() + '/resources/tilemaps/tiles/tileb2.png');
+    game.load.image('tileb3', getContextPath() + '/resources/tilemaps/tiles/tileb3.png');
+    game.load.image('tileb4', getContextPath() + '/resources/tilemaps/tiles/tileb4.png');
+    game.load.image('tileb5', getContextPath() + '/resources/tilemaps/tiles/tileb5.png');
+    
+    game.load.image('script', getContextPath() + '/resources/tilemaps/tiles/script.jpg');
+    game.load.image('char1img', getContextPath() + '/resources/img/character/inuyasha.png');
+    game.load.image('char2img', getContextPath() + '/resources/img/character/weda.jpg');
+    game.load.image('NPC1img', getContextPath() + '/resources/img/character/NPC1img.png');
+    game.load.image('NPC2img', getContextPath() + '/resources/img/character/NPC2img.png');
+    game.load.image('NPC3img', getContextPath() + '/resources/img/character/NPC3img.png');
+
+    // 캐릭터 스프라이트시트 불러오기
+    // game.load.spritesheet(유니크한 이름, 경로, 타일 한 개당 너비, 타일 한 개당 높이)
+    game.load.spritesheet('dude', getContextPath() + '/resources/sprites/CharacterTileset.png', 32, 32);
+    game.load.spritesheet('npc1', getContextPath() + '/resources/sprites/NPC1.png', 48, 48);
+    game.load.spritesheet('npc2', getContextPath() + '/resources/sprites/NPC2.png', 48, 48);
+    game.load.spritesheet('npc3', getContextPath() + '/resources/sprites/NPC3.png', 48, 48);
+
+    game.load.start();
+
+}
+
+function loadStart() {
+
+	text.setText("Loading ...");
+
+}
+
+//	This callback is sent the following parameters:
+function fileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
+
+	text.setText("File Complete: " + progress + "% - " + totalLoaded + " out of " + totalFiles);
+
+	var newImage = game.add.image(x, y, cacheKey);
+
+	newImage.scale.set(0.3);
+
+	x += newImage.width + 20;
+
+	if (x > 700)
+	{
+		x = 32;
+		y += 332;
+	}
+
+}
+
+function loadComplete() {
+
+	text.setText("Load Complete");
+
 }
 
 function update() {
@@ -189,8 +256,9 @@ function setEventTile() {
 			spritePosX = event.x * 32;
 			spritePosY = event.y * 32;
 			map.getTile(event.x, event.y).setCollision(true,true,true,true);
-
+			
 			let npc;
+			
 			if (event.charType === './resources/img/character/NPC1img.png') {
 				npc = game.add.sprite(spritePosX, spritePosY, 'npc1', 1);
 			} else if (event.charType === './resources/img/character/NPC2img.png') {
@@ -208,10 +276,7 @@ function setEventTile() {
 			map.setTileLocationCallback(event.x, event.y, 1, 1, changeMapHandler(event), this);
 
 		} else if (event.type === 'playScript') {
-
 			//map.setTileLocationCallback(event.x, event.y, 1, 1, playScript(event), this, layer2);
-
-			console.log('x: ' + event.x + ', y: ' + event.y);
 
 			// 이벤트 발생 타일의 상하좌우 
 			aboveTile = map.getTileAbove(layer2.index, event.x, event.y);
@@ -279,7 +344,7 @@ function playScript(event) {
 				} else if(event.script[0].charname === './resources/img/character/NPC3img.png' ) {
 					NPC3img = game.add.sprite(1, 1, 'NPC3img');
 					NPC3img.fixedToCamera = true;
-			    	NPC4img.cameraOffset.setTo(10, 455);
+			    	NPC3img.cameraOffset.setTo(10, 455);
 					textNPC = game.add.text(35, 470, 'NPC3', styleForScript);
 					textNPC.fixedToCamera = true;
 					textNPC.cameraOffset.setTo(150, 470);
@@ -375,21 +440,8 @@ function scriptHandler() {
 	if (i < scriptListInEvent.length) {
 		textT.text = scriptListInEvent[i].text;
 		
-		if(NPC1img !== undefined) {
-			NPC1img.destroy();
-		} 
-		if (NPC2img !== undefined) {
-			NPC2img.destroy();
-		}
-		if (NPC3img !== undefined) {
-			NPC3img.destroy();
-		}
-		if (char1img !== undefined) {
-			char1img.destroy();
-		}
-		if (char2img !== undefined) {
-			char2img.destroy();
-		}
+		destroyObjImg();
+
 		textT.destroy();
 		textNPC.destroy();
 
@@ -443,49 +495,22 @@ function scriptHandler() {
 		i++;
 
 	} else {
-		if(NPC1img !== undefined) {
-			NPC1img.destroy();
-		} 
-		if (NPC2img !== undefined) {
-			NPC2img.destroy();
-		}
-		if (NPC3img !== undefined) {
-			NPC3img.destroy();
-		}
-		if (char1img !== undefined) {
-			char1img.destroy();
-		}
-		if (char2img !== undefined) {
-			char2img.destroy();
-		}
+		destroyObjImg();
 		
 		script.destroy();
 		textT.destroy();
 		textNPC.destroy();
 		onScript = false;
 		game.input.keyboard.start();
-		
+
 		i = 1;
 	}
 }
 
 function ifHandler() {
 	if (i < scriptListInEvent.length - 2) {
-		if(NPC1img !== undefined) {
-			NPC1img.destroy();
-		} 
-		if (NPC2img !== undefined) {
-			NPC2img.destroy();
-		}
-		if (NPC3img !== undefined) {
-			NPC3img.destroy();
-		}
-		if (char1img !== undefined) {
-			char1img.destroy();
-		}
-		if (char2img !== undefined) {
-			char2img.destroy();
-		}
+		destroyObjImg();
+
 		textIf.destroy();
 		textNPC.destroy();
 
@@ -539,21 +564,8 @@ function ifHandler() {
 		i++;
 
 	} else if (i === scriptListInEvent.length - 2) {
-		if(NPC1img !== undefined) {
-			NPC1img.destroy();
-		} 
-		if (NPC2img !== undefined) {
-			NPC2img.destroy();
-		}
-		if (NPC3img !== undefined) {
-			NPC3img.destroy();
-		}
-		if (char1img !== undefined) {
-			char1img.destroy();
-		}
-		if (char2img !== undefined) {
-			char2img.destroy();
-		}
+		destroyObjImg();
+
 		textIf.destroy();
 		textNPC.destroy();
 
@@ -594,6 +606,24 @@ function selectionHandler(event) {
 		game.input.keyboard.start();
 		
 		mapChangeFunc();
+	}
+}
+
+function destroyObjImg() {
+	if(NPC1img !== undefined) {
+		NPC1img.destroy();
+	} 
+	if (NPC2img !== undefined) {
+		NPC2img.destroy();
+	}
+	if (NPC3img !== undefined) {
+		NPC3img.destroy();
+	}
+	if (char1img !== undefined) {
+		char1img.destroy();
+	}
+	if (char2img !== undefined) {
+		char2img.destroy();
 	}
 }
 
@@ -654,11 +684,13 @@ function changeMap(nodecontent) {
     map.setCollisionBetween(881, 2160, true, layer2);
 
 	sprite.destroy();
+    npcList.destroy();
+   	npcList = game.add.group();
+
     setEventTile();
     
     sprite.bringToTop();
-
-    npcList.destroy();
+    //npcList.bringToTop();
     
     // 카메라 캐릭터 이동에 고정
 	game.camera.follow(sprite);
