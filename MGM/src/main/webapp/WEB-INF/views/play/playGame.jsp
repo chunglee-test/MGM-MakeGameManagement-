@@ -17,13 +17,58 @@
 		<!-- 부가적인 테마 -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
+		<script src="resources/js/boot.js"></script>
+		<script src="resources/js/preload.js"></script>
+		<script src="resources/js/gametitle.js"></script>
+		<script src="resources/js/thegame.js"></script>
+		<script src="resources/js/gameover.js"></script>
 		<script type="text/javascript">
 			var gameid = ${scene.gameid};
 			var nodeid = ${scene.nodeid};
 			var mapData = ${scene.nodecontent};
-		</script>		
+			
+			$(document).ready(function(){
+				//alert('저장,불러오기 버튼 세팅');
+				$('#btn_savegame').on('click', function() {
+					$.ajax({
+						url: 'saveGame',
+						type: 'GET',
+						dataType: 'text',
+						data: {
+							userid: 'cjlee',
+							gameid: gameid,
+							nodeid: nodeid
+						}
+					})
+					.done(function() {
+						alert('저장 완료');
+					})
+					.fail(function() {
+						alert('저장 실패');
+					});
+				});
+
+				$('#btn_loadgame').on('click', function() {
+					location.href="loadGameFromHis?userid=cjlee&gameid=" + gameid;
+				});
+			});
+
+			(function() {
+				//alert('게임 스테이스 세팅');
+				var game = new Phaser.Game(800, 600, Phaser.CANVAS, "playingmap");
+				game.state.add("Boot",boot);
+				game.state.add("Preload",preload);
+				game.state.add("GameTitle",gameTitle);
+				game.state.add("TheGame",theGame);
+				game.state.add("GameOver",gameOver);
+				
+				game.state.start("Boot");
+			})(); 
+		</script>
+
 		<script type="text/javascript" src="resources/js/util.js"></script>
-		<script type="text/javascript" src="resources/js/playGame.js"></script>
+		
+		<!-- <script type="text/javascript" src="resources/js/playGame.js"></script> -->
 
 		<style type="text/css">
 			@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
