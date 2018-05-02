@@ -57,6 +57,9 @@ theGame.prototype = {
 		this.game.load.tilemap('Map', null, mapData, Phaser.Tilemap.TILED_JSON);
 	},
   	create: function(){
+  		$('#bgmPlayer').attr('src', './resources/mp3/'+nodeid+'.mp3');
+  		document.getElementById('bgmPlayer').play();
+
 		map = this.game.add.tilemap('Map');
 
 	    //map.addTilesetImage(json내 tileset name, loaded image name, 32, 32, 0, 0, 0);
