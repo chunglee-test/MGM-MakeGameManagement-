@@ -60,7 +60,12 @@
 				location.href="loadGame?gameid=${param.gameid}";
 			});
 			$("#playSaveGame").click(function(){
-				location.href="loadGameFromHis?gameid=${param.gameid}";
+				<c:if test="${saveData == 'true'}">
+					location.href="loadGameFromHis?gameid=${param.gameid}";
+				</c:if>
+				<c:if test="${saveData == 'false'}">
+					alert("저장된 게임이 없습니다");
+				</c:if>
 			});
 			$("#closeWindow").click(function(){
 		    	$("#editGameAccountDiv").css("display", "none");

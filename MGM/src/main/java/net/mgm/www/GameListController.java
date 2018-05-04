@@ -18,19 +18,34 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import net.mgm.www.mapper.GameListDAO;
+import net.mgm.www.mapper.GamePlayDAO;
 import net.mgm.www.vo.Game;
 import net.mgm.www.vo.GameComment;
+import net.mgm.www.vo.GameNode;
+import net.mgm.www.vo.UserGamePlay;
 
 @Controller
 public class GameListController {
 	@Inject
 	GameListDAO glDAO;
+	@Inject
+	GamePlayDAO playDAO;
 	
 	@RequestMapping(value="gameList", method=RequestMethod.GET)
 	public String gameList(Model model, String search, String query, String page, HttpSession session) {
 		if(search == null) {
 			search = "popular";
 		}
+		
+		if(query != null) {
+			if(query.equals("")) {
+				query = null;
+			}			
+		}
+		
+		System.out.println(search);
+		System.out.println(query);
+		System.out.println(page);
 		
 		int iPage = 1;
 		try {
@@ -85,12 +100,14 @@ public class GameListController {
 		
 		model.addAttribute("gList", gList);
 		model.addAttribute("isNext", nextList);
+		model.addAttribute("search", search);
+		model.addAttribute("query", query);
 		
 		return "main/GameList";
 	}
 	
 	@RequestMapping(value="gameBoard", method=RequestMethod.GET)
-	public String gameBoard(Model model, String gameid) {
+	public String gameBoard(Model model, String gameid, HttpSession session) {
 		int iGameId = 0;
 		try {
 			iGameId = Integer.parseInt(gameid);
@@ -102,10 +119,21 @@ public class GameListController {
 		Game game = glDAO.gameSelect(iGameId);
 		ArrayList<GameComment> cList = glDAO.gameComment(iGameId);
 		HashMap<String, Integer> gamePoint = glDAO.getGamePoint(iGameId);
+
+		UserGamePlay userGamePlay = new UserGamePlay();
+		userGamePlay.setGameid(iGameId);
+		userGamePlay.setUserid((String)session.getAttribute("userid"));
+	    GameNode scene = playDAO.loadGame(userGamePlay);
+	    String saveData = "false";
+	    
+	    if(scene != null) {
+	    	saveData = "true";
+	    }
 		
 		model.addAttribute("game", game);
 		model.addAttribute("cList", cList);
 		model.addAttribute("gamePoint", gamePoint);
+		model.addAttribute("saveData", saveData);
 		
 		return "main/gameBoard";
 	}

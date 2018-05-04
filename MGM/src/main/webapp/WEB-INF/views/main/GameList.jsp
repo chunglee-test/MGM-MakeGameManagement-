@@ -117,12 +117,12 @@
 </head>
 <body style="background-color: #333333;">
 	<c:if test="${param.page > 1}">
-		<div class="move-page left" id="moveLastPage" onclick="location.href='gameList?page=${param.page - 1}'">
+		<div class="move-page left" id="moveLastPage" onclick="location.href='gameList?search=${search}&query=${query}&page=${param.page - 1}'">
 			<span class="left-page-move">≪</span>
 		</div>
 	</c:if>
 	<c:if test="${!empty isNext}">
-		<div class="move-page right" id="moveNextPage" onclick="location.href='gameList?page=${param.page + 1}'">
+		<div class="move-page right" id="moveNextPage" onclick="location.href='gameList?search=${search}&query=${query}&page=${param.page + 1}'">
 			<span class="right-page-move">≫</span>
 		</div>
 	</c:if>
